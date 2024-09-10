@@ -165,6 +165,59 @@ const deleteMasterAdmin = async (req, res) => {
 };
 
 // Get Super Admin with Master Admins
+// const getSuperAdminWithMasterAdmins = async (req, res) => {
+//   try {
+//     // Check if the user is authenticated
+//     if (!req.user || !req.user._id) {
+//       return res.status(401).json({ success: false, message: 'Unauthorized' });
+//     }
+
+//     // Fetch SuperAdmin and populate the master_admins field
+//     const superAdmin = await SuperAdmin.findById(req.user._id)
+//       .populate({
+//         path: 'master_admins',
+//         select: 'master_admin_id username status budget availableBudget allotedBudget master_code currentProfitLoss currentbrokerage mcx_brokerage_type mcx_brokerage share_brokerage client_limit createdAt clients', 
+//         options: { lean: true }
+//       });
+
+//     if (!superAdmin) {
+//       return res.status(404).json({ success: false, message: 'SuperAdmin not found' });
+//     }
+
+//     // Calculate total client count
+//     const totalClients = superAdmin.master_admins.reduce((total, masterAdmin) => total + masterAdmin.clients.length, 0);
+
+//     // Remove sensitive fields from the response
+//     const sanitizedSuperAdmin = {
+//       _id: superAdmin._id,
+//       super_admin_id: superAdmin.super_admin_id,
+//       username: superAdmin.username,
+//       totalClients, // Include total clients count
+//       master_admins: superAdmin.master_admins.map(masterAdmin => ({
+//         _id: masterAdmin._id,
+//         master_admin_id: masterAdmin.master_admin_id,
+//         username: masterAdmin.username,
+//         budget: masterAdmin.budget,
+//         availableBudget: masterAdmin.availableBudget,
+//         allotedBudget: masterAdmin.allotedBudget,
+//         status: masterAdmin.status,
+//         master_code: masterAdmin.master_code,
+//         mcx_brokerage_type: masterAdmin.mcx_brokerage_type,
+//         mcx_brokerage: masterAdmin.mcx_brokerage,
+//         share_brokerage: masterAdmin.share_brokerage,
+//         client_limit: masterAdmin.client_limit,
+//         createdAt: masterAdmin.createdAt,
+//         totalClients: masterAdmin.clients.length 
+//       }))
+//     };
+
+//     // Return the sanitized SuperAdmin document
+//     return res.status(200).json({ success: true, superAdmin: sanitizedSuperAdmin });
+//   } catch (error) {
+//     console.error('Error fetching SuperAdmin with MasterAdmins:', error);
+//     return res.status(500).json({ success: false, message: 'An error occurred while fetching SuperAdmin', error: error.message });
+//   }
+// };
 const getSuperAdminWithMasterAdmins = async (req, res) => {
   try {
     // Check if the user is authenticated
@@ -172,11 +225,15 @@ const getSuperAdminWithMasterAdmins = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Unauthorized' });
     }
 
-    // Fetch SuperAdmin and populate the master_admins field
+    // Fetch SuperAdmin and populate the master_admins and clients field
     const superAdmin = await SuperAdmin.findById(req.user._id)
       .populate({
         path: 'master_admins',
-        select: 'master_admin_id username status budget availableBudget allotedBudget master_code mcx_brokerage_type mcx_brokerage share_brokerage client_limit createdAt clients', // Include createdAt and clients for counting
+        select: 'master_admin_id username status budget availableBudget allotedBudget master_code currentProfitLoss currentbrokerage mcx_brokerage_type mcx_brokerage share_brokerage client_limit createdAt clients',
+        populate: {
+          path: 'clients',
+          select: 'client_id username currentProfitLoss currentbrokerage', // Select necessary fields from clients
+        },
         options: { lean: true }
       });
 
@@ -193,25 +250,33 @@ const getSuperAdminWithMasterAdmins = async (req, res) => {
       super_admin_id: superAdmin.super_admin_id,
       username: superAdmin.username,
       totalClients, // Include total clients count
-      master_admins: superAdmin.master_admins.map(masterAdmin => ({
-        _id: masterAdmin._id,
-        master_admin_id: masterAdmin.master_admin_id,
-        username: masterAdmin.username,
-        budget: masterAdmin.budget,
-        availableBudget: masterAdmin.availableBudget,
-        allotedBudget: masterAdmin.allotedBudget,
-        status: masterAdmin.status,
-        master_code: masterAdmin.master_code,
-        mcx_brokerage_type: masterAdmin.mcx_brokerage_type,
-        mcx_brokerage: masterAdmin.mcx_brokerage,
-        share_brokerage: masterAdmin.share_brokerage,
-        client_limit: masterAdmin.client_limit,
-        createdAt: masterAdmin.createdAt,
-        totalClients: masterAdmin.clients.length 
-      }))
+      master_admins: superAdmin.master_admins.map(masterAdmin => {
+        // Calculate total currentProfitLoss and currentbrokerage for each master_admin
+        const totalCurrentProfitLoss = masterAdmin.clients.reduce((total, client) => total + client.currentProfitLoss, 0);
+        const totalCurrentBrokerage = masterAdmin.clients.reduce((total, client) => total + client.currentbrokerage, 0);
+
+        return {
+          _id: masterAdmin._id,
+          master_admin_id: masterAdmin.master_admin_id,
+          username: masterAdmin.username,
+          budget: masterAdmin.budget,
+          availableBudget: masterAdmin.availableBudget,
+          allotedBudget: masterAdmin.allotedBudget,
+          status: masterAdmin.status,
+          master_code: masterAdmin.master_code,
+          mcx_brokerage_type: masterAdmin.mcx_brokerage_type,
+          mcx_brokerage: masterAdmin.mcx_brokerage,
+          share_brokerage: masterAdmin.share_brokerage,
+          client_limit: masterAdmin.client_limit,
+          createdAt: masterAdmin.createdAt,
+          totalClients: masterAdmin.clients.length,
+          totalCurrentProfitLoss,
+          totalCurrentBrokerage,
+        };
+      })
     };
 
-    // Return the sanitized SuperAdmin document
+    // Return the sanitized SuperAdmin document with totals
     return res.status(200).json({ success: true, superAdmin: sanitizedSuperAdmin });
   } catch (error) {
     console.error('Error fetching SuperAdmin with MasterAdmins:', error);

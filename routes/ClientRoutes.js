@@ -8,10 +8,10 @@ const {
   removeItemFromWishlist, 
   getWishlist,
   getStockByInstrumentIdentifier,
-  getClientDetails, currentProfitLoss 
+  getClientDetails, currentProfitLoss,
 } = require('../controllers/clientController');
 const checkLogin = require('../middleware/checkLogin');
-const { addTrade, getTrades, deleteTrade, getTradesByInstrumentIdentifier, getTradesForChart, calculateNetQuantityByUser, calculateMCXTradesByUser, getAllTradesByInstrumentIdentifier } = require('../controllers/tradeController');
+const { addTrade, getTrades, deleteTrade, getTradesByInstrumentIdentifier, getTradesForChart, calculateNetQuantityByUser, calculateMCXTradesByUser, getAllTradesByInstrumentIdentifier, getClientStockHistory, getTradesBrokerageByClientId } = require('../controllers/tradeController');
 const { addBid, getBidsByUserId } = require('../controllers/bidController');
 const { addStoploss, getStoploss } = require('../controllers/stopLossController');
 
@@ -82,5 +82,12 @@ router.get('/stoploss/:userId',checkLogin, getStoploss);
 
 // Define the route for fetching trades by instrumentIdentifier
 router.get('/instrument/:instrumentIdentifier/trades',checkLogin, getAllTradesByInstrumentIdentifier);
+
+// Define the route for getting all stock trades for a client
+router.get('/getClientStockHistory/:userId',checkLogin, getClientStockHistory);
+
+// Route to get trades and brokerage details by client ID
+router.get('/trades/client/brokerage/:clientId',checkLogin, getTradesBrokerageByClientId);
+
 
 module.exports = router;

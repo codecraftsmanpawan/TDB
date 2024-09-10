@@ -1,6 +1,7 @@
 const Client = require('../models/client');
 const Stock = require('../models/stock');
 const Wishlist = require("../models/wishlist");
+const blockStock = require('../models/blockStock');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
@@ -176,6 +177,28 @@ const removeItemFromWishlist = async (req, res) => {
 
 
 // Get the wishlist for a user
+// const getWishlist = async (req, res) => {
+//   try {
+//     const { userId } = req.params;
+
+//     // Validate user
+//     const user = await Client.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     // Find wishlist
+//     const wishlist = await Wishlist.findOne({ user: userId });
+//     if (!wishlist) {
+//       return res.status(404).json({ message: 'Wishlist not found' });
+//     }
+
+//     res.status(200).json(wishlist);
+//   } catch (error) {
+//     console.error('Error getting wishlist:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
 const getWishlist = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -192,14 +215,22 @@ const getWishlist = async (req, res) => {
       return res.status(404).json({ message: 'Wishlist not found' });
     }
 
-    res.status(200).json(wishlist);
+    // Get all blocked stocks
+    const blockedStocks = await blockStock.find({}, { symbol: 1, _id: 0 });
+    const blockedSymbols = blockedStocks.map(stock => stock.symbol);
+
+    // Filter wishlist items based on blocked symbols
+    const filteredItems = wishlist.items.filter(
+      item => !blockedSymbols.includes(item.instrumentIdentifier)
+    );
+
+    res.status(200).json({ ...wishlist.toObject(), items: filteredItems });
   } catch (error) {
     console.error('Error getting wishlist:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
-// Controller to get stock data using InstrumentIdentifier
 const getStockByInstrumentIdentifier = async (req, res) => {
   try {
     const { instrumentIdentifier } = req.params;
@@ -216,6 +247,24 @@ const getStockByInstrumentIdentifier = async (req, res) => {
       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
     }
 
+    // Check if the stock matches the first condition
+    if (
+      stock.name === 'GOLD' &&
+      stock.product === 'GOLD' &&
+      stock.Exchange === 'MCX'
+    ) {
+      stock.QuotationLot = 100;
+    }
+
+    // Check if the stock matches the second condition
+    if (
+      stock.name === 'GOLDM' &&
+      stock.product === 'GOLDM' &&
+      stock.Exchange === 'MCX'
+    ) {
+      stock.QuotationLot = 10;
+    }
+
     // Respond with the stock data
     return res.status(200).json(stock);
   } catch (error) {
@@ -223,6 +272,32 @@ const getStockByInstrumentIdentifier = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
+
+
+// Controller to get stock data using InstrumentIdentifier
+// const getStockByInstrumentIdentifier = async (req, res) => {
+//   try {
+//     const { instrumentIdentifier } = req.params;
+
+//     // Validate the instrumentIdentifier parameter
+//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
+//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
+//     }
+
+//     // Search for the stock with the given instrumentIdentifier
+//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
+
+//     if (!stock) {
+//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
+//     }
+
+//     // Respond with the stock data
+//     return res.status(200).json(stock);
+//   } catch (error) {
+//     console.error('Error fetching stock data:', error);
+//     return res.status(500).json({ message: 'Internal server error', error: error.message });
+//   }
+// };
 
 // Get availableBudget for a specific client
 const getAvailableBudget = async (req, res) => {

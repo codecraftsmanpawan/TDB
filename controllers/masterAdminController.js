@@ -275,7 +275,7 @@ const getClientById = async (req, res) => {
 // Function for getting all clients
 const getAllClients = async (req, res) => {
   try {
-    const clients = await Client.find({}, '_id client_code budget availableBudget share_brokerage mcx_brokerage_type mcx_brokerage username status createdAt updatedAt');
+    const clients = await Client.find({}, '_id client_code budget availableBudget currentProfitLoss currentbrokerage share_brokerage mcx_brokerage_type mcx_brokerage username status createdAt updatedAt');
     
     if (!clients || clients.length === 0) {
       return res.status(404).json({ success: false, message: 'No clients found' });
@@ -313,6 +313,30 @@ const getMasterAdminById = async (req, res) => {
   }
 };
 
+const getAllClientsByMasterId = async (req, res) => {
+  try {
+    const { masterId } = req.params;  // Extract masterAdminId from route parameters
+
+    if (!masterId) {
+      return res.status(400).json({ success: false, message: 'Master Admin ID is required' });
+    }
+
+    // Find clients associated with the given masterAdminId
+    const clients = await Client.find({ master_admin_id: masterId }, 
+      '_id client_code budget availableBudget currentProfitLoss currentbrokerage share_brokerage mcx_brokerage_type mcx_brokerage username status createdAt updatedAt'
+    );
+
+    if (!clients || clients.length === 0) {
+      return res.status(404).json({ success: false, message: 'No clients found' });
+    }
+
+    return res.status(200).json({ success: true, clients });
+  } catch (error) {
+    console.error('Error fetching clients by Master Admin ID:', error);
+    return res.status(500).json({ success: false, message: 'An error occurred while fetching clients' });
+  }
+};
+
 module.exports = {
   masterAdminLogin,
   addClient,
@@ -321,5 +345,6 @@ module.exports = {
   deleteClient,
   getClientById,
   changeMasterAdminPassword,
-  getMasterAdminById
+  getMasterAdminById,
+  getAllClientsByMasterId
 };

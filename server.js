@@ -3,6 +3,7 @@ require('./models/mongooseconn'); // Import mongoose connection
 const SuperAdminRoutes = require('./routes/SuperAdminRoutes');
 const MasterAdminRoutes = require('./routes/masterAdminRoutes');
 const ClientRoutes = require('./routes/ClientRoutes');
+const pnlRoutes = require('./routes/PnlRoutes'); 
 const dotenv = require('dotenv');
 const cors = require('cors');
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use('/api/var/superAdmin', SuperAdminRoutes);
 app.use('/api/var/masterAdmin', MasterAdminRoutes);
 app.use('/api/var/client', ClientRoutes);
+app.use('/api/var/pnl', pnlRoutes);
 
 const port = process.env.PORT || 5000; 
 

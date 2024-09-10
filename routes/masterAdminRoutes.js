@@ -1,5 +1,5 @@
 const express=require('express');
-const { addClient, masterAdminLogin, updateClient, deleteClient, changeMasterAdminPassword,  getAllClients, getClientById,getMasterAdminById } = require('../controllers/masterAdminController');
+const { addClient, masterAdminLogin, updateClient, deleteClient, changeMasterAdminPassword,  getAllClients, getClientById, getMasterAdminById, getAllClientsByMasterId } = require('../controllers/masterAdminController');
 const checkLogin = require('../middleware/checkLogin');
 const router=express.Router();
 router.post('/masterAdminLogin',  masterAdminLogin)
@@ -10,6 +10,6 @@ router.delete('/delete-client/:id',   checkLogin, deleteClient);
 router.put('/change-Password/:id',checkLogin, changeMasterAdminPassword)
 router.get('/getAllClients',checkLogin,getAllClients)
 router.get('/getClient/:id',checkLogin, getClientById)
-
+router.get('/clients/:masterId',checkLogin, getAllClientsByMasterId);
 
 module.exports=router
