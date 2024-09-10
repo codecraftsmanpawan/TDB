@@ -9,7 +9,6 @@ const Trade = require('../models/Trade');  // Path to your Trade model
  */
 async function executeTradesAndStopLosses(stock) {
   try {
-    // Find all active bids for the stock
     const bids = await Bid.find({
       stockId: stock._id,
       status: 'active',
@@ -17,20 +16,16 @@ async function executeTradesAndStopLosses(stock) {
 
     if (bids.length === 0) return;
 
-    // Process each bid
     await Promise.all(bids.map(async (bid) => {
       let isTradeExecutable = false;
       let tradePrice = 0;
 
-      // Determine if the bid can be fulfilled based on the trade type
       if (bid.tradeType === 'buy') {
-        // Buy bids are executable if the bid price is greater than or equal to the stock's BuyPrice
         if (bid.bidPrice >= stock.BuyPrice) {
           isTradeExecutable = true;
           tradePrice = stock.BuyPrice;
         }
       } else if (bid.tradeType === 'sell') {
-        // Sell bids are executable if the bid price is less than or equal to the stock's SellPrice
         if (bid.bidPrice <= stock.SellPrice) {
           isTradeExecutable = true;
           tradePrice = stock.SellPrice;
@@ -38,7 +33,6 @@ async function executeTradesAndStopLosses(stock) {
       }
 
       if (isTradeExecutable) {
-        // Create a new trade record
         const trade = new Trade({
           userId: bid.userId._id,
           stockId: stock._id,
@@ -52,17 +46,16 @@ async function executeTradesAndStopLosses(stock) {
           date: new Date()
         });
 
-        // Save the trade record
         await trade.save();
-
-        // Delete the bid from the Bid model
         await Bid.findByIdAndDelete(bid._id);
       }
     }));
   } catch (error) {
     console.error('Error executing trades and stop-losses:', error);
+    // Optionally add retry logic here
   }
 }
+
 
 module.exports = {
   executeTradesAndStopLosses

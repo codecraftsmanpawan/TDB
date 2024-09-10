@@ -231,6 +231,76 @@ const getWishlist = async (req, res) => {
   }
 };
 
+// const getStockByInstrumentIdentifier = async (req, res) => {
+//   try {
+//     const { instrumentIdentifier } = req.params;
+
+//     // Validate the instrumentIdentifier parameter
+//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
+//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
+//     }
+
+//     // Search for the stock with the given instrumentIdentifier
+//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
+
+//     if (!stock) {
+//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
+//     }
+
+//     // Check if the stock matches the first condition
+//     if (
+//       stock.name === 'GOLD' &&
+//       stock.product === 'GOLD' &&
+//       stock.Exchange === 'MCX'
+//     ) {
+//       stock.QuotationLot = 100;
+//     }
+
+//     // Check if the stock matches the second condition
+//     if (
+//       stock.name === 'GOLDM' &&
+//       stock.product === 'GOLDM' &&
+//       stock.Exchange === 'MCX'
+//     ) {
+//       stock.QuotationLot = 10;
+//     }
+
+//     // Respond with the stock data
+//     return res.status(200).json(stock);
+//   } catch (error) {
+//     console.error('Error fetching stock data:', error);
+//     return res.status(500).json({ message: 'Internal server error', error: error.message });
+//   }
+// };
+
+
+// Controller to get stock data using InstrumentIdentifier
+// const getStockByInstrumentIdentifier = async (req, res) => {
+//   try {
+//     const { instrumentIdentifier } = req.params;
+
+//     // Validate the instrumentIdentifier parameter
+//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
+//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
+//     }
+
+//     // Search for the stock with the given instrumentIdentifier
+//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
+
+//     if (!stock) {
+//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
+//     }
+
+//     // Respond with the stock data
+//     return res.status(200).json(stock);
+//   } catch (error) {
+//     console.error('Error fetching stock data:', error);
+//     return res.status(500).json({ message: 'Internal server error', error: error.message });
+//   }
+// };
+
+// Get availableBudget for a specific client
+
 const getStockByInstrumentIdentifier = async (req, res) => {
   try {
     const { instrumentIdentifier } = req.params;
@@ -265,6 +335,20 @@ const getStockByInstrumentIdentifier = async (req, res) => {
       stock.QuotationLot = 10;
     }
 
+    // Condition for NSE exchange between 3:30 PM and 9:15 AM
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinutes = now.getMinutes();
+    const currentTimeInMinutes = currentHour * 60 + currentMinutes;
+
+    // 3:30 PM is 15:30 (15*60 + 30 = 930), and 9:15 AM is 9:15 (9*60 + 15 = 555)
+    const timeCondition = (currentTimeInMinutes >= 930 || currentTimeInMinutes < 555);
+    
+    if (stock.Exchange === 'NSE' && timeCondition) {
+      stock.BuyPrice = stock.Close;
+      stock.SellPrice = stock.Close;
+    }
+
     // Respond with the stock data
     return res.status(200).json(stock);
   } catch (error) {
@@ -273,33 +357,6 @@ const getStockByInstrumentIdentifier = async (req, res) => {
   }
 };
 
-
-// Controller to get stock data using InstrumentIdentifier
-// const getStockByInstrumentIdentifier = async (req, res) => {
-//   try {
-//     const { instrumentIdentifier } = req.params;
-
-//     // Validate the instrumentIdentifier parameter
-//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
-//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
-//     }
-
-//     // Search for the stock with the given instrumentIdentifier
-//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
-
-//     if (!stock) {
-//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
-//     }
-
-//     // Respond with the stock data
-//     return res.status(200).json(stock);
-//   } catch (error) {
-//     console.error('Error fetching stock data:', error);
-//     return res.status(500).json({ message: 'Internal server error', error: error.message });
-//   }
-// };
-
-// Get availableBudget for a specific client
 const getAvailableBudget = async (req, res) => {
   try {
     const { id } = req.params; // Extract the ObjectId from request parameters
