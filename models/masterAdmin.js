@@ -57,6 +57,16 @@ const masterAdminSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  currentProfitLoss: {
+  type: Number,
+  required: true,
+  default: 0,
+},
+currentbrokerage: {
+  type: Number,
+  required: true,
+  default: 0,
+},
   mcx_brokerage_type: {
     type: String,
     required: true

@@ -37,6 +37,11 @@ currentProfitLoss: {
   required: true,
   default: 0,
 },
+currentbrokerage: {
+  type: Number,
+  required: true,
+  default: 0,
+},
   share_brokerage: {
     type: Number,
     required: true,
