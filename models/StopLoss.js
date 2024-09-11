@@ -7,7 +7,7 @@ const stoplossSchema = new mongoose.Schema({
     required: true
   },
   instrumentIdentifier: {
-    type: String, 
+    type: String,
     required: true
   },
   stopPrice: {
@@ -20,7 +20,7 @@ const stoplossSchema = new mongoose.Schema({
   },
   tradeType: {
     type: String,
-    enum: ['buy', 'sell'], // Only 'buy' or 'sell' are allowed
+    enum: ['buy', 'sell'],
     required: true
   },
   status: {

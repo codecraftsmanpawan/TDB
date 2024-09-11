@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 
 // Import and start the polling
-const startPolling = require('./pollingJob');
+// const startPolling = require('./pollingJob');
 
 const app = express();
 dotenv.config();
@@ -27,5 +27,5 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
     // Start the polling after the server starts
-    startPolling();
+    // startPolling();
 });

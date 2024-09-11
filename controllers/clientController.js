@@ -48,19 +48,16 @@ const clientLogin = async (req, res) => {
 //changeclientpassword
 const changeClientPassword = async (req, res) => {
   try {
-    const  clientId  = req.params.id; 
+    const clientId = req.user._id; 
 
-    console.log(clientId)
-    
-    console.log(req.body)
-    const { oldPassword, newPassword } = req.body;
-
-    
-
+    console.log('Client ID:', clientId); 
     const client = await Client.findById(clientId);
     if (!client) {
+      console.log('Client not found'); 
       return res.status(404).json({ success: false, message: 'Client not found' });
     }
+
+    const { oldPassword, newPassword } = req.body;
 
     const isOldPasswordValid = await bcrypt.compare(oldPassword, client.password);
     if (!isOldPasswordValid) {

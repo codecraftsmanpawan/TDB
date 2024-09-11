@@ -1,62 +1,66 @@
-const mongoose = require('mongoose');
-const Bid = require('../models/Bid');  // Path to your Bid model
-const Stock = require('../models/stock');  // Path to your Stock model
-const Trade = require('../models/Trade');  // Path to your Trade model
+const Bid = require('./models/Bid');
+const Stoploss = require('./models/Stoploss');
+const Trade = require('./models/Trade');
 
-/**
- * Executes trades based on the bids and stock prices.
- * @param {Object} stock - The stock document that was updated.
- */
-async function executeTradesAndStopLosses(stock) {
-  try {
-    const bids = await Bid.find({
-      stockId: stock._id,
-      status: 'active',
-    }).populate('userId');
+// In the Stock schema post-update hook
+stockSchema.post('updateOne', async function (doc) {
+  const stock = doc; // The updated stock document
+  
+  // Check all active bids for this stock
+  const activeBids = await Bid.find({ stockId: stock._id, status: 'active' });
 
-    if (bids.length === 0) return;
+  for (const bid of activeBids) {
+    if (
+      (bid.tradeType === 'buy' && stock.BuyPrice <= bid.bidPrice) ||  // Compare with BuyPrice for 'buy' bids
+      (bid.tradeType === 'sell' && stock.SellPrice >= bid.bidPrice)    // Compare with SellPrice for 'sell' bids
+    ) {
+      // Bid fulfilled, create a new trade
+      const trade = new Trade({
+        userId: bid.userId,
+        stockId: stock._id,
+        instrumentIdentifier: bid.instrumentIdentifier,
+        name: stock.name,
+        exchange: stock.Exchange,
+        tradeType: bid.tradeType,
+        quantity: bid.bidQuantity,
+        price: bid.bidPrice,
+        status: 'closed',
+        action: bid.tradeType === 'buy' ? 'sell' : 'buy',
+      });
+      await trade.save();
 
-    await Promise.all(bids.map(async (bid) => {
-      let isTradeExecutable = false;
-      let tradePrice = 0;
-
-      if (bid.tradeType === 'buy') {
-        if (bid.bidPrice >= stock.BuyPrice) {
-          isTradeExecutable = true;
-          tradePrice = stock.BuyPrice;
-        }
-      } else if (bid.tradeType === 'sell') {
-        if (bid.bidPrice <= stock.SellPrice) {
-          isTradeExecutable = true;
-          tradePrice = stock.SellPrice;
-        }
-      }
-
-      if (isTradeExecutable) {
-        const trade = new Trade({
-          userId: bid.userId._id,
-          stockId: stock._id,
-          instrumentIdentifier: bid.instrumentIdentifier,
-          name: stock.name,
-          exchange: stock.Exchange,
-          tradeType: bid.tradeType,
-          quantity: bid.bidQuantity,
-          price: tradePrice,
-          action: bid.tradeType === 'buy' ? 'sell' : 'buy',
-          date: new Date()
-        });
-
-        await trade.save();
-        await Bid.findByIdAndDelete(bid._id);
-      }
-    }));
-  } catch (error) {
-    console.error('Error executing trades and stop-losses:', error);
-    // Optionally add retry logic here
+      // Mark the bid as fulfilled
+      bid.status = 'fulfilled';
+      await bid.save();
+    }
   }
-}
 
+  // Check all active stop-losses for this stock
+  const activeStoplosses = await Stoploss.find({ instrumentIdentifier: stock.InstrumentIdentifier, status: 'active' });
 
-module.exports = {
-  executeTradesAndStopLosses
-};
+  for (const stoploss of activeStoplosses) {
+    if (
+      (stoploss.tradeType === 'buy' && stock.BuyPrice >= stoploss.stopPrice) ||  // Compare with BuyPrice for 'buy' stop-losses
+      (stoploss.tradeType === 'sell' && stock.SellPrice <= stoploss.stopPrice)    // Compare with SellPrice for 'sell' stop-losses
+    ) {
+      // Stop-loss triggered, create a new trade
+      const trade = new Trade({
+        userId: stoploss.userId,
+        stockId: stock._id,
+        instrumentIdentifier: stoploss.instrumentIdentifier,
+        name: stock.name,
+        exchange: stock.Exchange,
+        tradeType: stoploss.tradeType,
+        quantity: stoploss.quantity,
+        price: stoploss.stopPrice,
+        status: 'closed',
+        action: stoploss.tradeType === 'buy' ? 'sell' : 'buy',
+      });
+      await trade.save();
+
+      // Mark the stop-loss as fulfilled
+      stoploss.status = 'fulfilled';
+      await stoploss.save();
+    }
+  }
+});
