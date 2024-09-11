@@ -229,47 +229,47 @@ const getWishlist = async (req, res) => {
   }
 };
 
-// const getStockByInstrumentIdentifier = async (req, res) => {
-//   try {
-//     const { instrumentIdentifier } = req.params;
+const getStockByInstrumentIdentifier = async (req, res) => {
+  try {
+    const { instrumentIdentifier } = req.params;
 
-//     // Validate the instrumentIdentifier parameter
-//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
-//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
-//     }
+    // Validate the instrumentIdentifier parameter
+    if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
+      return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
+    }
 
-//     // Search for the stock with the given instrumentIdentifier
-//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
+    // Search for the stock with the given instrumentIdentifier
+    const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
 
-//     if (!stock) {
-//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
-//     }
+    if (!stock) {
+      return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
+    }
 
-//     // Check if the stock matches the first condition
-//     if (
-//       stock.name === 'GOLD' &&
-//       stock.product === 'GOLD' &&
-//       stock.Exchange === 'MCX'
-//     ) {
-//       stock.QuotationLot = 100;
-//     }
+    // Check if the stock matches the first condition
+    if (
+      stock.name === 'GOLD' &&
+      stock.product === 'GOLD' &&
+      stock.Exchange === 'MCX'
+    ) {
+      stock.QuotationLot = 100;
+    }
 
-//     // Check if the stock matches the second condition
-//     if (
-//       stock.name === 'GOLDM' &&
-//       stock.product === 'GOLDM' &&
-//       stock.Exchange === 'MCX'
-//     ) {
-//       stock.QuotationLot = 10;
-//     }
+    // Check if the stock matches the second condition
+    if (
+      stock.name === 'GOLDM' &&
+      stock.product === 'GOLDM' &&
+      stock.Exchange === 'MCX'
+    ) {
+      stock.QuotationLot = 10;
+    }
 
-//     // Respond with the stock data
-//     return res.status(200).json(stock);
-//   } catch (error) {
-//     console.error('Error fetching stock data:', error);
-//     return res.status(500).json({ message: 'Internal server error', error: error.message });
-//   }
-// };
+    // Respond with the stock data
+    return res.status(200).json(stock);
+  } catch (error) {
+    console.error('Error fetching stock data:', error);
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
 
 
 // Controller to get stock data using InstrumentIdentifier
@@ -298,6 +298,9 @@ const getWishlist = async (req, res) => {
 // };
 
 // Get availableBudget for a specific client
+
+
+
 
 // const getStockByInstrumentIdentifier = async (req, res) => {
 //   try {
@@ -354,61 +357,7 @@ const getWishlist = async (req, res) => {
 //     return res.status(500).json({ message: 'Internal server error', error: error.message });
 //   }
 // };
-const getStockByInstrumentIdentifier = async (req, res) => {
-  try {
-    const { instrumentIdentifier } = req.params;
 
-    // Validate the instrumentIdentifier parameter
-    if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
-      return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
-    }
-
-    // Search for the stock with the given instrumentIdentifier
-    const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
-
-    if (!stock) {
-      return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
-    }
-
-    // Check if the stock matches the first condition
-    if (
-      stock.name === 'GOLD' &&
-      stock.product === 'GOLD' &&
-      stock.Exchange === 'MCX'
-    ) {
-      stock.QuotationLot = 100;
-    }
-
-    // Check if the stock matches the second condition
-    if (
-      stock.name === 'GOLDM' &&
-      stock.product === 'GOLDM' &&
-      stock.Exchange === 'MCX'
-    ) {
-      stock.QuotationLot = 10;
-    }
-
-    // Get the current time in India/Kolkata timezone
-    const now = moment.tz('Asia/Kolkata');
-    const currentHour = now.hour();
-    const currentMinutes = now.minute();
-    const currentTimeInMinutes = currentHour * 60 + currentMinutes;
-
-    // Define time boundaries in minutes (3:30 PM is 15:30 = 930, 9:15 AM is 9:15 = 555)
-    const timeCondition = (currentTimeInMinutes >= 930 || currentTimeInMinutes < 555);
-
-    if (stock.Exchange === 'NSE' && timeCondition) {
-      stock.BuyPrice = stock.Close;
-      stock.SellPrice = stock.Close;
-    }
-
-    // Respond with the stock data
-    return res.status(200).json(stock);
-  } catch (error) {
-    console.error('Error fetching stock data:', error);
-    return res.status(500).json({ message: 'Internal server error', error: error.message });
-  }
-};
 
 
 const getAvailableBudget = async (req, res) => {
