@@ -1,9 +1,10 @@
-const Bid = require('./models/Bid');
-const Stoploss = require('./models/Stoploss');
-const Trade = require('./models/Trade');
+const Bid = require('../models/Bid');
+const Stoploss = require('../models/StopLoss');
+const Trade = require('../models/Trade');
+const Stock = require('../models/stock'); 
 
 // In the Stock schema post-update hook
-stockSchema.post('updateOne', async function (doc) {
+Stock.schema.post('updateOne', async function (doc) {
   const stock = doc; // The updated stock document
   
   // Check all active bids for this stock
@@ -11,8 +12,8 @@ stockSchema.post('updateOne', async function (doc) {
 
   for (const bid of activeBids) {
     if (
-      (bid.tradeType === 'buy' && stock.BuyPrice <= bid.bidPrice) ||  // Compare with BuyPrice for 'buy' bids
-      (bid.tradeType === 'sell' && stock.SellPrice >= bid.bidPrice)    // Compare with SellPrice for 'sell' bids
+      (bid.tradeType === 'buy' && stock.buyPrice <= bid.bidPrice) ||  
+      (bid.tradeType === 'sell' && stock.sellPrice >= bid.bidPrice)   
     ) {
       // Bid fulfilled, create a new trade
       const trade = new Trade({
@@ -20,7 +21,7 @@ stockSchema.post('updateOne', async function (doc) {
         stockId: stock._id,
         instrumentIdentifier: bid.instrumentIdentifier,
         name: stock.name,
-        exchange: stock.Exchange,
+        exchange: stock.exchange, 
         tradeType: bid.tradeType,
         quantity: bid.bidQuantity,
         price: bid.bidPrice,
@@ -36,12 +37,12 @@ stockSchema.post('updateOne', async function (doc) {
   }
 
   // Check all active stop-losses for this stock
-  const activeStoplosses = await Stoploss.find({ instrumentIdentifier: stock.InstrumentIdentifier, status: 'active' });
+  const activeStoplosses = await Stoploss.find({ instrumentIdentifier: stock.instrumentIdentifier, status: 'active' });
 
   for (const stoploss of activeStoplosses) {
     if (
-      (stoploss.tradeType === 'buy' && stock.BuyPrice >= stoploss.stopPrice) ||  // Compare with BuyPrice for 'buy' stop-losses
-      (stoploss.tradeType === 'sell' && stock.SellPrice <= stoploss.stopPrice)    // Compare with SellPrice for 'sell' stop-losses
+      (stoploss.tradeType === 'buy' && stock.buyPrice >= stoploss.stopPrice) ||
+      (stoploss.tradeType === 'sell' && stock.sellPrice <= stoploss.stopPrice)
     ) {
       // Stop-loss triggered, create a new trade
       const trade = new Trade({
@@ -49,7 +50,7 @@ stockSchema.post('updateOne', async function (doc) {
         stockId: stock._id,
         instrumentIdentifier: stoploss.instrumentIdentifier,
         name: stock.name,
-        exchange: stock.Exchange,
+        exchange: stock.exchange, 
         tradeType: stoploss.tradeType,
         quantity: stoploss.quantity,
         price: stoploss.stopPrice,

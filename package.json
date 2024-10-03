@@ -7,6 +7,9 @@
     "jsonwebtoken": "^9.0.2",
     "moment-timezone": "^0.5.45",
     "mongoose": "^8.4.1",
-    "uuidv4": "^6.2.13"
+    "mongoose-sequence": "^6.0.1",
+    "node-cron": "^3.0.3",
+    "uuidv4": "^6.2.13",
+    "winston": "^3.14.2"
   }
 }

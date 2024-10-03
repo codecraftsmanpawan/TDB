@@ -84,8 +84,62 @@ const getBidsByUserId = async (req, res) => {
   }
 };
 
+// Delete bid by ID
+const deleteBidById = async (req, res) => {
+  const { id } = req.params; 
+
+  try {
+    // Find and delete the bid
+    const result = await Bid.findByIdAndDelete(id);
+
+    // Check if the bid was found and deleted
+    if (!result) {
+      return res.status(404).json({ message: 'Bid not found' });
+    }
+
+    // Respond with a success message
+    return res.status(200).json({ message: 'Bid deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting bid:', error);
+    return res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+// Update bid controller
+const updateBid = async (req, res) => {
+    const { id } = req.params; 
+    const { bidPrice, bidQuantity, tradeType } = req.body;
+
+    try {
+        // Validate input
+        if (bidPrice < 0 || bidQuantity < 0) {
+            return res.status(400).json({ message: 'Bid price and quantity must be non-negative.' });
+        }
+
+        // Find and update the bid
+        const updatedBid = await Bid.findByIdAndUpdate(
+            id,
+            { bidPrice, bidQuantity, tradeType, updatedAt: Date.now() }, 
+            { new: true, runValidators: true } 
+        );
+
+        // Check if bid was found and updated
+        if (!updatedBid) {
+            return res.status(404).json({ message: 'Bid not found.' });
+        }
+
+        // Return the updated bid
+        return res.status(200).json(updatedBid);
+    } catch (error) {
+        console.error('Error updating bid:', error);
+        return res.status(500).json({ message: 'Server error. Please try again.' });
+    }
+};
+
 
 module.exports = {
   addBid,
-  getBidsByUserId
+  getBidsByUserId,
+  deleteBidById,
+  updateBid
 };

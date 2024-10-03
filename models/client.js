@@ -32,16 +32,16 @@ const clientSchema = new mongoose.Schema({
     min: 0,
     default: 0,
   },
-currentProfitLoss: {
-  type: Number,
-  required: true,
-  default: 0,
-},
-currentbrokerage: {
-  type: Number,
-  required: true,
-  default: 0,
-},
+  currentProfitLoss: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  currentbrokerage: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   share_brokerage: {
     type: Number,
     required: true,
@@ -74,6 +74,65 @@ currentbrokerage: {
   },
 }, { timestamps: true });
 
-// Check if the model is already compiled before defining it
+// Pre-save hook to check currentProfitLoss against budget
+clientSchema.pre('save', function(next) {
+  if (this.currentProfitLoss < -this.availableBudget) {
+    this.status = 'inactive';
+  }
+  next();
+});
+
+// Helper function to extract currentProfitLoss from update
+function getCurrentProfitLoss(update) {
+  if (update.currentProfitLoss !== undefined) {
+    return update.currentProfitLoss;
+  }
+
+  if (update.$set && update.$set.currentProfitLoss !== undefined) {
+    return update.$set.currentProfitLoss;
+  }
+
+  return undefined;
+}
+
+// Pre-findOneAndUpdate hook to handle updates via findOneAndUpdate
+clientSchema.pre('findOneAndUpdate', async function(next) {
+  try {
+    const update = this.getUpdate();
+
+    // Extract the new currentProfitLoss value from the update
+    const newProfitLoss = getCurrentProfitLoss(update);
+
+    if (newProfitLoss === undefined) {
+      // currentProfitLoss is not being updated
+      return next();
+    }
+
+    // Fetch the current document to get the budget
+    const docToUpdate = await this.model.findOne(this.getQuery());
+
+    if (!docToUpdate) {
+      // No document found, proceed without changes
+      return next();
+    }
+
+    if (newProfitLoss < -docToUpdate.availableBudget) {
+      // Ensure status is set to 'inactive' in the update
+      if (update.$set) {
+        update.$set.status = 'inactive';
+      } else {
+        update.status = 'inactive';
+      }
+      this.setUpdate(update);
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Optionally, handle other update methods if used (e.g., updateMany, updateOne)
+
 const Client = mongoose.models.Client || mongoose.model("Client", clientSchema);
 module.exports = Client;

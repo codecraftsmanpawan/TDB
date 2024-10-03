@@ -64,9 +64,48 @@ const getStoploss = async (req, res) => {
   }
 };
 
+// Update Stoploss by ID
+const updateStoploss = async (req, res) => {
+    const { id } = req.params; // Get the ID from request parameters
+    const { stopPrice, quantity, tradeType, status } = req.body; // Destructure the request body
+
+    try {
+        const updatedStoploss = await Stoploss.findByIdAndUpdate(
+            id,
+            { stopPrice, quantity, tradeType, status, updatedAt: Date.now() }, // Update fields
+            { new: true, runValidators: true } // Options to return the updated document and run validation
+        );
+
+        if (!updatedStoploss) {
+            return res.status(404).json({ message: 'Stoploss not found' });
+        }
+
+        res.status(200).json(updatedStoploss); // Return the updated stoploss
+    } catch (error) {
+        res.status(400).json({ message: error.message }); // Return error message
+    }
+};
+
+// Delete Stoploss by ID
+const deleteStoploss = async (req, res) => {
+    const { id } = req.params; // Get the ID from request parameters
+
+    try {
+        const deletedStoploss = await Stoploss.findByIdAndDelete(id); // Find and delete the stoploss
+
+        if (!deletedStoploss) {
+            return res.status(404).json({ message: 'Stoploss not found' });
+        }
+
+        res.status(200).json({ message: 'Stoploss deleted successfully' }); // Success message
+    } catch (error) {
+        res.status(400).json({ message: error.message }); // Return error message
+    }
+};
+
 
 
 
 module.exports = {
-  addStoploss, getStoploss
+  addStoploss, getStoploss, updateStoploss, deleteStoploss
 };

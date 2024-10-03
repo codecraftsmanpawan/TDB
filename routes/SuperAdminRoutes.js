@@ -21,6 +21,10 @@ const checkLogin = require('../middleware/checkLogin');
 const { updateOverallLimit, getOverallLimit, addItem, getAllItems, updateItem, deleteItem } = require('../controllers/quantityLimitController'); 
 const router = express.Router();
 
+
+const notificationController = require('../controllers/notificationController');
+
+
 // Public route
 router.post('/superAdminLogin', superAdminLogin);
 
@@ -48,5 +52,20 @@ router.post('/items', checkLogin, addItem);
 router.get('/items', checkLogin, getAllItems);
 router.put('/items/:symbol', checkLogin, updateItem);
 router.delete('/items/:symbol', checkLogin, deleteItem);
+
+// Route to create a new notification
+router.post('/notifications', notificationController.createNotification);
+
+// Route to get all notifications
+router.get('/notifications', notificationController.getAllNotifications);
+
+// Route to get a single notification by ID
+router.get('/notifications/:id', notificationController.getNotificationById);
+
+// Route to update a notification by ID
+router.put('/notifications/:id', notificationController.updateNotification);
+
+// Route to delete a notification by ID
+router.delete('/notifications/:id', notificationController.deleteNotification);
 
 module.exports = router;

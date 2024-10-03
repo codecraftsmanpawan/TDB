@@ -17,7 +17,7 @@ async function checkLogin(req, res, next) {
 
     try {
       const decoded = Jwt.verify(tokenWithoutBearer, process.env.SECRET_KEY);
-      console.log(decoded)
+      // console.log(decoded)
       // req.user = decoded;
     
       req.user = { _id: decoded.id }; 

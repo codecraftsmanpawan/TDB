@@ -51,10 +51,10 @@ const changeClientPassword = async (req, res) => {
   try {
     const clientId = req.user._id; 
 
-    console.log('Client ID:', clientId); 
+    // console.log('Client ID:', clientId); 
     const client = await Client.findById(clientId);
     if (!client) {
-      console.log('Client not found'); 
+      // console.log('Client not found'); 
       return res.status(404).json({ success: false, message: 'Client not found' });
     }
 
@@ -219,7 +219,7 @@ const getWishlist = async (req, res) => {
 
     // Filter wishlist items based on blocked symbols
     const filteredItems = wishlist.items.filter(
-      item => !blockedSymbols.includes(item.instrumentIdentifier)
+      item => !blockedSymbols.includes(item.name)
     );
 
     res.status(200).json({ ...wishlist.toObject(), items: filteredItems });
@@ -228,78 +228,6 @@ const getWishlist = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
-const getStockByInstrumentIdentifier = async (req, res) => {
-  try {
-    const { instrumentIdentifier } = req.params;
-
-    // Validate the instrumentIdentifier parameter
-    if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
-      return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
-    }
-
-    // Search for the stock with the given instrumentIdentifier
-    const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
-
-    if (!stock) {
-      return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
-    }
-
-    // Check if the stock matches the first condition
-    if (
-      stock.name === 'GOLD' &&
-      stock.product === 'GOLD' &&
-      stock.Exchange === 'MCX'
-    ) {
-      stock.QuotationLot = 100;
-    }
-
-    // Check if the stock matches the second condition
-    if (
-      stock.name === 'GOLDM' &&
-      stock.product === 'GOLDM' &&
-      stock.Exchange === 'MCX'
-    ) {
-      stock.QuotationLot = 10;
-    }
-
-    // Respond with the stock data
-    return res.status(200).json(stock);
-  } catch (error) {
-    console.error('Error fetching stock data:', error);
-    return res.status(500).json({ message: 'Internal server error', error: error.message });
-  }
-};
-
-
-// Controller to get stock data using InstrumentIdentifier
-// const getStockByInstrumentIdentifier = async (req, res) => {
-//   try {
-//     const { instrumentIdentifier } = req.params;
-
-//     // Validate the instrumentIdentifier parameter
-//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
-//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
-//     }
-
-//     // Search for the stock with the given instrumentIdentifier
-//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
-
-//     if (!stock) {
-//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
-//     }
-
-//     // Respond with the stock data
-//     return res.status(200).json(stock);
-//   } catch (error) {
-//     console.error('Error fetching stock data:', error);
-//     return res.status(500).json({ message: 'Internal server error', error: error.message });
-//   }
-// };
-
-// Get availableBudget for a specific client
-
-
 
 
 // const getStockByInstrumentIdentifier = async (req, res) => {
@@ -336,18 +264,32 @@ const getStockByInstrumentIdentifier = async (req, res) => {
 //       stock.QuotationLot = 10;
 //     }
 
-//     // Condition for NSE exchange between 3:30 PM and 9:15 AM
-//     const now = new Date();
-//     const currentHour = now.getHours();
-//     const currentMinutes = now.getMinutes();
-//     const currentTimeInMinutes = currentHour * 60 + currentMinutes;
+//     // Respond with the stock data
+//     return res.status(200).json(stock);
+//   } catch (error) {
+//     console.error('Error fetching stock data:', error);
+//     return res.status(500).json({ message: 'Internal server error', error: error.message });
+//   }
+// };
 
-//     // 3:30 PM is 15:30 (15*60 + 30 = 930), and 9:15 AM is 9:15 (9*60 + 15 = 555)
-//     const timeCondition = (currentTimeInMinutes >= 930 || currentTimeInMinutes < 555);
-    
-//     if (stock.Exchange === 'NSE' && timeCondition) {
-//       stock.BuyPrice = stock.Close;
-//       stock.SellPrice = stock.Close;
+
+
+
+// Controller to get stock data using InstrumentIdentifier
+// const getStockByInstrumentIdentifier = async (req, res) => {
+//   try {
+//     const { instrumentIdentifier } = req.params;
+
+//     // Validate the instrumentIdentifier parameter
+//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
+//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
+//     }
+
+//     // Search for the stock with the given instrumentIdentifier
+//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
+
+//     if (!stock) {
+//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
 //     }
 
 //     // Respond with the stock data
@@ -358,6 +300,62 @@ const getStockByInstrumentIdentifier = async (req, res) => {
 //   }
 // };
 
+
+const getStockByInstrumentIdentifier = async (req, res) => {
+  try {
+    const { instrumentIdentifier } = req.params;
+
+    // Validate the instrumentIdentifier parameter
+    if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
+      return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
+    }
+
+    // Search for the stock with the given instrumentIdentifier
+    const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
+
+    if (!stock) {
+      return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
+    }
+
+    // Check if the stock matches the first condition
+    if (
+      stock.name === 'GOLD' &&
+      stock.product === 'GOLD' &&
+      stock.Exchange === 'MCX'
+    ) {
+      stock.QuotationLot = 100;
+    }
+
+    // Check if the stock matches the second condition
+    if (
+      stock.name === 'GOLDM' &&
+      stock.product === 'GOLDM' &&
+      stock.Exchange === 'MCX'
+    ) {
+      stock.QuotationLot = 10;
+    }
+
+    // Condition for NSE exchange between 3:30 PM and 9:15 AM
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinutes = now.getMinutes();
+    const currentTimeInMinutes = currentHour * 60 + currentMinutes;
+
+    // 3:30 PM is 15:30 (15*60 + 30 = 930), and 9:15 AM is 9:15 (9*60 + 15 = 555)
+    const timeCondition = (currentTimeInMinutes >= 930 || currentTimeInMinutes < 555);
+    
+    if (stock.Exchange === 'NSE' && timeCondition) {
+      stock.BuyPrice = stock.Close;
+      stock.SellPrice = stock.Close;
+    }
+
+    // Respond with the stock data
+    return res.status(200).json(stock);
+  } catch (error) {
+    // console.error('Error fetching stock data:', error);
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
 
 
 const getAvailableBudget = async (req, res) => {
@@ -370,13 +368,13 @@ const getAvailableBudget = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Client ObjectId is required' });
     }
 
-    console.log(`Fetching available budget and current profit/loss for client ObjectId: ${id}`);
+    // console.log(`Fetching available budget and current profit/loss for client ObjectId: ${id}`);
 
     // Find the client by _id (ObjectId)
     const client = await Client.findById(id);
 
     if (!client) {
-      console.log(`Client not found with ObjectId: ${id}`);
+      // console.log(`Client not found with ObjectId: ${id}`);
       return res.status(404).json({ success: false, message: 'Client not found' });
     }
 
@@ -399,6 +397,7 @@ const getAvailableBudget = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 };
+
 
 
 // Get client details by client_id
@@ -439,6 +438,8 @@ const getClientDetails = async (req, res) => {
   }
 };
 
+
+
 const currentProfitLoss = async (req, res) => {
     const { userId } = req.params; // Expecting `userId` to be an ObjectId
     const { profitLoss } = req.body;
@@ -471,6 +472,31 @@ const currentProfitLoss = async (req, res) => {
 
 
 
+// Controller function to get the status of a client by ObjectId
+const getClientStatus = async (req, res) => {
+  const { id } = req.params; // Assume ObjectId is passed as a URL parameter
+
+  // Validate the provided ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: 'Invalid client ID format' });
+  }
+
+  try {
+    // Find the client by ObjectId
+    const client = await Client.findById(id);
+
+    // Check if client exists
+    if (!client) {
+      return res.status(404).json({ message: 'Client not found' });
+    }
+
+    // Return the client's status
+    return res.status(200).json({ status: client.status });
+  } catch (error) {
+    console.error('Error fetching client status:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 
 
@@ -484,5 +510,6 @@ module.exports = {
   getStockByInstrumentIdentifier,
   getAvailableBudget,
   getClientDetails,
-  currentProfitLoss
+  currentProfitLoss,
+  getClientStatus
 };

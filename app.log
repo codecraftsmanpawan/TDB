@@ -1,0 +1,1232 @@
+2024-10-01T07:53:32.004Z [INFO]: Starting polling every 5 seconds... 
+2024-10-01T07:53:32.005Z [INFO]: Polling started... 
+2024-10-01T07:53:32.050Z [INFO]: Fetched 203 stocks for processing. 
+2024-10-01T07:53:32.050Z [INFO]: First stock document: {"$__":{"activePaths":{"paths":{"name":"init","sellPrice":"require","lastTradePrice":"require","buyPrice":"require","instrumentIdentifier":"require","exchange":"require","_id":"init","volume":"init","expiry":"init","product":"init","__v":"init","updatedAt":"init"},"states":{"require":{"sellPrice":true,"lastTradePrice":true,"buyPrice":true,"instrumentIdentifier":true,"exchange":true},"init":{"_id":true,"name":true,"volume":true,"expiry":true,"product":true,"__v":true,"updatedAt":true}}},"skipId":true},"$isNew":false,"_doc":{"_id":"669e0917987f5679187b09ca","Exchange":"MCX","InstrumentIdentifier":"FUTCOM_SILVERMIC_29NOV2024__0","BuyPrice":90958,"Close":90644,"High":91289,"Low":90762,"LastTradePrice":90950,"Open":90849,"QuotationLot":1,"SellPrice":90964,"BuyQty":1,"SellQty":2,"ltp_up":false,"name":"SILVERMIC","volume":0,"expiry":"2024-11-28T18:30:00.000Z","strike_price":"0.00","option_type":"","volume_up":false,"product":"SILVERMIC","OpenInterest":0,"TotalQtyTraded":0,"Value":0,"PreOpen":false,"PriceChange":306,"PriceChangePercentage":0.3364485981308411,"OpenInterestChange":0,"MessageType":"RealtimeResult","LastTradeTime":0,"ServerTime":0,"__v":0,"updatedAt":"2024-09-10T11:23:49.629Z"}}
+2024-10-01T07:53:32.051Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.052Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.052Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.052Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.053Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.053Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.053Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.054Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.054Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.054Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.054Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.055Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.055Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.055Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.055Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.056Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.056Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.056Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.056Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.057Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.057Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.057Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.057Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.057Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.058Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.058Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.058Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.058Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.058Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.075Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.075Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.075Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.075Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.075Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.076Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.076Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.076Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.076Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.076Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.076Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.076Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.077Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.077Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.077Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.077Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.077Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.077Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.078Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.078Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.078Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.078Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.078Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.078Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.078Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.079Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.079Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.079Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.079Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.079Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.079Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.079Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.080Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.080Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.080Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.080Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.080Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.080Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.080Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.080Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.081Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.082Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.082Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.082Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.082Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.082Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.082Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.082Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.082Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.082Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:32.169Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.170Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.171Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.171Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.172Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.172Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.173Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.174Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.174Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.175Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.175Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.176Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.177Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.178Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.178Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.179Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.179Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.180Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.180Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.181Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.182Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.182Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.183Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.183Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.184Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.184Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.185Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.185Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.186Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.186Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.187Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.187Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.189Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.189Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.190Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.190Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.191Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.191Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.192Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.193Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.193Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.194Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.194Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.194Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.195Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.195Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.196Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.197Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.197Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.198Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.199Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.199Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.200Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.200Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.201Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.202Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.202Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.203Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.203Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.204Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.204Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.205Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.205Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.206Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.206Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.207Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.207Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.208Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.208Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.209Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.209Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.210Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.210Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.211Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.211Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.212Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.212Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.213Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.213Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.214Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.215Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.215Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.216Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.216Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.216Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.217Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.217Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.218Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.218Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.218Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.219Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.219Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.220Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.220Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.221Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.221Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.222Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.222Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.223Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.223Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.224Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.224Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.225Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.225Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.226Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.226Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.227Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.227Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.228Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.228Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.228Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.229Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.229Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.229Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.230Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.230Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.230Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.231Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.231Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.232Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.232Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.232Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.233Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.233Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.233Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.234Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.234Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.234Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.235Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.235Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.236Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.237Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.237Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.238Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.238Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.239Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.239Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.240Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.240Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.241Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.241Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.242Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.242Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.243Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.243Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.244Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.244Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.245Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.245Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.246Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.246Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.247Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.247Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.247Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.248Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.248Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.249Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.250Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.251Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.251Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.252Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.252Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.252Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.253Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.253Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.254Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.254Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.254Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.255Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.255Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.256Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.256Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.256Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.257Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.257Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.258Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.258Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.259Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.259Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.259Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.260Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.260Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.261Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.261Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.261Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.262Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.263Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.263Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.263Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.264Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.265Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.265Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.265Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.266Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.266Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.267Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.267Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.268Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.268Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.268Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.269Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.269Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.270Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:32.270Z [INFO]: Polling cycle completed. 
+2024-10-01T07:53:37.017Z [INFO]: Polling started... 
+2024-10-01T07:53:37.032Z [INFO]: Fetched 203 stocks for processing. 
+2024-10-01T07:53:37.032Z [INFO]: First stock document: {"$__":{"activePaths":{"paths":{"name":"init","sellPrice":"require","lastTradePrice":"require","buyPrice":"require","instrumentIdentifier":"require","exchange":"require","_id":"init","volume":"init","expiry":"init","product":"init","__v":"init","updatedAt":"init"},"states":{"require":{"sellPrice":true,"lastTradePrice":true,"buyPrice":true,"instrumentIdentifier":true,"exchange":true},"init":{"_id":true,"name":true,"volume":true,"expiry":true,"product":true,"__v":true,"updatedAt":true}}},"skipId":true},"$isNew":false,"_doc":{"_id":"669e0917987f5679187b09ca","Exchange":"MCX","InstrumentIdentifier":"FUTCOM_SILVERMIC_29NOV2024__0","BuyPrice":90957,"Close":90644,"High":91289,"Low":90762,"LastTradePrice":90968,"Open":90849,"QuotationLot":1,"SellPrice":90974,"BuyQty":2,"SellQty":1,"ltp_up":true,"name":"SILVERMIC","volume":0,"expiry":"2024-11-28T18:30:00.000Z","strike_price":"0.00","option_type":"","volume_up":false,"product":"SILVERMIC","OpenInterest":0,"TotalQtyTraded":0,"Value":0,"PreOpen":false,"PriceChange":324,"PriceChangePercentage":0.3561692023568727,"OpenInterestChange":0,"MessageType":"RealtimeResult","LastTradeTime":0,"ServerTime":0,"__v":0,"updatedAt":"2024-09-10T11:23:49.629Z"}}
+2024-10-01T07:53:37.033Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.033Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.033Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.033Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.034Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.034Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.034Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.034Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.035Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.035Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.035Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.035Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.036Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.036Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.036Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.036Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.037Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.037Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.037Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.037Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.038Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.038Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.038Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.039Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.039Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.039Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.039Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.040Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.040Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.040Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.040Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.041Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.041Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.041Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.042Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.042Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.042Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.042Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.043Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.043Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.043Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.044Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.044Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.044Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.044Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.044Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.045Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.045Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.045Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.046Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.046Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.046Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.046Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.047Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.047Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.047Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.047Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.048Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.048Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.048Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.049Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.049Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.049Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.049Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.050Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.050Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.050Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.051Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.051Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.051Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.051Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.052Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.052Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.053Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.053Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.053Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.053Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.054Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.054Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.054Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.055Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.055Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.055Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.055Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.055Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.056Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.056Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.056Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.056Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.057Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.057Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.057Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.057Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.058Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.058Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.058Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.058Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.059Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.060Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.061Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.062Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.063Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.064Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.065Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.066Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.067Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.068Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.069Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.070Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.071Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.072Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.073Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.074Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.075Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.075Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:53:37.137Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.138Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.138Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.139Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.140Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.140Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.141Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.141Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.142Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.143Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.143Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.144Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.144Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.145Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.145Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.146Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.146Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.147Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.147Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.148Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.148Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.149Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.149Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.150Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.151Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.151Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.152Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.152Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.153Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.153Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.154Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.154Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.155Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.155Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.156Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.157Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.158Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.158Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.159Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.159Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.160Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.160Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.161Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.161Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.162Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.162Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.163Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.164Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.164Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.165Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.165Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.166Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.166Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.167Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.167Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.168Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.168Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.169Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.169Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.170Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.170Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.171Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.171Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.172Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.173Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.173Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.174Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.174Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.174Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.175Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.176Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.176Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.177Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.178Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.178Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.179Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.179Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.179Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.180Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.181Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.181Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.182Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.182Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.183Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.183Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.184Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.184Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.185Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.185Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.186Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.186Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.187Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.187Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.188Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.188Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.189Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.189Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.190Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.190Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.190Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.191Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.191Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.192Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.192Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.193Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.193Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.194Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.194Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.195Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.196Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.196Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.197Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.197Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.198Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.198Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.199Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.199Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.200Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.200Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.201Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.201Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.202Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.202Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.203Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.203Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.204Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.204Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.205Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.205Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.206Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.206Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.207Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.207Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.208Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.208Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.209Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.209Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.210Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.210Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.211Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.211Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.212Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.212Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.213Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.213Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.214Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.214Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.215Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.215Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.216Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.216Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.217Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.217Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.218Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.219Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.219Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.220Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.220Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.221Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.221Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.222Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.222Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.223Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.223Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.224Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.224Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.225Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.225Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.226Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.226Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.227Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.227Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.228Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.228Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.229Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.229Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.230Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.230Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.230Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.231Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.231Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.232Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.232Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.233Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.233Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.233Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.234Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.234Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.235Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.235Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.236Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.236Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.237Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.237Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.237Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.238Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.238Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.239Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.239Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.240Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.240Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.241Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.241Z [ERROR]: Error processing stock with InstrumentIdentifier undefined: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos 
+2024-10-01T07:53:37.241Z [INFO]: Polling cycle completed. 
+2024-10-01T07:55:22.887Z [INFO]: Starting polling every 5 seconds... 
+2024-10-01T07:55:22.888Z [INFO]: Polling started... 
+2024-10-01T07:55:22.938Z [INFO]: Fetched 203 stocks for processing. 
+2024-10-01T07:55:22.939Z [INFO]: First stock document: {"$__":{"activePaths":{"paths":{"name":"init","sellPrice":"require","lastTradePrice":"require","buyPrice":"require","instrumentIdentifier":"require","exchange":"require","_id":"init","volume":"init","expiry":"init","product":"init","__v":"init","updatedAt":"init"},"states":{"require":{"sellPrice":true,"lastTradePrice":true,"buyPrice":true,"instrumentIdentifier":true,"exchange":true},"init":{"_id":true,"name":true,"volume":true,"expiry":true,"product":true,"__v":true,"updatedAt":true}}},"skipId":true},"$isNew":false,"_doc":{"_id":"669e0917987f5679187b09ca","Exchange":"MCX","InstrumentIdentifier":"FUTCOM_SILVERMIC_29NOV2024__0","BuyPrice":91022,"Close":90644,"High":91289,"Low":90762,"LastTradePrice":91035,"Open":90849,"QuotationLot":1,"SellPrice":91039,"BuyQty":2,"SellQty":5,"ltp_up":true,"name":"SILVERMIC","volume":0,"expiry":"2024-11-28T18:30:00.000Z","strike_price":"0.00","option_type":"","volume_up":false,"product":"SILVERMIC","OpenInterest":0,"TotalQtyTraded":0,"Value":0,"PreOpen":false,"PriceChange":391,"PriceChangePercentage":0.42950513538748836,"OpenInterestChange":0,"MessageType":"RealtimeResult","LastTradeTime":0,"ServerTime":0,"__v":0,"updatedAt":"2024-09-10T11:23:49.629Z"}}
+2024-10-01T07:55:22.939Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.940Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.940Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.940Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.941Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.941Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.941Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.942Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.942Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.943Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.943Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.944Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.944Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.944Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.944Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.945Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.945Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.946Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.946Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.946Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.947Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.947Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.947Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.947Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.948Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.948Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.948Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.949Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.949Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.949Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.949Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.950Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.950Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.950Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.950Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.950Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.950Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.950Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.951Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.951Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.951Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.951Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.951Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.951Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.952Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.952Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.952Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.952Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.953Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.953Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.953Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.953Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.954Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.954Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.954Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.955Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.955Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.955Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.956Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.956Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.956Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.956Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.956Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.957Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.957Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.957Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.957Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.957Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.958Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.958Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.958Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.958Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.958Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.958Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.958Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.958Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.959Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.959Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.959Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.959Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.959Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.959Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.959Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.960Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.960Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.960Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.960Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.961Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.961Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.961Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.961Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.961Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.962Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.962Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.962Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.962Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.962Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.963Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.963Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.963Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.963Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.963Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.964Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.964Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.964Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.964Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.964Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.965Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.965Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.965Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.965Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.965Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.965Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.966Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.966Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.966Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.966Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.966Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.966Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.967Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.967Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.967Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.967Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.967Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.967Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.968Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.968Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.968Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.968Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.968Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.968Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.969Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.969Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.969Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.969Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.969Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.970Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.970Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.970Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.971Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.971Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.971Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.971Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.971Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.972Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.972Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.972Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.972Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.972Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.972Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.972Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.972Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.972Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.973Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.974Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.974Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.974Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.974Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.974Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.974Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.974Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.974Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.974Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.975Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.975Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.975Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.975Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.975Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.975Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.976Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.976Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.976Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.976Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.976Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.977Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.977Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.977Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.977Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.977Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.977Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.977Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.978Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.978Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.978Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.978Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.978Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.978Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.978Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.978Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.978Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.979Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.979Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.979Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:22.979Z [INFO]: Processing stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.071Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.071Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.072Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.072Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.073Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.073Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.074Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.074Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.075Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.075Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.076Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.076Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.076Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.077Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.077Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.078Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.079Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.079Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.079Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.080Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.080Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.081Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.081Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.082Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.085Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.086Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.086Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.087Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.087Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.088Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.088Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.089Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.089Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.090Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.091Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.091Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.092Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.092Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.093Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.093Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.094Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.094Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.095Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.095Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.096Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.096Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.097Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.097Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.098Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.098Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.098Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.099Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.100Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.100Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.101Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.101Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.102Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.102Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.102Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.103Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.103Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.104Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.104Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.105Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.105Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.106Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.106Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.107Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.107Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.107Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.108Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.108Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.109Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.109Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.110Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.110Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.111Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.111Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.111Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.112Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.112Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.113Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.113Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.114Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.114Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.115Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.115Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.116Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.116Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.117Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.117Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.118Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.118Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.119Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.120Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.120Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.121Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.121Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.122Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.122Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.123Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.123Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.124Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.124Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.125Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.125Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.128Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.129Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.129Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.129Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.130Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.130Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.131Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.131Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.132Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.132Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.133Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.133Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.134Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.134Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.135Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.135Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.136Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.136Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.137Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.137Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.138Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.138Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.138Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.139Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.139Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.140Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.140Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.141Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.141Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.141Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.142Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.142Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.143Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.143Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.144Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.144Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.145Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.145Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.145Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.146Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.146Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.147Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.147Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.148Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.148Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.149Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.149Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.150Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.150Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.150Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.151Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.151Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.152Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.152Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.153Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.153Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.154Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.154Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.155Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.155Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.156Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.156Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.157Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.157Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.158Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.158Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.159Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.159Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.160Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.160Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.160Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.161Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.161Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.162Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.162Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.163Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.163Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.164Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.164Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.164Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.165Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.165Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.165Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.166Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.166Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.167Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.167Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.167Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.168Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.168Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.168Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.169Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.170Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.170Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.171Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.171Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.171Z [INFO]: Completed processing for stock with InstrumentIdentifier: undefined 
+2024-10-01T07:55:23.171Z [INFO]: Polling cycle completed. 

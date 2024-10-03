@@ -8,12 +8,12 @@ const {
   removeItemFromWishlist, 
   getWishlist,
   getStockByInstrumentIdentifier,
-  getClientDetails, currentProfitLoss,
+  getClientDetails, currentProfitLoss, getClientStatus
 } = require('../controllers/clientController');
 const checkLogin = require('../middleware/checkLogin');
 const { addTrade, getTrades, deleteTrade, getTradesByInstrumentIdentifier, getTradesForChart, calculateNetQuantityByUser, calculateMCXTradesByUser, getAllTradesByInstrumentIdentifier, getClientStockHistory, getTradesBrokerageByClientId } = require('../controllers/tradeController');
-const { addBid, getBidsByUserId } = require('../controllers/bidController');
-const { addStoploss, getStoploss } = require('../controllers/stopLossController');
+const { addBid, getBidsByUserId,updateBid, deleteBidById } = require('../controllers/bidController');
+const { addStoploss, getStoploss, updateStoploss, deleteStoploss } = require('../controllers/stopLossController');
 
 const router = express.Router();
 
@@ -74,11 +74,23 @@ router.post('/add/bid',checkLogin, addBid);
 // Route for getting bids by user ID
 router.get('/bids/:userId',checkLogin, getBidsByUserId);
 
+// Update bid route
+router.put('/bids/:id',checkLogin, updateBid);
+
+// Route to delete a bid by ID
+router.delete('/bids/:id',checkLogin, deleteBidById);
+
 // Route to add a new stop-loss order
 router.post('/add/stoploss',checkLogin, addStoploss);
 
 // Route to get stop-loss records
 router.get('/stoploss/:userId',checkLogin, getStoploss);
+
+// Update Stoploss
+router.put('/stoploss/:id', updateStoploss);
+
+// Delete Stoploss
+router.delete('/stoploss/:id', deleteStoploss);
 
 // Define the route for fetching trades by instrumentIdentifier
 router.get('/instrument/:instrumentIdentifier/trades',checkLogin, getAllTradesByInstrumentIdentifier);
@@ -88,6 +100,9 @@ router.get('/getClientStockHistory/:userId',checkLogin, getClientStockHistory);
 
 // Route to get trades and brokerage details by client ID
 router.get('/trades/client/brokerage/:clientId',checkLogin, getTradesBrokerageByClientId);
+
+// Define the route to get the client status
+router.get('/:id/status', getClientStatus);
 
 
 module.exports = router;
