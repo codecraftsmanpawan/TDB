@@ -1,83 +1,132 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const clientSchema = new mongoose.Schema({
-  client_id: {
-    type: String,
-    unique: true,
-    required: true,
+const clientSchema = new mongoose.Schema(
+  {
+    client_id: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    master_admin_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "MasterAdmin",
+      required: true,
+    },
+    client_code: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    budget: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    availableBudget: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    investmentAmount: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+    currentProfitLoss: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    currentbrokerage: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    finalMasterBrokerage: {
+      type: Number,
+      default: 0,
+    },
+    finalMasterMCXBrokerage: {
+      type: Number,
+      default: 0,
+    },
+    finalMasterNSEBrokerage: {
+      type: Number,
+      default: 0,
+    },
+    brokeragePerMCX: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    brokeragePerNSECrore: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    share_brokerage: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    mcx_brokerage_type: {
+      type: String,
+      enum: ["per_crore", "per_sauda"],
+      required: true,
+    },
+    mcx_brokerage: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: ["active", "inactive", "suspended"],
+      default: "active",
+    },
+    // Total lots for MCX that can be bought/sold
+    TotalMCXTrade: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    // How many lots per stock for MCX can be bought/sold
+    PerMCXTrade: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    // Total lots for NSE that can be bought/sold
+    TotalNSETrade: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    PerNSETrade: {
+      // How many lots per stock for NSE can be bought/sold
+      type: Number,
+      required: true,
+      min: 0,
+    },
   },
-  master_admin_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "MasterAdmin",
-    required: true,
-  },
-  client_code: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  budget: {
-    type: Number,
-    required: true,
-    min: 0, 
-  },
-  availableBudget: {
-    type: Number,
-    required: true,
-    min: 0, 
-  },
-  investmentAmount: {  
-    type: Number,
-    required: true,
-    min: 0,
-    default: 0,
-  },
-  currentProfitLoss: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  currentbrokerage: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  share_brokerage: {
-    type: Number,
-    required: true,
-    min: 0, 
-  },
-  mcx_brokerage_type: {
-    type: String,
-    enum: ["per_crore", "per_sauda"],
-    required: true,
-  },   
-  mcx_brokerage: {
-    type: Number,
-    required: true,
-    min: 0, 
-  },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-    enum: ["active", "inactive", "suspended"],
-    default: "active",
-  },
-}, { timestamps: true });
+  { timestamps: true }
+);
 
 // Pre-save hook to check currentProfitLoss against budget
-clientSchema.pre('save', function(next) {
+clientSchema.pre("save", function (next) {
   if (this.currentProfitLoss < -this.availableBudget) {
-    this.status = 'inactive';
+    this.status = "inactive";
   }
   next();
 });
@@ -96,7 +145,7 @@ function getCurrentProfitLoss(update) {
 }
 
 // Pre-findOneAndUpdate hook to handle updates via findOneAndUpdate
-clientSchema.pre('findOneAndUpdate', async function(next) {
+clientSchema.pre("findOneAndUpdate", async function (next) {
   try {
     const update = this.getUpdate();
 
@@ -119,9 +168,9 @@ clientSchema.pre('findOneAndUpdate', async function(next) {
     if (newProfitLoss < -docToUpdate.availableBudget) {
       // Ensure status is set to 'inactive' in the update
       if (update.$set) {
-        update.$set.status = 'inactive';
+        update.$set.status = "inactive";
       } else {
-        update.status = 'inactive';
+        update.status = "inactive";
       }
       this.setUpdate(update);
     }

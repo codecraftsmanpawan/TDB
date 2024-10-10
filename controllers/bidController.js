@@ -136,10 +136,37 @@ const updateBid = async (req, res) => {
     }
 };
 
+const getBidsFulfilledByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Validate the userId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: 'Invalid User ID' });
+    }
+
+    // Find bids associated with the given userId and status "fulfilled"
+    const fulfilledBids = await Bid.find({ userId, status: 'fulfilled' })
+      .populate('stockId', 'instrumentIdentifier'); 
+
+    if (fulfilledBids.length === 0) {
+      return res.status(404).json({ message: 'No fulfilled bids found for this user' });
+    }
+
+    res.status(200).json({
+      message: 'Fulfilled bids retrieved successfully',
+      bids: fulfilledBids
+    });
+  } catch (error) {
+    console.error('Error retrieving bids:', error);
+    res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
 
 module.exports = {
   addBid,
   getBidsByUserId,
   deleteBidById,
-  updateBid
+  updateBid,
+  getBidsFulfilledByUserId
 };

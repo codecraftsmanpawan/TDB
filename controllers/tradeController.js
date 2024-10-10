@@ -1,35 +1,504 @@
-const mongoose = require('mongoose');
-const Trade = require('../models/Trade');
-const Client = require('../models/client');
-const Stock = require('../models/stock');
+const mongoose = require("mongoose");
+const Trade = require("../models/Trade");
+const Client = require("../models/client");
+const Stock = require("../models/stock");
+const MasterAdmin = require("../models/masterAdmin");
+
+// const addTrade = async (req, res) => {
+//   try {
+//     const {
+//       _id,
+//       instrumentIdentifier,
+//       name,
+//       exchange,
+//       trade_type,
+//       quantity,
+//       price,
+//     } = req.body;
+
+//     if (
+//       !_id ||
+//       !instrumentIdentifier ||
+//       !name ||
+//       !exchange ||
+//       !trade_type ||
+//       !quantity ||
+//       !price
+//     ) {
+//       return res.status(400).json({ message: "All fields are required" });
+//     }
+
+//     if (!["buy", "sell"].includes(trade_type)) {
+//       return res.status(400).json({
+//         message: 'Invalid trade_type. It should be either "buy" or "sell".',
+//       });
+//     }
+
+//     if (quantity <= 0 || price <= 0) {
+//       return res
+//         .status(400)
+//         .json({ message: "Quantity and price must be greater than zero." });
+//     }
+
+//     // Validate the '_id' format
+//     if (!mongoose.Types.ObjectId.isValid(_id)) {
+//       return res.status(400).json({ message: "Invalid User" });
+//     }
+
+//     // Find the client document using the provided '_id'
+//     const client = await Client.findById(_id);
+
+//     if (!client) {
+//       return res.status(404).json({ message: "Client not found" });
+//     }
+
+//     // Create a new trade instance
+//     const newTrade = new Trade({
+//       userId: client._id,
+//       stockId: instrumentIdentifier,
+//       instrumentIdentifier,
+//       name,
+//       exchange,
+//       tradeType: trade_type,
+//       quantity,
+//       price,
+//       action: trade_type,
+//       status: "open",
+//       date: Date.now(),
+//       createdAt: Date.now(),
+//       updatedAt: Date.now(),
+//     });
+
+//     // Save the trade to the database
+//     const savedTrade = await newTrade.save();
+
+//     // Respond with the saved trade data
+//     res
+//       .status(201)
+//       .json({ message: "Trade added successfully", trade: savedTrade });
+//   } catch (error) {
+//     console.error("Error adding trade:", error);
+//     res
+//       .status(500)
+//       .json({ message: "Internal server error", error: error.message });
+//   }
+// };
+
+// const addTrade = async (req, res) => {
+//   try {
+//     const {
+//       _id,
+//       instrumentIdentifier,
+//       name,
+//       exchange,
+//       trade_type,
+//       quantity,
+//       price,
+//     } = req.body;
+
+//     // Validate required fields
+//     if (
+//       !_id ||
+//       !instrumentIdentifier ||
+//       !name ||
+//       !exchange ||
+//       !trade_type ||
+//       !quantity ||
+//       !price
+//     ) {
+//       return res.status(400).json({ message: "All fields are required" });
+//     }
+
+//     if (!["buy", "sell"].includes(trade_type)) {
+//       return res.status(400).json({
+//         message: 'Invalid trade_type. It should be either "buy" or "sell".',
+//       });
+//     }
+
+//     if (quantity <= 0 || price <= 0) {
+//       return res
+//         .status(400)
+//         .json({ message: "Quantity and price must be greater than zero." });
+//     }
+
+//     // Validate the '_id' format
+//     if (!mongoose.Types.ObjectId.isValid(_id)) {
+//       return res.status(400).json({ message: "Invalid User" });
+//     }
+
+//     // Find the client document using the provided '_id'
+//     const client = await Client.findById(_id);
+//     if (!client) {
+//       return res.status(404).json({ message: "Client not found" });
+//     }
+
+//     // Find the stock document to get QuotationLot information
+//     const stock = await Stock.findOne({
+//       InstrumentIdentifier: instrumentIdentifier,
+//     });
+//     if (!stock) {
+//       return res.status(404).json({ message: "Stock not found" });
+//     }
+
+//     const QuotationLot = stock.QuotationLot;
+
+//     // Log the input details including the trade type
+//     console.log(
+//       `Calculating totalLots for stock: ${name}, tradeType: ${trade_type}`
+//     );
+//     console.log(`Quantity (Lots): ${quantity}, QuotationLot: ${QuotationLot}`);
+
+//     // Calculate total lots in terms of QuotationLot
+//     const totalLots = Math.floor(quantity / QuotationLot); // Total lots traded
+//     console.log(
+//       `Total lots being traded (divided by QuotationLot): ${totalLots}`
+//     );
+
+//     // Check exchange-specific trade limits
+//     if (exchange === "MCX") {
+//       // Find existing trades made by the client for this stock based on the name
+//       const existingTrades = await Trade.find({
+//         userId: client._id,
+//         name,
+//         exchange: "MCX",
+//       });
+
+//       // Log existing trades data for debugging
+//       console.log("Existing trades data for this stock:", existingTrades);
+
+//       const existingTradeCount = existingTrades.length; // Count of existing trades
+//       console.log(`Existing trades for this stock: ${existingTradeCount}`);
+
+//       // Calculate how many lots the client has already traded for buy and sell
+//       const totalTradedQuantity = existingTrades.reduce(
+//         (sum, trade) => sum + trade.quantity,
+//         0
+//       );
+//       const totalTradedLots = Math.floor(totalTradedQuantity / QuotationLot);
+//       console.log(`Total lots traded for this stock: ${totalTradedLots}`);
+
+//       // Calculate remaining allowed trades for per-stock limit
+//       const maxAllowedPerStock = client.PerMCXTrade; // Maximum trades allowed per stock
+//       const remainingAllowedTrades = maxAllowedPerStock - totalTradedLots; // Remaining allowed trades
+//       console.log(
+//         `Remaining allowed trades for this stock: ${remainingAllowedTrades}`
+//       );
+
+//       // Check if the new trade exceeds the remaining allowed trades for this stock
+//       if (totalLots > remainingAllowedTrades) {
+//         console.log(
+//           `Trade exceeds the allowed limit for this stock. Max allowed: ${maxAllowedPerStock}, Total lots: ${totalLots}`
+//         );
+//         return res.status(400).json({
+//           message: `Trade quantity exceeds the allowed limit for this stock. Maximum allowed: ${maxAllowedPerStock} lots.`,
+//         });
+//       }
+
+//       // Check trade_type limits using the maxTradeLimitPerType from client
+//       const maxTradeLimitPerType = client.PerMCXTrade; // Get the limit from the client
+//       const buyTradeCount = existingTrades.filter(
+//         (trade) => trade.tradeType === "buy"
+//       ).length;
+//       const sellTradeCount = existingTrades.filter(
+//         (trade) => trade.tradeType === "sell"
+//       ).length;
+
+//       console.log(`Existing buy trades for this stock: ${buyTradeCount}`);
+//       console.log(`Existing sell trades for this stock: ${sellTradeCount}`);
+
+//       // Check if new trade violates limits based on existing trades
+//       if (trade_type === "buy" && buyTradeCount >= maxTradeLimitPerType) {
+//         return res.status(400).json({
+//           message: `Maximum ${maxTradeLimitPerType} buy trades allowed for this stock.`,
+//         });
+//       }
+
+//       if (trade_type === "sell" && sellTradeCount >= maxTradeLimitPerType) {
+//         return res.status(400).json({
+//           message: `Maximum ${maxTradeLimitPerType} sell trades allowed for this stock.`,
+//         });
+//       }
+
+//       // Allow trades if they do not exceed the limits
+//     }
+
+//     // Log the trade type before creating the new trade
+//     console.log(`Preparing to add a new trade: TradeType: ${trade_type}`);
+
+//     // Create a new trade instance
+//     const newTrade = new Trade({
+//       userId: client._id,
+//       stockId: instrumentIdentifier,
+//       instrumentIdentifier,
+//       name,
+//       exchange,
+//       tradeType: trade_type,
+//       quantity,
+//       price,
+//       action: trade_type,
+//       status: "open",
+//       date: Date.now(),
+//       createdAt: Date.now(),
+//       updatedAt: Date.now(),
+//     });
+
+//     // Save the trade to the database
+//     const savedTrade = await newTrade.save();
+
+//     // Respond with the saved trade data
+//     res
+//       .status(201)
+//       .json({ message: "Trade added successfully", trade: savedTrade });
+//   } catch (error) {
+//     console.error("Error adding trade:", error);
+//     res
+//       .status(500)
+//       .json({ message: "Internal server error", error: error.message });
+//   }
+// };
 
 const addTrade = async (req, res) => {
   try {
-    const { _id, instrumentIdentifier, name, exchange, trade_type, quantity, price } = req.body;
+    const {
+      _id,
+      instrumentIdentifier,
+      name,
+      exchange,
+      trade_type,
+      quantity,
+      price,
+    } = req.body;
 
-    if (!_id || !instrumentIdentifier || !name || !exchange || !trade_type || !quantity || !price) {
-      return res.status(400).json({ message: 'All fields are required' });
+    // Validate required fields
+    if (
+      !_id ||
+      !instrumentIdentifier ||
+      !name ||
+      !exchange ||
+      !trade_type ||
+      !quantity ||
+      !price
+    ) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    if (!['buy', 'sell'].includes(trade_type)) {
-      return res.status(400).json({ message: 'Invalid trade_type. It should be either "buy" or "sell".' });
+    if (!["buy", "sell"].includes(trade_type)) {
+      return res.status(400).json({
+        message: 'Invalid trade_type. It should be either "buy" or "sell".',
+      });
     }
 
     if (quantity <= 0 || price <= 0) {
-      return res.status(400).json({ message: 'Quantity and price must be greater than zero.' });
+      return res
+        .status(400)
+        .json({ message: "Quantity and price must be greater than zero." });
     }
 
     // Validate the '_id' format
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-      return res.status(400).json({ message: 'Invalid User' });
+      return res.status(400).json({ message: "Invalid User" });
     }
 
     // Find the client document using the provided '_id'
     const client = await Client.findById(_id);
-
     if (!client) {
-      return res.status(404).json({ message: 'Client not found' });
+      return res.status(404).json({ message: "Client not found" });
     }
+
+    // Find the stock document to get QuotationLot information
+    const stock = await Stock.findOne({
+      InstrumentIdentifier: instrumentIdentifier,
+    });
+    if (!stock) {
+      return res.status(404).json({ message: "Stock not found" });
+    }
+
+    const QuotationLot = stock.QuotationLot;
+
+    // Log the input details including the trade type
+    console.log(
+      `Calculating totalLots for stock: ${name}, tradeType: ${trade_type}`
+    );
+    console.log(`Quantity (Lots): ${quantity}, QuotationLot: ${QuotationLot}`);
+
+    // Calculate total lots in terms of QuotationLot
+    const totalLots = Math.floor(quantity / QuotationLot); // Total lots traded
+    console.log(
+      `Total lots being traded (divided by QuotationLot): ${totalLots}`
+    );
+
+    // Check exchange-specific trade limits
+    if (exchange === "MCX") {
+      // Find existing trades made by the client for this stock based on the name, exchange, and trade type
+      const existingTrades = await Trade.find({
+        userId: client._id,
+        name,
+        exchange: "MCX",
+      });
+
+      // Log existing trades data for debugging
+      console.log("Existing trades data for this stock:", existingTrades);
+
+      const totalTradedQuantity = existingTrades.reduce(
+        (sum, trade) => sum + trade.quantity,
+        0
+      );
+      const totalTradedLots = Math.floor(totalTradedQuantity / QuotationLot);
+      console.log(`Total lots traded for this stock: ${totalTradedLots}`);
+
+      // Calculate remaining allowed trades for per-stock limit
+      const maxAllowedPerStock = client.PerMCXTrade; // Maximum trades allowed per stock
+      const remainingAllowedTrades = maxAllowedPerStock - totalTradedLots; // Remaining allowed trades
+      console.log(
+        `Remaining allowed trades for this stock: ${remainingAllowedTrades}`
+      );
+
+      // Count the existing buy and sell trades separately
+      const buyTrades = existingTrades.filter(
+        (trade) => trade.tradeType === "buy"
+      );
+      const sellTrades = existingTrades.filter(
+        (trade) => trade.tradeType === "sell"
+      );
+
+      const buyTradeCount = buyTrades.length;
+      const sellTradeCount = sellTrades.length;
+
+      console.log(`Existing buy trades for this stock: ${buyTradeCount}`);
+      console.log(`Existing sell trades for this stock: ${sellTradeCount}`);
+
+      // Calculate remaining allowed trades for buy and sell
+      const maxTradeLimitPerType = client.PerMCXTrade; // Get the limit from the client
+      const remainingBuyTrades = maxTradeLimitPerType - buyTradeCount;
+      const remainingSellTrades = maxTradeLimitPerType - sellTradeCount;
+
+      console.log(
+        `Remaining allowed buy trades for this stock: ${remainingBuyTrades}`
+      );
+      console.log(
+        `Remaining allowed sell trades for this stock: ${remainingSellTrades}`
+      );
+
+      // Check if the new trade violates limits based on existing trades
+      if (trade_type === "buy") {
+        if (remainingBuyTrades <= 0) {
+          return res.status(400).json({
+            message: `Maximum ${maxTradeLimitPerType} buy trades allowed for this stock. You cannot buy more.`,
+          });
+        }
+
+        // Ensure the buy quantity does not exceed the remaining allowed buy trades
+        if (totalLots > remainingBuyTrades) {
+          return res.status(400).json({
+            message: `Trade quantity exceeds the allowed limit for buy trades. Maximum allowed: ${remainingBuyTrades} lots.`,
+          });
+        }
+      }
+
+      if (trade_type === "sell") {
+        if (remainingSellTrades <= 0) {
+          return res.status(400).json({
+            message: `Maximum ${maxTradeLimitPerType} sell trades allowed for this stock. You cannot sell more.`,
+          });
+        }
+
+        // Ensure the sell quantity does not exceed the remaining allowed sell trades
+        if (totalLots > remainingSellTrades) {
+          return res.status(400).json({
+            message: `Trade quantity exceeds the allowed limit for sell trades. Maximum allowed: ${remainingSellTrades} lots.`,
+          });
+        }
+      }
+    }
+
+    // Add logic for NSE exchange with PerNSETrade
+    if (exchange === "NSE") {
+      // Find existing trades made by the client for this stock based on the name, exchange, and trade type
+      const existingTrades = await Trade.find({
+        userId: client._id,
+        name,
+        exchange: "NSE",
+      });
+
+      // Log existing trades data for debugging
+      console.log("Existing trades data for this stock (NSE):", existingTrades);
+
+      const totalTradedQuantity = existingTrades.reduce(
+        (sum, trade) => sum + trade.quantity,
+        0
+      );
+      const totalTradedLots = Math.floor(totalTradedQuantity / QuotationLot);
+      console.log(`Total lots traded for this stock: ${totalTradedLots}`);
+
+      // Calculate remaining allowed trades for per-stock limit
+      const maxAllowedPerStock = client.PerNSETrade;
+      const remainingAllowedTrades = maxAllowedPerStock - totalTradedLots;
+      console.log(
+        `Remaining allowed trades for this stock (NSE): ${remainingAllowedTrades}`
+      );
+
+      // Count the existing buy and sell trades separately
+      const buyTrades = existingTrades.filter(
+        (trade) => trade.tradeType === "buy"
+      );
+      const sellTrades = existingTrades.filter(
+        (trade) => trade.tradeType === "sell"
+      );
+
+      const buyTradeCount = buyTrades.length;
+      const sellTradeCount = sellTrades.length;
+
+      console.log(`Existing buy trades for this stock (NSE): ${buyTradeCount}`);
+      console.log(
+        `Existing sell trades for this stock (NSE): ${sellTradeCount}`
+      );
+
+      // Calculate remaining allowed trades for buy and sell
+      const maxTradeLimitPerType = client.PerNSETrade;
+      const remainingBuyTrades = maxTradeLimitPerType - buyTradeCount;
+      const remainingSellTrades = maxTradeLimitPerType - sellTradeCount;
+
+      console.log(
+        `Remaining allowed buy trades for this stock (NSE): ${remainingBuyTrades}`
+      );
+      console.log(
+        `Remaining allowed sell trades for this stock (NSE): ${remainingSellTrades}`
+      );
+
+      // Check if the new trade violates limits based on existing trades
+      if (trade_type === "buy") {
+        if (remainingBuyTrades <= 0) {
+          return res.status(400).json({
+            message: `Maximum ${maxTradeLimitPerType} buy trades allowed for this stock. You cannot buy more.`,
+          });
+        }
+
+        // Ensure the buy quantity does not exceed the remaining allowed buy trades
+        if (totalLots > remainingBuyTrades) {
+          return res.status(400).json({
+            message: `Trade quantity exceeds the allowed limit for buy trades. Maximum allowed: ${remainingBuyTrades} lots.`,
+          });
+        }
+      }
+
+      if (trade_type === "sell") {
+        if (remainingSellTrades <= 0) {
+          return res.status(400).json({
+            message: `Maximum ${maxTradeLimitPerType} sell trades allowed for this stock. You cannot sell more.`,
+          });
+        }
+
+        // Ensure the sell quantity does not exceed the remaining allowed sell trades
+        if (totalLots > remainingSellTrades) {
+          return res.status(400).json({
+            message: `Trade quantity exceeds the allowed limit for sell trades. Maximum allowed: ${remainingSellTrades} lots.`,
+          });
+        }
+      }
+    }
+
+    // Log the trade type before creating the new trade
+    console.log(`Preparing to add a new trade: TradeType: ${trade_type}`);
 
     // Create a new trade instance
     const newTrade = new Trade({
@@ -42,24 +511,26 @@ const addTrade = async (req, res) => {
       quantity,
       price,
       action: trade_type,
-      status: 'open',
+      status: "open",
       date: Date.now(),
       createdAt: Date.now(),
-      updatedAt: Date.now()
+      updatedAt: Date.now(),
     });
 
     // Save the trade to the database
     const savedTrade = await newTrade.save();
 
     // Respond with the saved trade data
-    res.status(201).json({ message: 'Trade added successfully', trade: savedTrade });
+    res
+      .status(201)
+      .json({ message: "Trade added successfully", trade: savedTrade });
   } catch (error) {
-    console.error('Error adding trade:', error);
-    res.status(500).json({ message: 'Internal server error', error: error.message });
+    console.error("Error adding trade:", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 };
-
-
 
 const getTrades = async (req, res) => {
   try {
@@ -67,36 +538,146 @@ const getTrades = async (req, res) => {
 
     // Validate the 'clientId' format
     if (!mongoose.Types.ObjectId.isValid(clientId)) {
-      return res.status(400).json({ message: 'Invalid Client ID' });
+      return res.status(400).json({ message: "Invalid Client ID" });
     }
 
     // Find the client document using the provided 'clientId'
     const client = await Client.findById(clientId);
 
     if (!client) {
-      return res.status(404).json({ message: 'Client not found' });
+      return res.status(404).json({ message: "Client not found" });
     }
 
     // Fetch all trades related to the client
     const trades = await Trade.find({ userId: clientId });
 
     if (!trades || trades.length === 0) {
-      return res.status(404).json({ message: 'No trades found for this client' });
+      return res
+        .status(404)
+        .json({ message: "No trades found for this client" });
     }
 
     // Modify the action to display the opposite action (buy to sell, sell to buy)
-    const modifiedTrades = trades.map(trade => {
+    const modifiedTrades = trades.map((trade) => {
       return {
         ...trade._doc,
-        oppositeAction: trade.tradeType === 'buy' ? 'sell' : 'buy'
+        oppositeAction: trade.tradeType === "buy" ? "sell" : "buy",
       };
     });
 
     // Respond with the modified trade data
     res.status(200).json({ trades: modifiedTrades });
   } catch (error) {
-    console.error('Error fetching trades:', error);
-    res.status(500).json({ message: 'Internal server error', error: error.message });
+    console.error("Error fetching trades:", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
+const getTotalTrades = async (req, res) => {
+  try {
+    const { clientId } = req.params;
+
+    // Validate the client ID format
+    if (!mongoose.Types.ObjectId.isValid(clientId)) {
+      console.log("Invalid Client ID:", clientId); // Log invalid clientId
+      return res.status(400).json({ message: "Invalid Client ID" });
+    }
+
+    // Find the client document using the provided 'clientId'
+    const client = await Client.findById(clientId);
+    if (!client) {
+      console.log("Client not found for ID:", clientId); // Log when client is not found
+      return res.status(404).json({ message: "Client not found" });
+    }
+
+    console.log("Found client:", client); // Log found client details
+
+    // Fetch trades related to the client
+    const trades = await Trade.find({ userId: clientId }).populate(
+      "instrumentIdentifier"
+    );
+    console.log("Fetched trades for client:", trades); // Log fetched trades
+
+    // Helper function to calculate adjusted trades for a specific exchange
+    const calculateAdjustedTrades = async (exchange) => {
+      // Filter trades based on exchange
+      const filteredTrades = trades.filter(
+        (trade) => trade.exchange === exchange
+      );
+
+      // Process each trade to calculate the adjusted quantity based on QuotationLot
+      const adjustedTrades = await Promise.all(
+        filteredTrades.map(async (trade) => {
+          // Fetch associated stock for this trade
+          const stock = await Stock.findOne({
+            InstrumentIdentifier: trade.instrumentIdentifier,
+          });
+          console.log(`Stock for trade ${trade._id}:`, stock); // Log stock details
+
+          // Get the QuotationLot (default to 1 if not available)
+          const quotationLot = stock?.QuotationLot || 1;
+
+          // Calculate the adjusted quantity
+          const adjustedQuantity = trade.quantity / quotationLot;
+
+          return {
+            ...trade.toObject(),
+            adjustedQuantity, // New field with the divided quantity
+            stockData: stock, // Include stock details if needed
+          };
+        })
+      );
+
+      return adjustedTrades;
+    };
+
+    // Calculate adjusted trades for MCX and NSE exchanges
+    const adjustedMCXTrades = await calculateAdjustedTrades("MCX");
+    const adjustedNSETrades = await calculateAdjustedTrades("NSE");
+
+    // Filter out sensitive client information from the clientDetails object
+    const filteredClientDetails = {
+      TotalMCXTrade: client.TotalMCXTrade,
+      TotalNSETrade: client.TotalNSETrade,
+      PerMCXTrade: client.PerMCXTrade,
+      PerNSETrade: client.PerNSETrade,
+    };
+
+    // Calculate the total adjusted quantities for buy and sell trades in MCX and NSE
+    const totalMCXBuyTrades = adjustedMCXTrades
+      .filter((trade) => trade.tradeType === "buy")
+      .reduce((acc, trade) => acc + trade.adjustedQuantity, 0);
+
+    const totalMCXSellTrades = adjustedMCXTrades
+      .filter((trade) => trade.tradeType === "sell")
+      .reduce((acc, trade) => acc + trade.adjustedQuantity, 0);
+
+    const totalNSEBuyTrades = adjustedNSETrades
+      .filter((trade) => trade.tradeType === "buy")
+      .reduce((acc, trade) => acc + trade.adjustedQuantity, 0);
+
+    const totalNSESellTrades = adjustedNSETrades
+      .filter((trade) => trade.tradeType === "sell")
+      .reduce((acc, trade) => acc + trade.adjustedQuantity, 0);
+
+    // Return the data including the adjusted trades with divided quantity
+    res.status(200).json({
+      clientId: clientId,
+      clientDetails: filteredClientDetails, // Exclude sensitive fields
+      TotalMCXBuyTrades: totalMCXBuyTrades, // Total adjusted buy trades for MCX
+      TotalMCXSellTrades: totalMCXSellTrades, // Total adjusted sell trades for MCX
+      TotalNSEBuyTrades: totalNSEBuyTrades, // Total adjusted buy trades for NSE
+      TotalNSESellTrades: totalNSESellTrades, // Total adjusted sell trades for NSE
+      allMCXTrades: adjustedMCXTrades, // MCX trades with adjusted quantity
+      allNSETrades: adjustedNSETrades, // NSE trades with adjusted quantity
+    });
+  } catch (error) {
+    console.error("Error retrieving total trades:", error); // Log the error
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 };
 
@@ -107,28 +688,31 @@ const deleteTrade = async (req, res) => {
 
     // Validate the 'tradeId' format
     if (!mongoose.Types.ObjectId.isValid(tradeId)) {
-      return res.status(400).json({ message: 'Invalid Trade ID' });
+      return res.status(400).json({ message: "Invalid Trade ID" });
     }
 
     // Find the trade to be deleted
     const trade = await Trade.findById(tradeId);
 
     if (!trade) {
-      return res.status(404).json({ message: 'Trade not found' });
+      return res.status(404).json({ message: "Trade not found" });
     }
 
     // Find the client related to this trade
     const client = await Client.findById(trade.userId);
 
     if (!client) {
-      return res.status(404).json({ message: 'Client not found' });
+      return res.status(404).json({ message: "Client not found" });
     }
 
     // Calculate the total cost of the trade
     const totalCost = trade.quantity * trade.price;
 
     // Update the client's available budget if the trade was a buy trade
-    const updatedAvailableBudget = trade.tradeType === 'buy' ? client.availableBudget + totalCost : client.availableBudget;
+    const updatedAvailableBudget =
+      trade.tradeType === "buy"
+        ? client.availableBudget + totalCost
+        : client.availableBudget;
 
     await Client.updateOne(
       { _id: client._id },
@@ -139,13 +723,14 @@ const deleteTrade = async (req, res) => {
     await Trade.findByIdAndDelete(tradeId);
 
     // Respond with success message
-    res.status(200).json({ message: 'Trade deleted successfully' });
+    res.status(200).json({ message: "Trade deleted successfully" });
   } catch (error) {
-    console.error('Error deleting trade:', error);
-    res.status(500).json({ message: 'Internal server error', error: error.message });
+    console.error("Error deleting trade:", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 };
-
 
 // Get all trades for a specific instrumentIdentifier and userId
 // const getTradesByInstrumentIdentifier = async (req, res) => {
@@ -182,17 +767,19 @@ const getTradesByInstrumentIdentifier = async (req, res) => {
   try {
     // Check if userId is provided in the query
     if (!userId) {
-      return res.status(400).json({ message: 'User ID is required.' });
+      return res.status(400).json({ message: "User ID is required." });
     }
 
     // Find trades matching both the instrumentIdentifier and userId
     const trades = await Trade.find({
       instrumentIdentifier: instrumentIdentifier,
-      userId: userId
+      userId: userId,
     });
 
     if (trades.length === 0) {
-      return res.status(404).json({ message: 'No trades found for this instrument identifier and user.' });
+      return res.status(404).json({
+        message: "No trades found for this instrument identifier and user.",
+      });
     }
 
     // Get the current time
@@ -202,30 +789,36 @@ const getTradesByInstrumentIdentifier = async (req, res) => {
     const currentDay = currentTime.getDay(); // 0 = Sunday, 6 = Saturday
 
     // Check if trades need to be adjusted based on the exchange and day of the week
-    const adjustedTrades = trades.map(trade => {
+    const adjustedTrades = trades.map((trade) => {
       // Check for Saturday (6) and Sunday (0)
       if (currentDay === 0 || currentDay === 6) {
         return {
           ...trade.toObject(),
           BuyPrice: trade.Close,
-          SellPrice: trade.Close
+          SellPrice: trade.Close,
         };
       }
 
       // Check for exchange-specific time adjustments
-      if (trade.exchange === 'NSE' && (currentHour > 15 || (currentHour === 15 && currentMinutes >= 30))) {
+      if (
+        trade.exchange === "NSE" &&
+        (currentHour > 15 || (currentHour === 15 && currentMinutes >= 30))
+      ) {
         // After 3:30 PM, set BuyPrice and SellPrice to Close price
         return {
           ...trade.toObject(),
           BuyPrice: trade.Close,
-          SellPrice: trade.Close
+          SellPrice: trade.Close,
         };
-      } else if (trade.exchange === 'MCX' && (currentHour > 23 || (currentHour === 23 && currentMinutes >= 30))) {
+      } else if (
+        trade.exchange === "MCX" &&
+        (currentHour > 23 || (currentHour === 23 && currentMinutes >= 30))
+      ) {
         // After 11:30 PM, set BuyPrice and SellPrice to Close price
         return {
           ...trade.toObject(),
           BuyPrice: trade.Close,
-          SellPrice: trade.Close
+          SellPrice: trade.Close,
         };
       }
       // Return the trade as is if no adjustments are needed
@@ -235,10 +828,9 @@ const getTradesByInstrumentIdentifier = async (req, res) => {
     return res.status(200).json(adjustedTrades);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: "Server error" });
   }
 };
-
 
 const getTradesForChart = async (req, res) => {
   try {
@@ -246,20 +838,20 @@ const getTradesForChart = async (req, res) => {
 
     // Validate the 'userId' format
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ message: 'Invalid User ID' });
+      return res.status(400).json({ message: "Invalid User ID" });
     }
 
     // Fetch all trades related to the user
     const trades = await Trade.find({ userId });
 
     if (!trades || trades.length === 0) {
-      return res.status(404).json({ message: 'No trades found for this user' });
+      return res.status(404).json({ message: "No trades found for this user" });
     }
 
     // Process trades data for charting
     // Example: Aggregating data by date and summing quantities
     const tradeData = trades.reduce((acc, trade) => {
-      const date = new Date(trade.date).toISOString().split('T')[0]; // Use date only
+      const date = new Date(trade.date).toISOString().split("T")[0]; // Use date only
       if (!acc[date]) {
         acc[date] = { date, totalQuantity: 0, totalPrice: 0 };
       }
@@ -274,8 +866,10 @@ const getTradesForChart = async (req, res) => {
     // Respond with the processed data
     res.status(200).json({ chartData });
   } catch (error) {
-    console.error('Error fetching trades for chart:', error);
-    res.status(500).json({ message: 'Internal server error', error: error.message });
+    console.error("Error fetching trades for chart:", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 };
 
@@ -290,12 +884,14 @@ exports.getTradesByUserId = async (req, res) => {
     // Calculate remaining quantities
     const tradeSummary = trades.reduce((acc, trade) => {
       // If it's a buy trade, add the quantity
-      if (trade.tradeType === 'buy') {
-        acc[trade.instrumentIdentifier] = (acc[trade.instrumentIdentifier] || 0) + trade.quantity;
+      if (trade.tradeType === "buy") {
+        acc[trade.instrumentIdentifier] =
+          (acc[trade.instrumentIdentifier] || 0) + trade.quantity;
       }
       // If it's a sell trade, subtract the quantity
-      else if (trade.tradeType === 'sell') {
-        acc[trade.instrumentIdentifier] = (acc[trade.instrumentIdentifier] || 0) - trade.quantity;
+      else if (trade.tradeType === "sell") {
+        acc[trade.instrumentIdentifier] =
+          (acc[trade.instrumentIdentifier] || 0) - trade.quantity;
       }
       return acc;
     }, {});
@@ -305,7 +901,6 @@ exports.getTradesByUserId = async (req, res) => {
     res.status(400).json({ success: false, error: error.message });
   }
 };
-
 
 // const calculateNetQuantityByUser = async (req, res) => {
 //   try {
@@ -339,7 +934,7 @@ exports.getTradesByUserId = async (req, res) => {
 //       if (trade.tradeType === 'buy') {
 //         acc[trade.instrumentIdentifier].totalBuyQuantity += trade.quantity;
 //       } else if (trade.tradeType === 'sell') {
-//         acc[trade.instrumentIdentifier].totalSellQuantity -= trade.quantity; 
+//         acc[trade.instrumentIdentifier].totalSellQuantity -= trade.quantity;
 //       }
 
 //       return acc;
@@ -352,7 +947,7 @@ exports.getTradesByUserId = async (req, res) => {
 
 //     // Create a map for quick lookup of QuotationLot
 //     const stockMap = stocks.reduce((acc, stock) => {
-//       acc[stock.InstrumentIdentifier] = stock.QuotationLot || 1; 
+//       acc[stock.InstrumentIdentifier] = stock.QuotationLot || 1;
 //       return acc;
 //     }, {});
 
@@ -385,14 +980,14 @@ exports.getTradesByUserId = async (req, res) => {
 
 //         return {
 //           instrumentIdentifier,
-//           netQuantity: absoluteNetQuantity,  
-//           investmentValue,                  
+//           netQuantity: absoluteNetQuantity,
+//           investmentValue,
 //           name,
 //           exchange,
-//           tradeType,                         
+//           tradeType,
 //           status,
 //           price,
-//           action                            
+//           action
 //         };
 //       })
 //       // Filter out trades where netQuantity is 0
@@ -410,14 +1005,16 @@ const calculateNetQuantityByUser = async (req, res) => {
 
     // Validate userId
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ error: 'Invalid userId' });
+      return res.status(400).json({ error: "Invalid userId" });
     }
 
     // Fetch all trades for the given userId
     const trades = await Trade.find({ userId });
 
     if (trades.length === 0) {
-      return res.status(404).json({ error: 'No trades found for the specified user' });
+      return res
+        .status(404)
+        .json({ error: "No trades found for the specified user" });
     }
 
     // Reduce trades to accumulate necessary data per instrument
@@ -428,8 +1025,8 @@ const calculateNetQuantityByUser = async (req, res) => {
         acc[instrumentId] = {
           totalBuyQuantity: 0,
           totalSellQuantity: 0,
-          totalPriceQuantity: 0, 
-          totalQuantity: 0,     
+          totalPriceQuantity: 0,
+          totalQuantity: 0,
           name: trade.name,
           exchange: trade.exchange,
           status: trade.status,
@@ -437,11 +1034,11 @@ const calculateNetQuantityByUser = async (req, res) => {
         };
       }
 
-      if (trade.tradeType === 'buy') {
+      if (trade.tradeType === "buy") {
         acc[instrumentId].totalBuyQuantity += trade.quantity;
         acc[instrumentId].totalPriceQuantity += trade.price * trade.quantity;
         acc[instrumentId].totalQuantity += trade.quantity;
-      } else if (trade.tradeType === 'sell') {
+      } else if (trade.tradeType === "sell") {
         acc[instrumentId].totalSellQuantity += trade.quantity;
         acc[instrumentId].totalPriceQuantity += trade.price * trade.quantity;
         acc[instrumentId].totalQuantity += trade.quantity;
@@ -452,17 +1049,17 @@ const calculateNetQuantityByUser = async (req, res) => {
 
     // Fetch stocks data to get QuotationLot
     const stocks = await Stock.find({
-      InstrumentIdentifier: { $in: Object.keys(instrumentMap) }
+      InstrumentIdentifier: { $in: Object.keys(instrumentMap) },
     }).lean();
 
     // Create a map for quick lookup of QuotationLot
     const stockMap = stocks.reduce((acc, stock) => {
-      acc[stock.InstrumentIdentifier] = stock.QuotationLot || 1; 
+      acc[stock.InstrumentIdentifier] = stock.QuotationLot || 1;
       return acc;
     }, {});
 
     const netQuantities = Object.keys(instrumentMap)
-      .map(instrumentIdentifier => {
+      .map((instrumentIdentifier) => {
         const {
           totalBuyQuantity,
           totalSellQuantity,
@@ -471,33 +1068,36 @@ const calculateNetQuantityByUser = async (req, res) => {
           name,
           exchange,
           status,
-          price
+          price,
         } = instrumentMap[instrumentIdentifier];
 
         // Custom quantity adjustment for GOLD and GOLDM
         let quantityAdjustment;
-        if (name === 'GOLD') {
+        if (name === "GOLD") {
           quantityAdjustment = 100; // Custom value for GOLD
-        } else if (name === 'GOLDM') {
+        } else if (name === "GOLDM") {
           quantityAdjustment = 10; // Custom value for GOLDM
         } else {
           // Default adjustment logic
-          quantityAdjustment = exchange === 'MCX' ? stockMap[instrumentIdentifier] : 1;
+          quantityAdjustment =
+            exchange === "MCX" ? stockMap[instrumentIdentifier] : 1;
         }
 
         // Calculate net quantity (buys - sells) and apply custom adjustment
-        let netQuantity = (totalBuyQuantity - totalSellQuantity) / quantityAdjustment;
+        let netQuantity =
+          (totalBuyQuantity - totalSellQuantity) / quantityAdjustment;
 
         const absoluteNetQuantity = Math.abs(netQuantity);
 
         // Calculate average price
-        const averagePrice = totalQuantity > 0 ? (totalPriceQuantity / totalQuantity) : 0;
+        const averagePrice =
+          totalQuantity > 0 ? totalPriceQuantity / totalQuantity : 0;
 
         // Determine the tradeType based on the sign of netQuantity
-        const tradeType = netQuantity < 0 ? 'sell' : 'buy';
+        const tradeType = netQuantity < 0 ? "sell" : "buy";
 
         // Set action as opposite of tradeType
-        const action = tradeType === 'buy' ? 'sell' : 'buy';
+        const action = tradeType === "buy" ? "sell" : "buy";
 
         // Calculate investment value as absoluteNetQuantity * averagePrice
         const investmentValue = absoluteNetQuantity * averagePrice;
@@ -505,26 +1105,28 @@ const calculateNetQuantityByUser = async (req, res) => {
         return {
           instrumentIdentifier,
           netQuantity: parseFloat(absoluteNetQuantity.toFixed(2)),
-          averagePrice: parseFloat(averagePrice.toFixed(2)),       
-          investmentValue: parseFloat(investmentValue.toFixed(2)), 
+          averagePrice: parseFloat(averagePrice.toFixed(2)),
+          investmentValue: parseFloat(investmentValue.toFixed(2)),
           name,
           exchange,
           tradeType,
           status,
           price,
-          action
+          action,
         };
       })
       // Filter out trades where netQuantity is 0
-      .filter(trade => trade.netQuantity !== 0);
+      .filter((trade) => trade.netQuantity !== 0);
 
     res.status(200).json({ userId, netQuantities });
   } catch (error) {
-    console.error('Error in calculateNetQuantityByUser:', error);
-    res.status(500).json({ error: 'Error calculating net quantity by user', details: error.message });
+    console.error("Error in calculateNetQuantityByUser:", error);
+    res.status(500).json({
+      error: "Error calculating net quantity by user",
+      details: error.message,
+    });
   }
 };
-
 
 // const calculateNetQuantityByUser = async (req, res) => {
 //   try {
@@ -586,13 +1188,13 @@ const calculateNetQuantityByUser = async (req, res) => {
 
 //         return {
 //           instrumentIdentifier,
-//           netQuantity: absoluteNetQuantity, 
+//           netQuantity: absoluteNetQuantity,
 //           investmentValue,
 //           name,
 //           exchange,
 //           status,
 //           price,
-//           action: oppositeAction 
+//           action: oppositeAction
 //         };
 //       })
 //       // Filter out trades where netQuantity is 0
@@ -603,7 +1205,6 @@ const calculateNetQuantityByUser = async (req, res) => {
 //     res.status(500).json({ error: 'Error calculating net quantity by user', details: error.message });
 //   }
 // };
-
 
 // const calculateNetQuantityByUser = async (req, res) => {
 //   try {
@@ -637,7 +1238,7 @@ const calculateNetQuantityByUser = async (req, res) => {
 //       if (trade.tradeType === 'buy') {
 //         acc[trade.instrumentIdentifier].totalBuyQuantity += trade.quantity;
 //       } else if (trade.tradeType === 'sell') {
-//         acc[trade.instrumentIdentifier].totalSellQuantity -= trade.quantity; 
+//         acc[trade.instrumentIdentifier].totalSellQuantity -= trade.quantity;
 //       }
 
 //       return acc;
@@ -650,7 +1251,7 @@ const calculateNetQuantityByUser = async (req, res) => {
 
 //     // Create a map for quick lookup of QuotationLot
 //     const stockMap = stocks.reduce((acc, stock) => {
-//       acc[stock.InstrumentIdentifier] = stock.QuotationLot || 1; 
+//       acc[stock.InstrumentIdentifier] = stock.QuotationLot || 1;
 //       return acc;
 //     }, {});
 
@@ -691,11 +1292,11 @@ const calculateNetQuantityByUser = async (req, res) => {
 
 //         return {
 //           instrumentIdentifier,
-//           netQuantity: absoluteNetQuantity,  
-//           investmentValue,                  
+//           netQuantity: absoluteNetQuantity,
+//           investmentValue,
 //           name,
 //           exchange,
-//           tradeType,                         
+//           tradeType,
 //           status,
 //           price,
 //           action
@@ -709,7 +1310,6 @@ const calculateNetQuantityByUser = async (req, res) => {
 //     res.status(500).json({ error: 'Error calculating net quantity by user', details: error.message });
 //   }
 // };
-
 
 // const calculateNetQuantityByUser = async (req, res) => {
 //   try {
@@ -735,8 +1335,8 @@ const calculateNetQuantityByUser = async (req, res) => {
 //         acc[instrumentId] = {
 //           totalBuyQuantity: 0,
 //           totalSellQuantity: 0,
-//           totalPriceQuantity: 0, 
-//           totalQuantity: 0,     
+//           totalPriceQuantity: 0,
+//           totalQuantity: 0,
 //           name: trade.name,
 //           exchange: trade.exchange,
 //           status: trade.status,
@@ -764,7 +1364,7 @@ const calculateNetQuantityByUser = async (req, res) => {
 
 //     // Create a map for quick lookup of QuotationLot
 //     const stockMap = stocks.reduce((acc, stock) => {
-//       acc[stock.InstrumentIdentifier] = stock.QuotationLot || 1; 
+//       acc[stock.InstrumentIdentifier] = stock.QuotationLot || 1;
 //       return acc;
 //     }, {});
 
@@ -808,8 +1408,8 @@ const calculateNetQuantityByUser = async (req, res) => {
 //         return {
 //           instrumentIdentifier,
 //           netQuantity: parseFloat(absoluteNetQuantity.toFixed(2)),
-//           averagePrice: parseFloat(averagePrice.toFixed(2)),       
-//           investmentValue: parseFloat(investmentValue.toFixed(2)), 
+//           averagePrice: parseFloat(averagePrice.toFixed(2)),
+//           investmentValue: parseFloat(investmentValue.toFixed(2)),
 //           name,
 //           exchange,
 //           tradeType,
@@ -834,21 +1434,25 @@ const calculateMCXTradesByUser = async (req, res) => {
 
     // Validate userId
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ error: 'Invalid userId' });
+      return res.status(400).json({ error: "Invalid userId" });
     }
 
     // Fetch all trades for the given userId
     const trades = await Trade.find({ userId });
 
     if (trades.length === 0) {
-      return res.status(404).json({ error: 'No trades found for the specified user' });
+      return res
+        .status(404)
+        .json({ error: "No trades found for the specified user" });
     }
 
     // Filter trades to include only those with exchange 'MCX'
-    const mcxTrades = trades.filter(trade => trade.exchange === 'MCX');
+    const mcxTrades = trades.filter((trade) => trade.exchange === "MCX");
 
     if (mcxTrades.length === 0) {
-      return res.status(404).json({ error: 'No MCX trades found for the specified user' });
+      return res
+        .status(404)
+        .json({ error: "No MCX trades found for the specified user" });
     }
 
     // Group trades by instrumentIdentifier and calculate totals and saudaCount
@@ -859,13 +1463,13 @@ const calculateMCXTradesByUser = async (req, res) => {
         acc[instrumentIdentifier] = {
           totalBuyQuantity: 0,
           totalSellQuantity: 0,
-          saudaCount: 0
+          saudaCount: 0,
         };
       }
 
-      if (tradeType === 'buy') {
+      if (tradeType === "buy") {
         acc[instrumentIdentifier].totalBuyQuantity += quantity;
-      } else if (tradeType === 'sell') {
+      } else if (tradeType === "sell") {
         acc[instrumentIdentifier].totalSellQuantity += quantity;
       }
 
@@ -877,7 +1481,9 @@ const calculateMCXTradesByUser = async (req, res) => {
 
     // Fetch QuotationLot for each instrumentIdentifier from the Stock model
     const instrumentIdentifiers = Object.keys(instrumentMap);
-    const stocks = await Stock.find({ InstrumentIdentifier: { $in: instrumentIdentifiers } });
+    const stocks = await Stock.find({
+      InstrumentIdentifier: { $in: instrumentIdentifiers },
+    });
 
     const stockMap = stocks.reduce((acc, stock) => {
       acc[stock.InstrumentIdentifier] = stock.QuotationLot;
@@ -885,32 +1491,35 @@ const calculateMCXTradesByUser = async (req, res) => {
     }, {});
 
     // Create the response with the required calculations
-    const result = Object.keys(instrumentMap)
-      .map(instrumentIdentifier => {
-        const { totalBuyQuantity, totalSellQuantity } = instrumentMap[instrumentIdentifier];
-        const QuotationLot = stockMap[instrumentIdentifier] || null; // Default to null if not found
+    const result = Object.keys(instrumentMap).map((instrumentIdentifier) => {
+      const { totalBuyQuantity, totalSellQuantity } =
+        instrumentMap[instrumentIdentifier];
+      const QuotationLot = stockMap[instrumentIdentifier] || null; // Default to null if not found
 
-        // Perform the calculations
-        const totalBuyLots = QuotationLot ? totalBuyQuantity / QuotationLot : 0;
-        const totalSellLots = QuotationLot ? totalSellQuantity / QuotationLot : 0;
+      // Perform the calculations
+      const totalBuyLots = QuotationLot ? totalBuyQuantity / QuotationLot : 0;
+      const totalSellLots = QuotationLot ? totalSellQuantity / QuotationLot : 0;
 
-        // Determine the lowest value between totalBuyLots and totalSellLots
-        const lowestLots = Math.min(totalBuyLots, totalSellLots);
+      // Determine the lowest value between totalBuyLots and totalSellLots
+      const lowestLots = Math.min(totalBuyLots, totalSellLots);
 
-        return {
-          instrumentIdentifier,
-          totalBuyQuantity,
-          totalSellQuantity,
-          QuotationLot,
-          totalBuyLots: totalBuyLots.toFixed(2), // Limit to 2 decimal places
-          totalSellLots: totalSellLots.toFixed(2), // Limit to 2 decimal places
-          saudaCount: lowestLots.toFixed(2) // Set saudaCount to the lowest value
-        };
-      });
+      return {
+        instrumentIdentifier,
+        totalBuyQuantity,
+        totalSellQuantity,
+        QuotationLot,
+        totalBuyLots: totalBuyLots.toFixed(2), // Limit to 2 decimal places
+        totalSellLots: totalSellLots.toFixed(2), // Limit to 2 decimal places
+        saudaCount: lowestLots.toFixed(2), // Set saudaCount to the lowest value
+      };
+    });
 
     res.status(200).json({ userId, trades: result });
   } catch (error) {
-    res.status(500).json({ error: 'Error calculating trades by user', details: error.message });
+    res.status(500).json({
+      error: "Error calculating trades by user",
+      details: error.message,
+    });
   }
 };
 
@@ -983,14 +1592,18 @@ const getAllTradesByInstrumentIdentifier = async (req, res) => {
 
   try {
     if (!instrumentIdentifier) {
-      return res.status(400).json({ message: 'Instrument Identifier is required' });
+      return res
+        .status(400)
+        .json({ message: "Instrument Identifier is required" });
     }
 
     // Fetch all trades for the given instrumentIdentifier and userId
     const trades = await Trade.find({ instrumentIdentifier, userId }).exec();
 
     if (trades.length === 0) {
-      return res.status(404).json({ message: 'No trades found for this instrumentIdentifier' });
+      return res
+        .status(404)
+        .json({ message: "No trades found for this instrumentIdentifier" });
     }
 
     // Initialize quantities
@@ -998,10 +1611,10 @@ const getAllTradesByInstrumentIdentifier = async (req, res) => {
     let totalBuyQuantity = 0;
 
     // Calculate total quantities based on trade type
-    trades.forEach(trade => {
-      if (trade.tradeType === 'sell') {
+    trades.forEach((trade) => {
+      if (trade.tradeType === "sell") {
         totalSellQuantity += trade.quantity;
-      } else if (trade.tradeType === 'buy') {
+      } else if (trade.tradeType === "buy") {
         totalBuyQuantity += trade.quantity;
       }
     });
@@ -1014,14 +1627,14 @@ const getAllTradesByInstrumentIdentifier = async (req, res) => {
     const tradeList = [];
     if (netSellQuantity > 0) {
       tradeList.push({
-        action: 'buy', // Opposite of sell
-        quantity: netSellQuantity
+        action: "buy", // Opposite of sell
+        quantity: netSellQuantity,
       });
     }
     if (netBuyQuantity > 0) {
       tradeList.push({
-        action: 'sell', // Opposite of buy
-        quantity: netBuyQuantity
+        action: "sell", // Opposite of buy
+        quantity: netBuyQuantity,
       });
     }
 
@@ -1030,11 +1643,11 @@ const getAllTradesByInstrumentIdentifier = async (req, res) => {
       instrumentIdentifier,
       netSellQuantity: Math.max(netSellQuantity, 0),
       netBuyQuantity: Math.max(netBuyQuantity, 0),
-      trades: tradeList
+      trades: tradeList,
     });
   } catch (err) {
-    console.error('Error fetching trades or calculating quantities:', err);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Error fetching trades or calculating quantities:", err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -1045,24 +1658,23 @@ const getClientStockHistory = async (req, res) => {
 
     // Validate the userId format (assuming it's a valid ObjectId)
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ error: 'Invalid user ID format' });
+      return res.status(400).json({ error: "Invalid user ID format" });
     }
 
     // Fetch all trades for the given userId
     const trades = await Trade.find({ userId }).exec();
 
     if (!trades || trades.length === 0) {
-      return res.status(404).json({ message: 'No trades found for this user' });
+      return res.status(404).json({ message: "No trades found for this user" });
     }
 
     // Send the trades in the response
     res.status(200).json({ trades });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while fetching trades' });
+    res.status(500).json({ error: "An error occurred while fetching trades" });
   }
 };
-
 
 // Controller to get all NSE and MCX trade data and brokerage details by client object ID
 // const getTradesBrokerageByClientId = async (req, res) => {
@@ -1071,7 +1683,7 @@ const getClientStockHistory = async (req, res) => {
 
 //     // Find the client and include brokerage details
 //     const client = await Client.findById(clientId).select('share_brokerage mcx_brokerage_type mcx_brokerage');
-    
+
 //     if (!client) {
 //       return res.status(404).json({ message: "Client not found" });
 //     }
@@ -1114,7 +1726,7 @@ const getClientStockHistory = async (req, res) => {
 //       // Calculate saudas based on matching buys and sells
 //       for (const instrument in instrumentMap) {
 //         const { buy, sell } = instrumentMap[instrument];
-//         totalSaudas += Math.min(buy, sell); 
+//         totalSaudas += Math.min(buy, sell);
 //       }
 
 //       // Calculate total brokerage based on saudas
@@ -1143,9 +1755,9 @@ const getClientStockHistory = async (req, res) => {
 //       mcxTrades,
 //       totalMCXAmount,
 //       totalSaudas,
-//       brokeragePerMCX: brokeragePerMCX.toFixed(2), 
-//       totalAmount: totalAmount.toFixed(2), 
-//       totalBrokerage: totalBrokerage.toFixed(2) 
+//       brokeragePerMCX: brokeragePerMCX.toFixed(2),
+//       totalAmount: totalAmount.toFixed(2),
+//       totalBrokerage: totalBrokerage.toFixed(2)
 //     });
 //   } catch (error) {
 //     console.error(error);
@@ -1153,16 +1765,13 @@ const getClientStockHistory = async (req, res) => {
 //   }
 // };
 
-
-
-
 // const getTradesBrokerageByClientId = async (req, res) => {
 //   try {
 //     const { clientId } = req.params;
 
 //     // Find the client and include brokerage details
 //     const client = await Client.findById(clientId).select('share_brokerage mcx_brokerage_type mcx_brokerage currentbrokerage');
-    
+
 //     if (!client) {
 //       return res.status(404).json({ message: "Client not found" });
 //     }
@@ -1245,7 +1854,7 @@ const getClientStockHistory = async (req, res) => {
 //       // Calculate saudas based on matching buys and sells
 //       for (const instrument in instrumentMap) {
 //         const { buy, sell } = instrumentMap[instrument];
-//         totalSaudas += Math.min(buy, sell); 
+//         totalSaudas += Math.min(buy, sell);
 //       }
 
 //       // Calculate total brokerage based on saudas
@@ -1270,7 +1879,7 @@ const getClientStockHistory = async (req, res) => {
 //         share_brokerage: client.share_brokerage,
 //         mcx_brokerage_type: client.mcx_brokerage_type,
 //         mcx_brokerage: client.mcx_brokerage,
-//         currentbrokerage: totalBrokerage.toFixed(2), 
+//         currentbrokerage: totalBrokerage.toFixed(2),
 //       },
 //       nseTrades,
 //       totalNSEAmount,
@@ -1278,9 +1887,9 @@ const getClientStockHistory = async (req, res) => {
 //       mcxTrades: mcxTradeDetails,
 //       totalMCXAmount,
 //       totalSaudas,
-//       brokeragePerMCX: brokeragePerMCX.toFixed(2), 
-//       totalAmount: totalAmount.toFixed(2), 
-//       totalBrokerage: totalBrokerage.toFixed(2) 
+//       brokeragePerMCX: brokeragePerMCX.toFixed(2),
+//       totalAmount: totalAmount.toFixed(2),
+//       totalBrokerage: totalBrokerage.toFixed(2)
 //     });
 //   } catch (error) {
 //     console.error(error);
@@ -1288,43 +1897,598 @@ const getClientStockHistory = async (req, res) => {
 //   }
 // };
 
+// const getTradesBrokerageByClientId = async (req, res) => {
+//   try {
+//     const { clientId } = req.params;
+
+//     // Find the client and include brokerage details
+//     const client = await Client.findById(clientId).select(
+//       "share_brokerage mcx_brokerage_type mcx_brokerage currentbrokerage"
+//     );
+
+//     if (!client) {
+//       return res.status(404).json({ message: "Client not found" });
+//     }
+
+//     // Get all trades for the client in NSE exchange and MCX exchange
+//     const nseTrades = await Trade.find({ userId: clientId, exchange: "NSE" });
+//     const mcxTrades = await Trade.find({ userId: clientId, exchange: "MCX" });
+
+//     // Retrieve QuotationLot for MCX instruments
+//     const stockIdentifiers = [
+//       ...new Set(mcxTrades.map((trade) => trade.instrumentIdentifier)),
+//     ];
+//     const stockMap = await Stock.find({
+//       InstrumentIdentifier: { $in: stockIdentifiers },
+//     }).select("InstrumentIdentifier name product Exchange QuotationLot");
+
+//     // Update QuotationLot based on conditions
+//     const stockQuotationLotMap = {};
+//     stockMap.forEach((stock) => {
+//       if (
+//         stock.name === "GOLD" &&
+//         stock.product === "GOLD" &&
+//         stock.Exchange === "MCX"
+//       ) {
+//         stock.QuotationLot = 100;
+//       } else if (
+//         stock.name === "GOLDM" &&
+//         stock.product === "GOLDM" &&
+//         stock.Exchange === "MCX"
+//       ) {
+//         stock.QuotationLot = 10;
+//       }
+//       stockQuotationLotMap[stock.InstrumentIdentifier] = stock.QuotationLot;
+//     });
+
+//     // Save updated stocks to the database
+//     await Promise.all(stockMap.map((stock) => stock.save()));
+
+//     // Calculate the total amount for NSE trades (without using lot size)
+//     const totalNSEAmount = nseTrades.reduce((total, trade) => {
+//       return total + trade.price * trade.quantity;
+//     }, 0);
+
+//     // Calculate the total amount for MCX trades
+//     let totalMCXAmount;
+//     let mcxTradeDetails;
+
+//     if (client.mcx_brokerage_type === "per_crore") {
+//       // Calculate total MCX amount directly
+//       totalMCXAmount = mcxTrades.reduce((total, trade) => {
+//         return total + trade.price * trade.quantity;
+//       }, 0);
+//       mcxTradeDetails = mcxTrades; // No adjustments needed for lot size
+//     } else {
+//       // Calculate total MCX amount adjusted for lot size
+//       mcxTradeDetails = mcxTrades.map((trade) => {
+//         const lotSize = stockQuotationLotMap[trade.instrumentIdentifier] || 1;
+//         return {
+//           ...trade.toObject(),
+//           adjustedQuantity: trade.quantity / lotSize,
+//         };
+//       });
+
+//       totalMCXAmount = mcxTradeDetails.reduce((total, trade) => {
+//         return total + trade.price * trade.adjustedQuantity;
+//       }, 0);
+//     }
+
+//     // Initialize brokerage amounts
+//     let brokeragePerNSECrore = 0;
+//     let brokeragePerMCX = 0;
+//     let totalSaudas = 0;
+
+//     // Calculate brokerage amount for NSE (always per crore)
+//     if (totalNSEAmount > 0) {
+//       brokeragePerNSECrore =
+//         (totalNSEAmount / 10000000) * client.share_brokerage;
+//     }
+
+//     // MCX brokerage calculation logic
+//     if (client.mcx_brokerage_type === "per_sauda") {
+//       // Group trades by instrumentIdentifier and count buys and sells for sauda calculation
+//       const instrumentMap = {};
+
+//       mcxTradeDetails.forEach((trade) => {
+//         const instrument = trade.instrumentIdentifier;
+//         if (!instrumentMap[instrument]) {
+//           instrumentMap[instrument] = { buy: 0, sell: 0 };
+//         }
+//         if (trade.tradeType === "buy") {
+//           instrumentMap[instrument].buy += trade.adjustedQuantity;
+//         } else if (trade.tradeType === "sell") {
+//           instrumentMap[instrument].sell += trade.adjustedQuantity;
+//         }
+//       });
+
+//       // Calculate saudas based on matching buys and sells
+//       for (const instrument in instrumentMap) {
+//         const { buy, sell } = instrumentMap[instrument];
+//         totalSaudas += Math.min(buy, sell);
+//       }
+
+//       // Calculate total brokerage based on saudas
+//       brokeragePerMCX = totalSaudas * client.mcx_brokerage;
+//     } else if (client.mcx_brokerage_type === "per_crore") {
+//       // Calculate brokerage per crore for MCX directly
+//       brokeragePerMCX = (totalMCXAmount / 10000000) * client.mcx_brokerage;
+//     }
+
+//     // Calculate total amount and total brokerage
+//     const totalAmount = totalNSEAmount + totalMCXAmount;
+//     const totalBrokerage = brokeragePerNSECrore + brokeragePerMCX;
+
+//     // Update the client's currentbrokerage field
+//     await Client.findByIdAndUpdate(clientId, {
+//       currentbrokerage: totalBrokerage.toFixed(2),
+//     });
+
+//     // Return trade data along with brokerage details, total amounts, and brokerage per crore/sauda for both NSE and MCX
+//     res.status(200).json({
+//       success: true,
+//       client: {
+//         share_brokerage: client.share_brokerage,
+//         mcx_brokerage_type: client.mcx_brokerage_type,
+//         mcx_brokerage: client.mcx_brokerage,
+//         currentbrokerage: totalBrokerage.toFixed(2),
+//       },
+//       nseTrades,
+//       totalNSEAmount,
+//       brokeragePerNSECrore: brokeragePerNSECrore.toFixed(2),
+//       mcxTrades: mcxTradeDetails,
+//       totalMCXAmount,
+//       totalSaudas,
+//       brokeragePerMCX: brokeragePerMCX.toFixed(2),
+//       totalAmount: totalAmount.toFixed(2),
+//       totalBrokerage: totalBrokerage.toFixed(2),
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server error", error });
+//   }
+// };
+
+// const getTradesBrokerageByClientId = async (req, res) => {
+//   try {
+//     const { clientId } = req.params;
+
+//     // Find the client and include brokerage details
+//     const client = await Client.findById(clientId).select(
+//       "share_brokerage mcx_brokerage_type mcx_brokerage currentbrokerage brokeragePerMCX brokeragePerNSECrore"
+//     );
+
+//     if (!client) {
+//       return res.status(404).json({ message: "Client not found" });
+//     }
+
+//     // Get all trades for the client in NSE exchange and MCX exchange
+//     const nseTrades = await Trade.find({ userId: clientId, exchange: "NSE" });
+//     const mcxTrades = await Trade.find({ userId: clientId, exchange: "MCX" });
+
+//     // Retrieve QuotationLot for MCX instruments
+//     const stockIdentifiers = [
+//       ...new Set(mcxTrades.map((trade) => trade.instrumentIdentifier)),
+//     ];
+//     const stockMap = await Stock.find({
+//       InstrumentIdentifier: { $in: stockIdentifiers },
+//     }).select("InstrumentIdentifier name product Exchange QuotationLot");
+
+//     // Update QuotationLot based on conditions
+//     const stockQuotationLotMap = {};
+//     stockMap.forEach((stock) => {
+//       if (
+//         stock.name === "GOLD" &&
+//         stock.product === "GOLD" &&
+//         stock.Exchange === "MCX"
+//       ) {
+//         stock.QuotationLot = 100;
+//       } else if (
+//         stock.name === "GOLDM" &&
+//         stock.product === "GOLDM" &&
+//         stock.Exchange === "MCX"
+//       ) {
+//         stock.QuotationLot = 10;
+//       }
+//       stockQuotationLotMap[stock.InstrumentIdentifier] = stock.QuotationLot;
+//     });
+
+//     // Save updated stocks to the database
+//     await Promise.all(stockMap.map((stock) => stock.save()));
+
+//     // Calculate the total amount for NSE trades (without using lot size)
+//     const totalNSEAmount = nseTrades.reduce((total, trade) => {
+//       return total + trade.price * trade.quantity;
+//     }, 0);
+
+//     // Calculate the total amount for MCX trades
+//     let totalMCXAmount;
+//     let mcxTradeDetails;
+
+//     if (client.mcx_brokerage_type === "per_crore") {
+//       // Calculate total MCX amount directly
+//       totalMCXAmount = mcxTrades.reduce((total, trade) => {
+//         return total + trade.price * trade.quantity;
+//       }, 0);
+//       mcxTradeDetails = mcxTrades; // No adjustments needed for lot size
+//     } else {
+//       // Calculate total MCX amount adjusted for lot size
+//       mcxTradeDetails = mcxTrades.map((trade) => {
+//         const lotSize = stockQuotationLotMap[trade.instrumentIdentifier] || 1;
+//         return {
+//           ...trade.toObject(),
+//           adjustedQuantity: trade.quantity / lotSize,
+//         };
+//       });
+
+//       totalMCXAmount = mcxTradeDetails.reduce((total, trade) => {
+//         return total + trade.price * trade.adjustedQuantity;
+//       }, 0);
+//     }
+
+//     // Initialize brokerage amounts
+//     let brokeragePerNSECrore = 0;
+//     let brokeragePerMCX = 0;
+//     let totalSaudas = 0;
+
+//     // Calculate brokerage amount for NSE (always per crore)
+//     if (totalNSEAmount > 0) {
+//       brokeragePerNSECrore =
+//         (totalNSEAmount / 10000000) * client.share_brokerage;
+//     }
+
+//     // MCX brokerage calculation logic
+//     if (client.mcx_brokerage_type === "per_sauda") {
+//       // Group trades by instrumentIdentifier and count buys and sells for sauda calculation
+//       const instrumentMap = {};
+
+//       mcxTradeDetails.forEach((trade) => {
+//         const instrument = trade.instrumentIdentifier;
+//         if (!instrumentMap[instrument]) {
+//           instrumentMap[instrument] = { buy: 0, sell: 0 };
+//         }
+//         if (trade.tradeType === "buy") {
+//           instrumentMap[instrument].buy += trade.adjustedQuantity;
+//         } else if (trade.tradeType === "sell") {
+//           instrumentMap[instrument].sell += trade.adjustedQuantity;
+//         }
+//       });
+
+//       // Calculate saudas based on matching buys and sells
+//       for (const instrument in instrumentMap) {
+//         const { buy, sell } = instrumentMap[instrument];
+//         totalSaudas += Math.min(buy, sell);
+//       }
+
+//       // Calculate total brokerage based on saudas
+//       brokeragePerMCX = totalSaudas * client.mcx_brokerage;
+//     } else if (client.mcx_brokerage_type === "per_crore") {
+//       // Calculate brokerage per crore for MCX directly
+//       brokeragePerMCX = (totalMCXAmount / 10000000) * client.mcx_brokerage;
+//     }
+
+//     // Calculate total amount and total brokerage
+//     const totalAmount = totalNSEAmount + totalMCXAmount;
+//     const totalBrokerage = brokeragePerNSECrore + brokeragePerMCX;
+
+//     // Update the client's currentbrokerage field and brokeragePerMCX / brokeragePerNSECrore
+//     await Client.findByIdAndUpdate(clientId, {
+//       currentbrokerage: totalBrokerage.toFixed(2),
+//       brokeragePerMCX: brokeragePerMCX.toFixed(2),
+//       brokeragePerNSECrore: brokeragePerNSECrore.toFixed(2),
+//     });
+
+//     // Return trade data along with brokerage details, total amounts, and brokerage per crore/sauda for both NSE and MCX
+//     res.status(200).json({
+//       success: true,
+//       client: {
+//         share_brokerage: client.share_brokerage,
+//         mcx_brokerage_type: client.mcx_brokerage_type,
+//         mcx_brokerage: client.mcx_brokerage,
+//         currentbrokerage: totalBrokerage.toFixed(2),
+//         brokeragePerMCX: brokeragePerMCX.toFixed(2),
+//         brokeragePerNSECrore: brokeragePerNSECrore.toFixed(2),
+//       },
+//       nseTrades,
+//       totalNSEAmount,
+//       brokeragePerNSECrore: brokeragePerNSECrore.toFixed(2),
+//       mcxTrades: mcxTradeDetails,
+//       totalMCXAmount,
+//       totalSaudas,
+//       brokeragePerMCX: brokeragePerMCX.toFixed(2),
+//       totalAmount: totalAmount.toFixed(2),
+//       totalBrokerage: totalBrokerage.toFixed(2),
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server error", error });
+//   }
+// };
+
+// const getTradesBrokerageByClientId = async (req, res) => {
+//   try {
+//     const { clientId } = req.params;
+
+//     // Find the client and include brokerage details
+//     const client = await Client.findById(clientId).select(
+//       "share_brokerage mcx_brokerage_type mcx_brokerage currentbrokerage brokeragePerMCX brokeragePerNSECrore master_admin_id"
+//     );
+
+//     if (!client) {
+//       return res.status(404).json({ message: "Client not found" });
+//     }
+
+//     // Fetch the MasterAdmin details using the master_admin_id
+//     const masterAdmin = await MasterAdmin.findById(
+//       client.master_admin_id
+//     ).select("share_brokerage mcx_brokerage_type mcx_brokerage");
+
+//     if (!masterAdmin) {
+//       return res.status(404).json({ message: "MasterAdmin not found" });
+//     }
+
+//     // Get all trades for the client in NSE exchange and MCX exchange
+//     const nseTrades = await Trade.find({ userId: clientId, exchange: "NSE" });
+//     const mcxTrades = await Trade.find({ userId: clientId, exchange: "MCX" });
+
+//     // Retrieve QuotationLot for MCX instruments
+//     const stockIdentifiers = [
+//       ...new Set(mcxTrades.map((trade) => trade.instrumentIdentifier)),
+//     ];
+//     const stockMap = await Stock.find({
+//       InstrumentIdentifier: { $in: stockIdentifiers },
+//     }).select("InstrumentIdentifier name product Exchange QuotationLot");
+
+//     // Update QuotationLot based on conditions
+//     const stockQuotationLotMap = {};
+//     stockMap.forEach((stock) => {
+//       if (
+//         stock.name === "GOLD" &&
+//         stock.product === "GOLD" &&
+//         stock.Exchange === "MCX"
+//       ) {
+//         stock.QuotationLot = 100;
+//       } else if (
+//         stock.name === "GOLDM" &&
+//         stock.product === "GOLDM" &&
+//         stock.Exchange === "MCX"
+//       ) {
+//         stock.QuotationLot = 10;
+//       }
+//       stockQuotationLotMap[stock.InstrumentIdentifier] = stock.QuotationLot;
+//     });
+
+//     // Save updated stocks to the database
+//     await Promise.all(stockMap.map((stock) => stock.save()));
+
+//     // Calculate the total amount for NSE trades (without using lot size)
+//     const totalNSEAmount = nseTrades.reduce((total, trade) => {
+//       return total + trade.price * trade.quantity;
+//     }, 0);
+
+//     // Calculate the total amount for MCX trades
+//     let totalMCXAmount;
+//     let mcxTradeDetails;
+
+//     if (client.mcx_brokerage_type === "per_crore") {
+//       // Calculate total MCX amount directly
+//       totalMCXAmount = mcxTrades.reduce((total, trade) => {
+//         return total + trade.price * trade.quantity;
+//       }, 0);
+//       mcxTradeDetails = mcxTrades; // No adjustments needed for lot size
+//     } else {
+//       // Calculate total MCX amount adjusted for lot size
+//       mcxTradeDetails = mcxTrades.map((trade) => {
+//         const lotSize = stockQuotationLotMap[trade.instrumentIdentifier] || 1;
+//         return {
+//           ...trade.toObject(),
+//           adjustedQuantity: trade.quantity / lotSize,
+//         };
+//       });
+
+//       totalMCXAmount = mcxTradeDetails.reduce((total, trade) => {
+//         return total + trade.price * trade.adjustedQuantity;
+//       }, 0);
+//     }
+
+//     // Initialize brokerage amounts for client
+//     let brokeragePerNSECrore = 0;
+//     let brokeragePerMCX = 0;
+//     let totalSaudas = 0;
+
+//     // Calculate brokerage amount for NSE (always per crore)
+//     if (totalNSEAmount > 0) {
+//       brokeragePerNSECrore =
+//         (totalNSEAmount / 10000000) * client.share_brokerage;
+//     }
+
+//     // MCX brokerage calculation logic for client
+//     if (client.mcx_brokerage_type === "per_sauda") {
+//       const instrumentMap = {};
+
+//       mcxTradeDetails.forEach((trade) => {
+//         const instrument = trade.instrumentIdentifier;
+//         if (!instrumentMap[instrument]) {
+//           instrumentMap[instrument] = { buy: 0, sell: 0 };
+//         }
+//         if (trade.tradeType === "buy") {
+//           instrumentMap[instrument].buy += trade.adjustedQuantity;
+//         } else if (trade.tradeType === "sell") {
+//           instrumentMap[instrument].sell += trade.adjustedQuantity;
+//         }
+//       });
+
+//       for (const instrument in instrumentMap) {
+//         const { buy, sell } = instrumentMap[instrument];
+//         totalSaudas += Math.min(buy, sell);
+//       }
+
+//       brokeragePerMCX = totalSaudas * client.mcx_brokerage;
+//     } else if (client.mcx_brokerage_type === "per_crore") {
+//       brokeragePerMCX = (totalMCXAmount / 10000000) * client.mcx_brokerage;
+//     }
+
+//     // Total amount and brokerage for client
+//     const totalAmount = totalNSEAmount + totalMCXAmount;
+//     const totalBrokerage = brokeragePerNSECrore + brokeragePerMCX;
+
+//     // Update the client's currentbrokerage field and brokeragePerMCX / brokeragePerNSECrore
+//     await Client.findByIdAndUpdate(clientId, {
+//       currentbrokerage: totalBrokerage.toFixed(2),
+//       brokeragePerMCX: brokeragePerMCX.toFixed(2),
+//       brokeragePerNSECrore: brokeragePerNSECrore.toFixed(2),
+//     });
+
+//     // Perform similar calculations for MasterAdmin's brokerage
+//     let masterAdminBrokeragePerNSECrore = 0;
+//     let masterAdminBrokeragePerMCX = 0;
+//     let masterAdminTotalSaudas = 0;
+
+//     const totalMasterAdminNSEAmount = totalNSEAmount; // MasterAdmin uses the same NSE trades
+//     const totalMasterAdminMCXAmount = mcxTradeDetails.reduce((total, trade) => {
+//       return total + trade.price * trade.adjustedQuantity;
+//     }, 0);
+
+//     // Calculate MasterAdmin brokerage for NSE
+//     if (totalMasterAdminNSEAmount > 0) {
+//       masterAdminBrokeragePerNSECrore =
+//         (totalMasterAdminNSEAmount / 10000000) * masterAdmin.share_brokerage;
+//     }
+
+//     // MasterAdmin MCX brokerage calculation
+//     if (masterAdmin.mcx_brokerage_type === "per_sauda") {
+//       const instrumentMap = {};
+
+//       mcxTradeDetails.forEach((trade) => {
+//         const instrument = trade.instrumentIdentifier;
+//         if (!instrumentMap[instrument]) {
+//           instrumentMap[instrument] = { buy: 0, sell: 0 };
+//         }
+//         if (trade.tradeType === "buy") {
+//           instrumentMap[instrument].buy += trade.adjustedQuantity;
+//         } else if (trade.tradeType === "sell") {
+//           instrumentMap[instrument].sell += trade.adjustedQuantity;
+//         }
+//       });
+
+//       for (const instrument in instrumentMap) {
+//         const { buy, sell } = instrumentMap[instrument];
+//         masterAdminTotalSaudas += Math.min(buy, sell);
+//       }
+
+//       masterAdminBrokeragePerMCX =
+//         masterAdminTotalSaudas * masterAdmin.mcx_brokerage;
+//     } else if (masterAdmin.mcx_brokerage_type === "per_crore") {
+//       masterAdminBrokeragePerMCX =
+//         (totalMasterAdminMCXAmount / 10000000) * masterAdmin.mcx_brokerage;
+//     }
+
+//     const masterAdminTotalAmount =
+//       totalMasterAdminNSEAmount + totalMasterAdminMCXAmount;
+//     const masterAdminTotalBrokerage =
+//       masterAdminBrokeragePerNSECrore + masterAdminBrokeragePerMCX;
+
+//     // Calculate the difference between client and master admin current brokerages
+//     const finalMasterBrokerage = (
+//       parseFloat(client.currentbrokerage) -
+//       parseFloat(masterAdminTotalBrokerage)
+//     ).toFixed(2);
+
+//     // Respond with both client and master admin data
+//     res.status(200).json({
+//       success: true,
+//       client: {
+//         share_brokerage: client.share_brokerage,
+//         mcx_brokerage_type: client.mcx_brokerage_type,
+//         mcx_brokerage: client.mcx_brokerage,
+//         currentbrokerage: totalBrokerage.toFixed(2),
+//         brokeragePerMCX: brokeragePerMCX.toFixed(2),
+//         brokeragePerNSECrore: brokeragePerNSECrore.toFixed(2),
+//       },
+//       masterAdmin: {
+//         share_brokerage: masterAdmin.share_brokerage,
+//         mcx_brokerage_type: masterAdmin.mcx_brokerage_type,
+//         mcx_brokerage: masterAdmin.mcx_brokerage,
+//         currentbrokerage: masterAdminTotalBrokerage.toFixed(2),
+//         brokeragePerMCX: masterAdminBrokeragePerMCX.toFixed(2),
+//         brokeragePerNSECrore: masterAdminBrokeragePerNSECrore.toFixed(2),
+//       },
+//       finalMasterBrokerage: finalMasterBrokerage,
+//       nseTrades,
+//       totalNSEAmount,
+//       brokeragePerNSECrore: brokeragePerNSECrore.toFixed(2),
+//       mcxTrades: mcxTradeDetails,
+//       totalMCXAmount,
+//       totalSaudas,
+//       brokeragePerMCX: brokeragePerMCX.toFixed(2),
+//       totalAmount: totalAmount.toFixed(2),
+//       totalBrokerage: totalBrokerage.toFixed(2),
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server error", error });
+//   }
+// };
 
 const getTradesBrokerageByClientId = async (req, res) => {
   try {
     const { clientId } = req.params;
 
     // Find the client and include brokerage details
-    const client = await Client.findById(clientId).select('share_brokerage mcx_brokerage_type mcx_brokerage currentbrokerage');
-    
+    const client = await Client.findById(clientId).select(
+      "share_brokerage mcx_brokerage_type mcx_brokerage currentbrokerage brokeragePerMCX brokeragePerNSECrore master_admin_id finalMasterBrokerage"
+    );
+
     if (!client) {
       return res.status(404).json({ message: "Client not found" });
     }
 
+    // Fetch the MasterAdmin details using the master_admin_id
+    const masterAdmin = await MasterAdmin.findById(
+      client.master_admin_id
+    ).select("share_brokerage mcx_brokerage_type mcx_brokerage");
+
+    if (!masterAdmin) {
+      return res.status(404).json({ message: "MasterAdmin not found" });
+    }
+
     // Get all trades for the client in NSE exchange and MCX exchange
-    const nseTrades = await Trade.find({ userId: clientId, exchange: 'NSE' });
-    const mcxTrades = await Trade.find({ userId: clientId, exchange: 'MCX' });
+    const nseTrades = await Trade.find({ userId: clientId, exchange: "NSE" });
+    const mcxTrades = await Trade.find({ userId: clientId, exchange: "MCX" });
 
     // Retrieve QuotationLot for MCX instruments
-    const stockIdentifiers = [...new Set(mcxTrades.map(trade => trade.instrumentIdentifier))];
-    const stockMap = await Stock.find({ InstrumentIdentifier: { $in: stockIdentifiers } }).select('InstrumentIdentifier name product Exchange QuotationLot');
+    const stockIdentifiers = [
+      ...new Set(mcxTrades.map((trade) => trade.instrumentIdentifier)),
+    ];
+    const stockMap = await Stock.find({
+      InstrumentIdentifier: { $in: stockIdentifiers },
+    }).select("InstrumentIdentifier name product Exchange QuotationLot");
 
     // Update QuotationLot based on conditions
     const stockQuotationLotMap = {};
-    stockMap.forEach(stock => {
-      if (stock.name === 'GOLD' && stock.product === 'GOLD' && stock.Exchange === 'MCX') {
+    stockMap.forEach((stock) => {
+      if (
+        stock.name === "GOLD" &&
+        stock.product === "GOLD" &&
+        stock.Exchange === "MCX"
+      ) {
         stock.QuotationLot = 100;
-      } else if (stock.name === 'GOLDM' && stock.product === 'GOLDM' && stock.Exchange === 'MCX') {
+      } else if (
+        stock.name === "GOLDM" &&
+        stock.product === "GOLDM" &&
+        stock.Exchange === "MCX"
+      ) {
         stock.QuotationLot = 10;
       }
       stockQuotationLotMap[stock.InstrumentIdentifier] = stock.QuotationLot;
     });
 
     // Save updated stocks to the database
-    await Promise.all(stockMap.map(stock => stock.save()));
+    await Promise.all(stockMap.map((stock) => stock.save()));
 
     // Calculate the total amount for NSE trades (without using lot size)
     const totalNSEAmount = nseTrades.reduce((total, trade) => {
-      return total + (trade.price * trade.quantity);
+      return total + trade.price * trade.quantity;
     }, 0);
 
     // Calculate the total amount for MCX trades
@@ -1332,103 +2496,243 @@ const getTradesBrokerageByClientId = async (req, res) => {
     let mcxTradeDetails;
 
     if (client.mcx_brokerage_type === "per_crore") {
-      // Calculate total MCX amount directly
+      // Calculate total MCX amount directly for per_crore type
       totalMCXAmount = mcxTrades.reduce((total, trade) => {
-        return total + (trade.price * trade.quantity);
+        return total + trade.price * trade.quantity;
       }, 0);
       mcxTradeDetails = mcxTrades; // No adjustments needed for lot size
     } else {
       // Calculate total MCX amount adjusted for lot size
-      mcxTradeDetails = mcxTrades.map(trade => {
+      mcxTradeDetails = mcxTrades.map((trade) => {
         const lotSize = stockQuotationLotMap[trade.instrumentIdentifier] || 1;
         return {
           ...trade.toObject(),
-          adjustedQuantity: trade.quantity / lotSize
+          adjustedQuantity: trade.quantity / lotSize,
         };
       });
 
       totalMCXAmount = mcxTradeDetails.reduce((total, trade) => {
-        return total + (trade.price * trade.adjustedQuantity);
+        return total + trade.price * trade.adjustedQuantity;
       }, 0);
     }
 
-    // Initialize brokerage amounts
+    // Initialize brokerage amounts for client
     let brokeragePerNSECrore = 0;
     let brokeragePerMCX = 0;
     let totalSaudas = 0;
 
     // Calculate brokerage amount for NSE (always per crore)
     if (totalNSEAmount > 0) {
-      brokeragePerNSECrore = (totalNSEAmount / 10000000) * client.share_brokerage;
+      brokeragePerNSECrore =
+        (totalNSEAmount / 10000000) * client.share_brokerage;
     }
 
-    // MCX brokerage calculation logic
+    // MCX brokerage calculation logic for client
     if (client.mcx_brokerage_type === "per_sauda") {
-      // Group trades by instrumentIdentifier and count buys and sells for sauda calculation
       const instrumentMap = {};
 
-      mcxTradeDetails.forEach(trade => {
+      mcxTradeDetails.forEach((trade) => {
         const instrument = trade.instrumentIdentifier;
         if (!instrumentMap[instrument]) {
           instrumentMap[instrument] = { buy: 0, sell: 0 };
         }
-        if (trade.tradeType === 'buy') {
+        if (trade.tradeType === "buy") {
           instrumentMap[instrument].buy += trade.adjustedQuantity;
-        } else if (trade.tradeType === 'sell') {
+        } else if (trade.tradeType === "sell") {
           instrumentMap[instrument].sell += trade.adjustedQuantity;
         }
       });
 
-      // Calculate saudas based on matching buys and sells
       for (const instrument in instrumentMap) {
         const { buy, sell } = instrumentMap[instrument];
-        totalSaudas += Math.min(buy, sell); 
+        totalSaudas += Math.min(buy, sell);
       }
 
-      // Calculate total brokerage based on saudas
-      brokeragePerMCX = (totalSaudas * client.mcx_brokerage);
-
+      brokeragePerMCX = totalSaudas * client.mcx_brokerage;
     } else if (client.mcx_brokerage_type === "per_crore") {
-      // Calculate brokerage per crore for MCX directly
-      brokeragePerMCX = ((totalMCXAmount / 10000000) * client.mcx_brokerage);
+      brokeragePerMCX = (totalMCXAmount / 10000000) * client.mcx_brokerage;
     }
 
-    // Calculate total amount and total brokerage
+    // Total amount and brokerage for client
     const totalAmount = totalNSEAmount + totalMCXAmount;
     const totalBrokerage = brokeragePerNSECrore + brokeragePerMCX;
 
-    // Update the client's currentbrokerage field
-    await Client.findByIdAndUpdate(clientId, { currentbrokerage: totalBrokerage.toFixed(2) });
+    // Update the client's currentbrokerage field and brokeragePerMCX / brokeragePerNSECrore
+    const updatedClient = await Client.findByIdAndUpdate(
+      clientId,
+      {
+        currentbrokerage: isNaN(totalBrokerage) ? 0 : totalBrokerage.toFixed(2),
+        brokeragePerMCX: isNaN(brokeragePerMCX)
+          ? 0
+          : brokeragePerMCX.toFixed(2),
+        brokeragePerNSECrore: isNaN(brokeragePerNSECrore)
+          ? 0
+          : brokeragePerNSECrore.toFixed(2),
+      },
+      { new: true }
+    );
 
-    // Return trade data along with brokerage details, total amounts, and brokerage per crore/sauda for both NSE and MCX
+    // Perform similar calculations for MasterAdmin's brokerage
+    let masterAdminBrokeragePerNSECrore = 0;
+    let masterAdminBrokeragePerMCX = 0;
+    let masterAdminTotalSaudas = 0;
+
+    // Calculate totalMasterAdminMCXAmount based on masterAdmin's brokerage type
+    let totalMasterAdminMCXAmount;
+    if (masterAdmin.mcx_brokerage_type === "per_crore") {
+      // For 'per_crore', use original trade quantities
+      totalMasterAdminMCXAmount = mcxTrades.reduce((total, trade) => {
+        return total + trade.price * trade.quantity;
+      }, 0);
+    } else {
+      // For 'per_sauda', use adjusted quantities
+      totalMasterAdminMCXAmount = mcxTradeDetails.reduce((total, trade) => {
+        return total + trade.price * trade.adjustedQuantity;
+      }, 0);
+    }
+
+    // Calculate MasterAdmin brokerage for NSE
+    if (totalNSEAmount > 0) {
+      masterAdminBrokeragePerNSECrore =
+        (totalNSEAmount / 10000000) * masterAdmin.share_brokerage;
+    }
+
+    // MasterAdmin MCX brokerage calculation
+    if (masterAdmin.mcx_brokerage_type === "per_sauda") {
+      const instrumentMap = {};
+
+      mcxTradeDetails.forEach((trade) => {
+        const instrument = trade.instrumentIdentifier;
+        if (!instrumentMap[instrument]) {
+          instrumentMap[instrument] = { buy: 0, sell: 0 };
+        }
+        if (trade.tradeType === "buy") {
+          instrumentMap[instrument].buy += trade.adjustedQuantity;
+        } else if (trade.tradeType === "sell") {
+          instrumentMap[instrument].sell += trade.adjustedQuantity;
+        }
+      });
+
+      for (const instrument in instrumentMap) {
+        const { buy, sell } = instrumentMap[instrument];
+        masterAdminTotalSaudas += Math.min(buy, sell);
+      }
+
+      masterAdminBrokeragePerMCX =
+        masterAdminTotalSaudas * masterAdmin.mcx_brokerage;
+    } else if (masterAdmin.mcx_brokerage_type === "per_crore") {
+      masterAdminBrokeragePerMCX =
+        (totalMasterAdminMCXAmount / 10000000) * masterAdmin.mcx_brokerage;
+    }
+
+    const masterAdminTotalBrokerage =
+      masterAdminBrokeragePerNSECrore + masterAdminBrokeragePerMCX;
+
+    // Calculate the difference between client and master admin current brokerages
+    const finalMasterBrokerage = (
+      parseFloat(updatedClient.currentbrokerage) -
+      parseFloat(masterAdminTotalBrokerage)
+    ).toFixed(2);
+
+    // Calculate finalMasterMCXBrokerage and finalMasterNSEBrokerage
+    const finalMasterMCXBrokerage = (
+      parseFloat(updatedClient.brokeragePerMCX) -
+      parseFloat(masterAdminBrokeragePerMCX)
+    ).toFixed(2);
+    const finalMasterNSEBrokerage = (
+      parseFloat(updatedClient.brokeragePerNSECrore) -
+      parseFloat(masterAdminBrokeragePerNSECrore)
+    ).toFixed(2);
+
+    // Update the finalMasterBrokerage, finalMasterMCXBrokerage, and finalMasterNSEBrokerage for the client
+    await Client.findByIdAndUpdate(clientId, {
+      finalMasterBrokerage: isNaN(finalMasterBrokerage)
+        ? 0
+        : finalMasterBrokerage,
+      finalMasterMCXBrokerage: isNaN(finalMasterMCXBrokerage)
+        ? 0
+        : finalMasterMCXBrokerage,
+      finalMasterNSEBrokerage: isNaN(finalMasterNSEBrokerage)
+        ? 0
+        : finalMasterNSEBrokerage,
+    });
+
+    // Respond with both client and master admin data
     res.status(200).json({
       success: true,
       client: {
         share_brokerage: client.share_brokerage,
         mcx_brokerage_type: client.mcx_brokerage_type,
         mcx_brokerage: client.mcx_brokerage,
-        currentbrokerage: totalBrokerage.toFixed(2), 
+        currentbrokerage: isNaN(updatedClient.currentbrokerage)
+          ? 0
+          : updatedClient.currentbrokerage.toFixed(2),
+        brokeragePerMCX: isNaN(brokeragePerMCX)
+          ? 0
+          : brokeragePerMCX.toFixed(2),
+        brokeragePerNSECrore: isNaN(brokeragePerNSECrore)
+          ? 0
+          : brokeragePerNSECrore.toFixed(2),
+        finalMasterBrokerage: isNaN(finalMasterBrokerage)
+          ? 0
+          : finalMasterBrokerage,
+        finalMasterMCXBrokerage: isNaN(finalMasterMCXBrokerage)
+          ? 0
+          : finalMasterMCXBrokerage,
+        finalMasterNSEBrokerage: isNaN(finalMasterNSEBrokerage)
+          ? 0
+          : finalMasterNSEBrokerage,
       },
+      masterAdmin: {
+        share_brokerage: masterAdmin.share_brokerage,
+        mcx_brokerage_type: masterAdmin.mcx_brokerage_type,
+        mcx_brokerage: masterAdmin.mcx_brokerage,
+        currentbrokerage: isNaN(masterAdminTotalBrokerage)
+          ? 0
+          : masterAdminTotalBrokerage.toFixed(2),
+        brokeragePerMCX: isNaN(masterAdminBrokeragePerMCX)
+          ? 0
+          : masterAdminBrokeragePerMCX.toFixed(2),
+        brokeragePerNSECrore: isNaN(masterAdminBrokeragePerNSECrore)
+          ? 0
+          : masterAdminBrokeragePerNSECrore.toFixed(2),
+      },
+      finalMasterBrokerage: isNaN(finalMasterBrokerage)
+        ? 0
+        : finalMasterBrokerage,
+      finalMasterMCXBrokerage: isNaN(finalMasterMCXBrokerage)
+        ? 0
+        : finalMasterMCXBrokerage,
+      finalMasterNSEBrokerage: isNaN(finalMasterNSEBrokerage)
+        ? 0
+        : finalMasterNSEBrokerage,
+      finalMasterMCXBrokerage: isNaN(finalMasterMCXBrokerage)
+        ? 0
+        : finalMasterMCXBrokerage,
+      finalMasterNSEBrokerage: isNaN(finalMasterNSEBrokerage)
+        ? 0
+        : finalMasterNSEBrokerage,
       nseTrades,
-      totalNSEAmount,
-      brokeragePerNSECrore: brokeragePerNSECrore.toFixed(2),
+      totalNSEAmount: isNaN(totalNSEAmount) ? 0 : totalNSEAmount.toFixed(2),
+      brokeragePerNSECrore: isNaN(brokeragePerNSECrore)
+        ? 0
+        : brokeragePerNSECrore.toFixed(2),
       mcxTrades: mcxTradeDetails,
-      totalMCXAmount,
-      totalSaudas,
-      brokeragePerMCX: brokeragePerMCX.toFixed(2), 
-      totalAmount: totalAmount.toFixed(2), 
-      totalBrokerage: totalBrokerage.toFixed(2) 
+      totalMCXAmount: isNaN(totalMCXAmount) ? 0 : totalMCXAmount.toFixed(2),
+      totalSaudas: isNaN(totalSaudas) ? 0 : totalSaudas,
+      brokeragePerMCX: isNaN(brokeragePerMCX) ? 0 : brokeragePerMCX.toFixed(2),
+      totalAmount: isNaN(totalAmount) ? 0 : totalAmount.toFixed(2),
+      totalBrokerage: isNaN(totalBrokerage) ? 0 : totalBrokerage.toFixed(2),
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error', error });
+    res.status(500).json({ message: "Server error", error });
   }
 };
 
-
-
 module.exports = {
   addTrade,
+  getTotalTrades,
   getTrades,
   deleteTrade,
   getTradesByInstrumentIdentifier,
@@ -1437,5 +2741,5 @@ module.exports = {
   calculateMCXTradesByUser,
   getAllTradesByInstrumentIdentifier,
   getClientStockHistory,
-  getTradesBrokerageByClientId
+  getTradesBrokerageByClientId,
 };

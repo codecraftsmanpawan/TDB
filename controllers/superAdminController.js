@@ -1,9 +1,9 @@
-const MasterAdmin = require('../models/masterAdmin');
-const SuperAdmin = require('../models/superAdmin');
-const Client = require('../models/client');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
+const MasterAdmin = require("../models/masterAdmin");
+const SuperAdmin = require("../models/superAdmin");
+const Client = require("../models/client");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 // Generate master admin ID based on username
 const generateId = (username) => {
@@ -17,20 +17,32 @@ const superAdminLogin = async (req, res) => {
 
     const superAdmin = await SuperAdmin.findOne({ super_admin_id });
     if (!superAdmin) {
-      return res.status(401).json({ success: false, message: 'Invalid ID or password' });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid ID or password" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, superAdmin.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ success: false, message: 'Invalid ID or password' });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid ID or password" });
     }
 
-    const token = jwt.sign({ id: superAdmin._id }, process.env.SECRET_KEY, { expiresIn: '2d' });
+    const token = jwt.sign({ id: superAdmin._id }, process.env.SECRET_KEY, {
+      expiresIn: "2d",
+    });
 
-    return res.json({ success: true, message: 'Super admin logged in successfully', token });
+    return res.json({
+      success: true,
+      message: "Super admin logged in successfully",
+      token,
+    });
   } catch (error) {
-    console.error('Error in super admin login:', error);
-    return res.status(500).json({ success: false, message: 'An error occurred' });
+    console.error("Error in super admin login:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "An error occurred" });
   }
 };
 
@@ -38,14 +50,27 @@ const superAdminLogin = async (req, res) => {
 const addMasterAdmin = async (req, res) => {
   try {
     const {
-      username, password, budget, status, master_code, mcx_brokerage_type,
-      mcx_brokerage, client_limit, share_brokerage
+      username,
+      password,
+      budget,
+      status,
+      master_code,
+      mcx_brokerage_type,
+      mcx_brokerage,
+      client_limit,
+      share_brokerage,
+      pattiPercentage,
     } = req.body;
 
     // Check if username or master admin code already exists
-    const existingMasterAdmin = await MasterAdmin.findOne({ $or: [{ username }, { master_code }] });
+    const existingMasterAdmin = await MasterAdmin.findOne({
+      $or: [{ username }, { master_code }],
+    });
     if (existingMasterAdmin) {
-      return res.status(400).json({ success: false, message: 'Username or MasterAdmin code already exists' });
+      return res.status(400).json({
+        success: false,
+        message: "Username or MasterAdmin code already exists",
+      });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -55,24 +80,27 @@ const addMasterAdmin = async (req, res) => {
     // Find the super admin
     const superAdmin = await SuperAdmin.findById(super_admin_id);
     if (!superAdmin) {
-      return res.status(404).json({ success: false, message: 'SuperAdmin not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "SuperAdmin not found" });
     }
 
     // Create a new master admin
     const newMasterAdmin = new MasterAdmin({
-      master_admin_id: masterAdminId, // Use username as the master_admin_id
+      master_admin_id: masterAdminId,
       super_admin_id,
       username,
       password: hashedPassword,
       budget,
-      availableBudget: budget, // Initialize availableBudget with the budget value
-      allotedBudget: 0, // Initialize allotedBudget to 0
+      availableBudget: budget,
+      allotedBudget: 0,
       status,
       master_code,
       mcx_brokerage_type,
       mcx_brokerage,
       client_limit,
-      share_brokerage
+      share_brokerage,
+      pattiPercentage: pattiPercentage || 0,
     });
 
     // Save the new master admin to the database
@@ -82,10 +110,16 @@ const addMasterAdmin = async (req, res) => {
     superAdmin.master_admins.push(newMasterAdmin._id);
     await superAdmin.save();
 
-    return res.status(201).json({ success: true, message: 'Master admin created successfully', newMasterAdmin });
+    return res.status(201).json({
+      success: true,
+      message: "Master admin created successfully",
+      newMasterAdmin,
+    });
   } catch (error) {
-    console.error('Error in master admin creation:', error);
-    return res.status(500).json({ success: false, message: 'An error occurred' });
+    console.error("Error in master admin creation:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "An error occurred" });
   }
 };
 
@@ -99,13 +133,16 @@ const updateMasterAdmin = async (req, res) => {
       mcx_brokerage,
       share_brokerage,
       client_limit,
-      status 
+      status,
+      pattiPercentage,
     } = req.body;
 
     // Find the MasterAdmin
     const masterAdmin = await MasterAdmin.findById(id);
     if (!masterAdmin) {
-      return res.status(404).json({ success: false, message: 'MasterAdmin not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "MasterAdmin not found" });
     }
 
     // Update the specified fields
@@ -114,11 +151,18 @@ const updateMasterAdmin = async (req, res) => {
       masterAdmin.availableBudget = budget - masterAdmin.allotedBudget;
     }
 
-    if (mcx_brokerage_type !== undefined) masterAdmin.mcx_brokerage_type = mcx_brokerage_type;
+    if (mcx_brokerage_type !== undefined)
+      masterAdmin.mcx_brokerage_type = mcx_brokerage_type;
     if (mcx_brokerage !== undefined) masterAdmin.mcx_brokerage = mcx_brokerage;
-    if (share_brokerage !== undefined) masterAdmin.share_brokerage = share_brokerage;
+    if (share_brokerage !== undefined)
+      masterAdmin.share_brokerage = share_brokerage;
     if (client_limit !== undefined) masterAdmin.client_limit = client_limit;
-    if (status !== undefined) masterAdmin.status = status; // Update status if provided
+    if (status !== undefined) masterAdmin.status = status;
+
+    // Update pattiPercentage if provided
+    if (pattiPercentage !== undefined) {
+      masterAdmin.pattiPercentage = pattiPercentage;
+    }
 
     // Save the updated MasterAdmin
     const updatedMasterAdmin = await masterAdmin.save();
@@ -130,15 +174,18 @@ const updateMasterAdmin = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: 'MasterAdmin updated successfully',
-      updatedMasterAdmin: responseMasterAdmin
+      message: "MasterAdmin updated successfully",
+      updatedMasterAdmin: responseMasterAdmin,
     });
   } catch (error) {
-    console.error('Error in updating MasterAdmin:', error);
-    return res.status(500).json({ success: false, message: 'An error occurred', error: error.message });
+    console.error("Error in updating MasterAdmin:", error);
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred",
+      error: error.message,
+    });
   }
 };
-
 
 // Delete MasterAdmin
 const deleteMasterAdmin = async (req, res) => {
@@ -147,20 +194,28 @@ const deleteMasterAdmin = async (req, res) => {
 
     const deletedMasterAdmin = await MasterAdmin.findByIdAndDelete(id);
     if (!deletedMasterAdmin) {
-      return res.status(404).json({ success: false, message: 'MasterAdmin not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "MasterAdmin not found" });
     }
 
     // Remove MasterAdmin reference from SuperAdmin
-    const superAdmin = await SuperAdmin.findById(deletedMasterAdmin.super_admin_id);
+    const superAdmin = await SuperAdmin.findById(
+      deletedMasterAdmin.super_admin_id
+    );
     if (superAdmin) {
       superAdmin.master_admins.pull(deletedMasterAdmin._id);
       await superAdmin.save();
     }
 
-    return res.status(200).json({ success: true, message: 'MasterAdmin deleted successfully' });
+    return res
+      .status(200)
+      .json({ success: true, message: "MasterAdmin deleted successfully" });
   } catch (error) {
-    console.error('Error in deleting MasterAdmin:', error);
-    return res.status(500).json({ success: false, message: 'An error occurred' });
+    console.error("Error in deleting MasterAdmin:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "An error occurred" });
   }
 };
 
@@ -176,7 +231,7 @@ const deleteMasterAdmin = async (req, res) => {
 //     const superAdmin = await SuperAdmin.findById(req.user._id)
 //       .populate({
 //         path: 'master_admins',
-//         select: 'master_admin_id username status budget availableBudget allotedBudget master_code currentProfitLoss currentbrokerage mcx_brokerage_type mcx_brokerage share_brokerage client_limit createdAt clients', 
+//         select: 'master_admin_id username status budget availableBudget allotedBudget master_code currentProfitLoss currentbrokerage mcx_brokerage_type mcx_brokerage share_brokerage client_limit createdAt clients',
 //         options: { lean: true }
 //       });
 
@@ -207,7 +262,7 @@ const deleteMasterAdmin = async (req, res) => {
 //         share_brokerage: masterAdmin.share_brokerage,
 //         client_limit: masterAdmin.client_limit,
 //         createdAt: masterAdmin.createdAt,
-//         totalClients: masterAdmin.clients.length 
+//         totalClients: masterAdmin.clients.length
 //       }))
 //     };
 
@@ -218,42 +273,72 @@ const deleteMasterAdmin = async (req, res) => {
 //     return res.status(500).json({ success: false, message: 'An error occurred while fetching SuperAdmin', error: error.message });
 //   }
 // };
+
 const getSuperAdminWithMasterAdmins = async (req, res) => {
   try {
     // Check if the user is authenticated
     if (!req.user || !req.user._id) {
-      return res.status(401).json({ success: false, message: 'Unauthorized' });
+      return res.status(401).json({ success: false, message: "Unauthorized" });
     }
 
     // Fetch SuperAdmin and populate the master_admins and clients field
-    const superAdmin = await SuperAdmin.findById(req.user._id)
-      .populate({
-        path: 'master_admins',
-        select: 'master_admin_id username status budget availableBudget allotedBudget master_code currentProfitLoss currentbrokerage mcx_brokerage_type mcx_brokerage share_brokerage client_limit createdAt clients',
-        populate: {
-          path: 'clients',
-          select: 'client_id username currentProfitLoss currentbrokerage', // Select necessary fields from clients
-        },
-        options: { lean: true }
-      });
+    const superAdmin = await SuperAdmin.findById(req.user._id).populate({
+      path: "master_admins",
+      select:
+        "master_admin_id username status budget availableBudget allotedBudget master_code currentProfitLoss currentbrokerage mcx_brokerage_type mcx_brokerage share_brokerage client_limit createdAt clients finalMasterBrokerage finalMasterMCXBrokerage finalMasterNSEBrokerage pattiPercentage",
+      populate: {
+        path: "clients",
+        select:
+          "client_id username currentProfitLoss currentbrokerage finalMasterBrokerage finalMasterMCXBrokerage finalMasterNSEBrokerage",
+      },
+      options: { lean: true },
+    });
 
     if (!superAdmin) {
-      return res.status(404).json({ success: false, message: 'SuperAdmin not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "SuperAdmin not found" });
     }
 
     // Calculate total client count
-    const totalClients = superAdmin.master_admins.reduce((total, masterAdmin) => total + masterAdmin.clients.length, 0);
+    const totalClients = superAdmin.master_admins.reduce(
+      (total, masterAdmin) => total + masterAdmin.clients.length,
+      0
+    );
 
-    // Remove sensitive fields from the response
+    // Sanitize the SuperAdmin document and calculate brokerage totals
     const sanitizedSuperAdmin = {
       _id: superAdmin._id,
       super_admin_id: superAdmin.super_admin_id,
       username: superAdmin.username,
       totalClients, // Include total clients count
-      master_admins: superAdmin.master_admins.map(masterAdmin => {
-        // Calculate total currentProfitLoss and currentbrokerage for each master_admin
-        const totalCurrentProfitLoss = masterAdmin.clients.reduce((total, client) => total + client.currentProfitLoss, 0);
-        const totalCurrentBrokerage = masterAdmin.clients.reduce((total, client) => total + client.currentbrokerage, 0);
+      master_admins: superAdmin.master_admins.map((masterAdmin) => {
+        // Assuming pattiPercentage is a property of masterAdmin
+        const pattiPercentage = masterAdmin.pattiPercentage || 0;
+
+        // Calculate totals for each master_admin
+        const totalCurrentProfitLoss = masterAdmin.clients.reduce(
+          (total, client) => total + client.currentProfitLoss,
+          0
+        );
+        const totalCurrentBrokerage = masterAdmin.clients.reduce(
+          (total, client) => total + client.currentbrokerage,
+          0
+        );
+
+        // Calculate the total brokerages for all clients
+        const totalFinalMasterBrokerage = masterAdmin.clients.reduce(
+          (total, client) => total + (client.finalMasterBrokerage || 0),
+          0
+        );
+        const totalFinalMasterMCXBrokerage = masterAdmin.clients.reduce(
+          (total, client) => total + (client.finalMasterMCXBrokerage || 0),
+          0
+        );
+        const totalFinalMasterNSEBrokerage = masterAdmin.clients.reduce(
+          (total, client) => total + (client.finalMasterNSEBrokerage || 0),
+          0
+        );
 
         return {
           _id: masterAdmin._id,
@@ -272,48 +357,65 @@ const getSuperAdminWithMasterAdmins = async (req, res) => {
           totalClients: masterAdmin.clients.length,
           totalCurrentProfitLoss,
           totalCurrentBrokerage,
+          totalFinalMasterBrokerage,
+          totalFinalMasterMCXBrokerage,
+          totalFinalMasterNSEBrokerage,
+          pattiPercentage,
         };
-      })
+      }),
     };
 
     // Return the sanitized SuperAdmin document with totals
-    return res.status(200).json({ success: true, superAdmin: sanitizedSuperAdmin });
+    return res
+      .status(200)
+      .json({ success: true, superAdmin: sanitizedSuperAdmin });
   } catch (error) {
-    console.error('Error fetching SuperAdmin with MasterAdmins:', error);
-    return res.status(500).json({ success: false, message: 'An error occurred while fetching SuperAdmin', error: error.message });
+    console.error("Error fetching SuperAdmin with MasterAdmins:", error);
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching SuperAdmin",
+      error: error.message,
+    });
   }
 };
-
 
 // Get Master Admin with Clients
 const getMasterAdminWithClients = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const masterAdmin = await MasterAdmin.findById(id).populate('clients');
+    const masterAdmin = await MasterAdmin.findById(id).populate("clients");
     if (!masterAdmin) {
-      return res.status(404).json({ success: false, message: 'MasterAdmin not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "MasterAdmin not found" });
     }
 
     return res.status(200).json({ success: true, masterAdmin });
   } catch (error) {
-    console.error('Error fetching MasterAdmin with clients:', error);
-    return res.status(500).json({ success: false, message: 'An error occurred' });
+    console.error("Error fetching MasterAdmin with clients:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "An error occurred" });
   }
 };
 
 // Get All Master Admins with Clients
 const getAllMasterAdminsWithClients = async (req, res) => {
   try {
-    const masterAdmins = await MasterAdmin.find().populate('clients');
+    const masterAdmins = await MasterAdmin.find().populate("clients");
     if (masterAdmins.length === 0) {
-      return res.status(404).json({ success: false, message: 'No MasterAdmins found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "No MasterAdmins found" });
     }
 
     return res.status(200).json({ success: true, masterAdmins });
   } catch (error) {
-    console.error('Error fetching MasterAdmins with clients:', error);
-    return res.status(500).json({ success: false, message: 'An error occurred' });
+    console.error("Error fetching MasterAdmins with clients:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "An error occurred" });
   }
 };
 
@@ -321,16 +423,15 @@ const getAllMasterAdminsWithClients = async (req, res) => {
 const getAllClients = async (req, res) => {
   try {
     // Fetch all clients with only the specified fields
-    const clients = await Client.find()
-      .select('username status updatedAt __v'); // Specify fields to include
+    const clients = await Client.find().select("username status updatedAt __v"); // Specify fields to include
 
     return res.status(200).json({ success: true, clients });
   } catch (error) {
-    console.error('Error fetching all clients:', error);
+    console.error("Error fetching all clients:", error);
     return res.status(500).json({
       success: false,
-      message: 'An error occurred while fetching all clients',
-      error: error.message
+      message: "An error occurred while fetching all clients",
+      error: error.message,
     });
   }
 };
@@ -341,11 +442,11 @@ const updateClientStatus = async (req, res) => {
     const { status } = req.body;
 
     // Validate the status
-    const validStatuses = ['active', 'inactive', 'suspended'];
+    const validStatuses = ["active", "inactive", "suspended"];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({
         success: false,
-        message: 'Invalid status provided'
+        message: "Invalid status provided",
       });
     }
 
@@ -353,26 +454,26 @@ const updateClientStatus = async (req, res) => {
     const client = await Client.findByIdAndUpdate(
       clientId,
       { status },
-      { new: true, runValidators: true } 
+      { new: true, runValidators: true }
     );
 
     if (!client) {
       return res.status(404).json({
         success: false,
-        message: 'Client not found'
+        message: "Client not found",
       });
     }
 
     return res.status(200).json({
       success: true,
-      status: 'update successfully'
+      status: "update successfully",
     });
   } catch (error) {
-    console.error('Error updating client status:', error);
+    console.error("Error updating client status:", error);
     return res.status(500).json({
       success: false,
-      message: 'An error occurred while updating client status',
-      error: error.message
+      message: "An error occurred while updating client status",
+      error: error.message,
     });
   }
 };
@@ -386,37 +487,37 @@ const getClientById = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(clientId)) {
       return res.status(400).json({
         success: false,
-        message: 'Invalid client ID format'
+        message: "Invalid client ID format",
       });
     }
 
     // Fetch the client by ID with the specified fields
-    const client = await Client.findById(clientId)
-      .select('client_id master_admin_id client_code budget availableBudget share_brokerage mcx_brokerage_type mcx_brokerage username status updatedAt __v'); // Specify fields to include
+    const client = await Client.findById(clientId).select(
+      "client_id master_admin_id client_code budget availableBudget currentProfitLoss currentbrokerage share_brokerage mcx_brokerage_type mcx_brokerage username status updatedAt __v"
+    ); // Specify fields to include
 
     // If the client is not found, return a 404 error
     if (!client) {
       return res.status(404).json({
         success: false,
-        message: 'Client not found'
+        message: "Client not found",
       });
     }
 
     // Return the client data if found
     return res.status(200).json({
       success: true,
-      client
+      client,
     });
   } catch (error) {
-    console.error('Error fetching client by ID:', error);
+    console.error("Error fetching client by ID:", error);
     return res.status(500).json({
       success: false,
-      message: 'An error occurred while fetching the client',
-      error: error.message
+      message: "An error occurred while fetching the client",
+      error: error.message,
     });
   }
 };
-
 
 module.exports = {
   superAdminLogin,
@@ -428,5 +529,5 @@ module.exports = {
   getSuperAdminWithMasterAdmins,
   getAllClients,
   updateClientStatus,
-  getClientById
+  getClientById,
 };
