@@ -95,26 +95,26 @@ const clientSchema = new mongoose.Schema(
       enum: ["active", "inactive", "suspended"],
       default: "active",
     },
-    // Total lots for MCX that can be bought/sold
+    // Total lots for MCX that can be buy/sell
     TotalMCXTrade: {
       type: Number,
       required: true,
       min: 0,
     },
-    // How many lots per stock for MCX can be bought/sold
+    // How many lots per stock for MCX can be buy/sell
     PerMCXTrade: {
       type: Number,
       required: true,
       min: 0,
     },
-    // Total lots for NSE that can be bought/sold
+    // Total lots for NSE that can be buy/sell
     TotalNSETrade: {
       type: Number,
       required: true,
       min: 0,
     },
     PerNSETrade: {
-      // How many lots per stock for NSE can be bought/sold
+      // How many lots per stock for NSE can be buy/sell
       type: Number,
       required: true,
       min: 0,

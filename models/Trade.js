@@ -1,77 +1,77 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const tradeSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Client',
-    required: true
+    ref: "Client",
+    required: true,
   },
-  stockId: { 
+  stockId: {
     type: String,
-    ref: 'Stock',
-    required: true
+    ref: "Stock",
+    required: true,
   },
-  instrumentIdentifier: { 
+  instrumentIdentifier: {
     type: String,
-    required: true
+    required: true,
   },
-  name: { 
+  name: {
     type: String,
-    required: true
+    required: true,
   },
-  exchange: { 
+  exchange: {
     type: String,
-    required: true
+    required: true,
   },
-  tradeType: { 
+  tradeType: {
     type: String,
-    enum: ['buy', 'sell'],
-    required: true
+    enum: ["buy", "sell"],
+    required: true,
   },
-  quantity: { 
+  quantity: {
     type: Number,
     required: true,
-    min: [1, 'Quantity must be at least 1']
+    min: [1, "Quantity must be at least 1"],
   },
-  price: { 
+  price: {
     type: Number,
     required: true,
-    min: [0, 'Price must be positive']
+    min: [0, "Price must be positive"],
   },
-  status: { 
+  status: {
     type: String,
-    enum: ['open', 'closed', 'canceled'],
-    default: 'open'
+    enum: ["open", "closed", "canceled"],
+    default: "open",
   },
-  action: { 
+  action: {
     type: String,
-    enum: ['buy', 'sell'],
-    required: true
+    enum: ["buy", "sell"],
+    required: true,
   },
-  date: { 
+  date: {
     type: Date,
     required: true,
-    default: Date.now
+    default: Date.now,
   },
-  createdAt: { 
+  createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
-  updatedAt: { 
-    type: Date
-  }
+  updatedAt: {
+    type: Date,
+  },
 });
 
 // Pre-save hook to set the 'action' field based on 'tradeType' and update 'updatedAt'
-tradeSchema.pre('save', function (next) {
+tradeSchema.pre("save", function (next) {
   // Set 'action' based on 'tradeType'
-  this.action = this.tradeType === 'buy' ? 'sell' : 'buy';
-  
+  this.action = this.tradeType === "buy" ? "sell" : "buy";
+
   // Update 'updatedAt' timestamp
   this.updatedAt = Date.now();
-  
+
   next();
 });
 
-const Trade = mongoose.model('Trade', tradeSchema);
+const Trade = mongoose.model("Trade", tradeSchema);
 module.exports = Trade;
