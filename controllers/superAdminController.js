@@ -1,6 +1,7 @@
 const MasterAdmin = require("../models/masterAdmin");
 const SuperAdmin = require("../models/superAdmin");
 const Client = require("../models/client");
+const Stock = require("../models/stock");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
@@ -519,6 +520,36 @@ const getClientById = async (req, res) => {
   }
 };
 
+// Update the Close price of a stock by InstrumentIdentifier
+const updateStockClose = async (req, res) => {
+  const { instrumentIdentifier, closePrice } = req.body;
+
+  if (!instrumentIdentifier || closePrice === undefined) {
+    return res
+      .status(400)
+      .json({ message: "InstrumentIdentifier and ClosePrice are required." });
+  }
+
+  try {
+    const stock = await Stock.findOneAndUpdate(
+      { InstrumentIdentifier: instrumentIdentifier },
+      { Close: closePrice },
+      { new: true, runValidators: true }
+    );
+
+    if (!stock) {
+      return res.status(404).json({ message: "Stock not found." });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Stock updated successfully.", stock });
+  } catch (error) {
+    console.error("Error updating stock:", error);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};
+
 module.exports = {
   superAdminLogin,
   addMasterAdmin,
@@ -530,4 +561,5 @@ module.exports = {
   getAllClients,
   updateClientStatus,
   getClientById,
+  updateStockClose,
 };

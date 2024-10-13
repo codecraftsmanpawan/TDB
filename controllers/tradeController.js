@@ -11,14 +11,13 @@ const addTrade = async (req, res) => {
       instrumentIdentifier,
       name,
       exchange,
-      trade_type, // buy or sell
+      trade_type,
       quantity,
       price,
+      tradePercentage,
     } = req.body;
 
-    console.log("Request Body:", req.body);
-
-    // 1. Validate required fields
+    // Check for required fields
     if (
       !_id ||
       !instrumentIdentifier ||
@@ -26,165 +25,144 @@ const addTrade = async (req, res) => {
       !exchange ||
       !trade_type ||
       !quantity ||
-      !price
+      !price ||
+      tradePercentage === undefined
     ) {
-      console.log("Validation failed: All fields are required");
+      console.log("Missing required fields in request body:", req.body);
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // 2. Validate trade_type
-    if (!["buy", "sell"].includes(trade_type)) {
-      console.log("Invalid trade_type:", trade_type);
-      return res.status(400).json({
-        message: 'Invalid trade_type. It should be either "buy" or "sell".',
-      });
+    // Validate that tradePercentage is a number
+    if (typeof tradePercentage !== "number") {
+      console.log("Invalid tradePercentage:", tradePercentage);
+      return res
+        .status(400)
+        .json({ message: "tradePercentage must be a number" });
     }
 
-    // 3. Validate quantity and price
+    // Check if quantity and price are greater than zero
     if (quantity <= 0 || price <= 0) {
-      console.log("Invalid quantity or price:", quantity, price);
+      console.log("Invalid quantity or price:", { quantity, price });
       return res
         .status(400)
         .json({ message: "Quantity and price must be greater than zero." });
     }
 
-    // 4. Validate the '_id' format (User ID check)
+    // Validate the '_id' format
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-      console.log("Invalid _id format:", _id);
+      console.log("Invalid user ID:", _id);
       return res.status(400).json({ message: "Invalid User" });
     }
 
-    // 5. Fetch client based on '_id' and validate
+    // Find the client document using the provided '_id'
     const client = await Client.findById(_id);
+
     if (!client) {
-      console.log("Client not found for _id:", _id);
+      console.log("Client not found:", _id);
       return res.status(404).json({ message: "Client not found" });
     }
-    console.log("Client found:", client);
 
-    // 6. Validation: Check if the trade is for MCX exchange
-    if (exchange !== "MCX") {
-      console.log("Invalid exchange:", exchange);
-      return res.status(400).json({ message: "Only MCX trades are supported" });
+    // Set maximum totalPercentage limit for each exchange based on client's PerMCXTrade and PerNSETrade
+    const maxLimits = {
+      MCX: client.PerMCXTrade * 100,
+      NSE: client.PerNSETrade * 100,
+    };
+
+    // Ensure the exchange exists in maxLimits
+    if (!maxLimits.hasOwnProperty(exchange)) {
+      console.log("Exchange not supported:", exchange);
+      return res
+        .status(400)
+        .json({ message: `Exchange ${exchange} is not supported.` });
     }
 
-    // 7. Validate trade limits for the user based on MCX exchange
-    const tradeLimit = client.PerMCXTrade; // Trade limit for MCX
-    console.log("MCX Trade Limit for User:", tradeLimit);
-
-    // 8. Fetch the stock details based on instrumentIdentifier and name
-    const stock = await Stock.findOne({
-      InstrumentIdentifier: instrumentIdentifier,
-      name: name, // Validate by both instrumentIdentifier and name
-    });
-    if (!stock) {
-      console.log(
-        `Stock not found for instrumentIdentifier: ${instrumentIdentifier} and name: ${name}`
-      );
-      return res.status(404).json({
-        message: `Stock not found for instrumentIdentifier: ${instrumentIdentifier} and name: ${name}`,
-      });
-    }
-    console.log("Stock found:", stock);
-
-    // 9. Validate if trade quantity is divisible by the stock's QuotationLot
-    const lotSize = quantity / stock.QuotationLot;
-    if (quantity % stock.QuotationLot !== 0) {
-      console.log(
-        `Trade quantity ${quantity} is not divisible by QuotationLot ${stock.QuotationLot}`
-      );
-      return res.status(400).json({
-        message: `Trade quantity must be divisible by the QuotationLot of ${stock.QuotationLot}.`,
-      });
-    }
-    console.log(`Lot size for the trade: ${lotSize}`);
-
-    // 10. Fetch only existing open trades for this instrumentIdentifier and user
-    const existingTrades = await Trade.find({
+    // Fetch all trades for the client with the same instrument and exchange
+    const clientTrades = await Trade.find({
       userId: client._id,
       exchange,
-      instrumentIdentifier, // Only fetch trades for this specific instrument
-      status: "open", // Assuming only 'open' trades count towards the limit
-    });
+      name,
+    }).exec();
 
-    let totalBuyLots = 0;
-    let totalSellLots = 0;
+    console.log(`Found ${clientTrades.length} trades for client`);
 
-    existingTrades.forEach((trade) => {
-      const tradeLots = trade.quantity / stock.QuotationLot;
-      if (trade.tradeType === "buy") {
-        totalBuyLots += tradeLots;
-      } else if (trade.tradeType === "sell") {
-        totalSellLots += tradeLots;
-      }
-    });
+    // Calculate current totals for buy and sell trades
+    const currentBuyTotal = clientTrades
+      .filter((trade) => trade.tradePercentage > 0) // Buy trades (positive percentage)
+      .reduce((sum, trade) => sum + trade.tradePercentage, 0);
 
-    console.log(
-      `Total Buy Lots for ${instrumentIdentifier}: ${totalBuyLots}, Total Sell Lots: ${totalSellLots}`
-    );
+    const currentSellTotal = clientTrades
+      .filter((trade) => trade.tradePercentage < 0) // Sell trades (negative percentage)
+      .reduce((sum, trade) => sum + Math.abs(trade.tradePercentage), 0); // Use absolute value for sell total
 
-    // 11. Validation logic for buy/sell on MCX
-    if (trade_type === "buy") {
-      const remainingBuyLots = tradeLimit - (totalBuyLots - totalSellLots); // Adjusted for net position
-      if (lotSize > remainingBuyLots) {
-        console.log(`You can only buy ${remainingBuyLots} more lots`);
-        return res.status(400).json({
-          message: `You can only buy ${remainingBuyLots} more lots for ${instrumentIdentifier}.`,
-          maxBuyLimitReached: true, // Flag to indicate max buy limit is reached
-        });
-      }
-    } else if (trade_type === "sell") {
-      const netBuyLots = totalBuyLots - totalSellLots;
-      const maxSellableLots = tradeLimit;
-      const sellableLots =
-        netBuyLots > 0
-          ? Math.min(netBuyLots, maxSellableLots)
-          : maxSellableLots;
+    console.log("Current Buy Total:", currentBuyTotal);
+    console.log("Current Sell Total:", currentSellTotal);
 
-      if (lotSize > sellableLots) {
-        console.log("Cannot sell more than the maximum allowed");
-        return res.status(400).json({
-          message: `You can only sell a maximum of ${sellableLots} lots for ${instrumentIdentifier}.`,
-        });
-      }
+    // Calculate the net total percentage (buy - sell)
+    const netTotal = currentBuyTotal - currentSellTotal;
+    console.log("Net Total (Buy - Sell):", netTotal);
 
-      // Check sell limit against tradeLimit
-      const remainingSellLots = tradeLimit - totalSellLots; // Remaining limit for selling
-      if (lotSize > remainingSellLots) {
-        console.log(`You can only sell ${remainingSellLots} more lots`);
-        return res.status(400).json({
-          message: `You can only sell ${remainingSellLots} more lots for ${instrumentIdentifier}.`,
-        });
-      }
+    // Calculate the proposed net total after adding the new trade
+    const proposedNetTotal = netTotal + tradePercentage;
+    console.log("Proposed Net Total after new trade:", proposedNetTotal);
+
+    // Check if the absolute value of proposed net total exceeds the limit
+    if (Math.abs(proposedNetTotal) > maxLimits[exchange]) {
+      console.log("Proposed net total exceeds the limit:", proposedNetTotal);
+
+      // Calculate remaining trade percentages
+      const remainingBuy = maxLimits[exchange] - netTotal;
+      const remainingSell = maxLimits[exchange] + netTotal;
+
+      return res.status(400).json({
+        message: `Adding this trade would exceed the combined limit of ${maxLimits[exchange]} for ${exchange}.`,
+        remainingBuy: remainingBuy >= 0 ? remainingBuy : 0,
+        remainingSell: remainingSell >= 0 ? remainingSell : 0,
+      });
     }
 
-    // 12. Create a new trade instance
+    // Create a new trade instance
     const newTrade = new Trade({
       userId: client._id,
-      stockId: stock._id,
+      stockId: instrumentIdentifier,
       instrumentIdentifier,
       name,
       exchange,
-      tradeType: trade_type,
+      tradeType: tradePercentage > 0 ? "buy" : "sell",
       quantity,
       price,
-      action: trade_type,
+      tradePercentage,
+      action: tradePercentage > 0 ? "buy" : "sell",
       status: "open",
       date: Date.now(),
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
 
-    console.log("New Trade Data:", newTrade);
+    console.log("New trade created:", newTrade);
 
-    // 13. Save the trade to the database
+    // Save the trade to the database
     const savedTrade = await newTrade.save();
 
-    // 14. Respond with the saved trade data
-    console.log("Trade saved successfully:", savedTrade);
-    res
-      .status(201)
-      .json({ message: "Trade added successfully", trade: savedTrade });
+    console.log("Trade saved to database:", savedTrade);
+
+    // Fetch updated trades for the client
+    const updatedClientTrades = await Trade.find({ userId: client._id }).exec();
+
+    console.log("Updated client trades:", updatedClientTrades);
+
+    // Calculate remaining trade percentages after the proposed trade
+    const newNetTotal = proposedNetTotal;
+    const remainingBuy = maxLimits[exchange] - newNetTotal;
+    const remainingSell = maxLimits[exchange] + newNetTotal;
+
+    // Respond with the saved trade and the updated trades along with remaining percentages
+    res.status(201).json({
+      message: "Trade added successfully",
+      trade: savedTrade,
+      updatedClientTrades,
+      remainingBuy: remainingBuy >= 0 ? remainingBuy : 0,
+      remainingSell: remainingSell >= 0 ? remainingSell : 0,
+    });
   } catch (error) {
     console.error("Error adding trade:", error);
     res
@@ -192,534 +170,6 @@ const addTrade = async (req, res) => {
       .json({ message: "Internal server error", error: error.message });
   }
 };
-
-// const addTrade = async (req, res) => {
-//   try {
-//     const {
-//       _id,
-//       instrumentIdentifier,
-//       name,
-//       exchange,
-//       trade_type,
-//       quantity,
-//       price,
-//     } = req.body;
-
-//     if (
-//       !_id ||
-//       !instrumentIdentifier ||
-//       !name ||
-//       !exchange ||
-//       !trade_type ||
-//       !quantity ||
-//       !price
-//     ) {
-//       return res.status(400).json({ message: "All fields are required" });
-//     }
-
-//     if (!["buy", "sell"].includes(trade_type)) {
-//       return res.status(400).json({
-//         message: 'Invalid trade_type. It should be either "buy" or "sell".',
-//       });
-//     }
-
-//     if (quantity <= 0 || price <= 0) {
-//       return res
-//         .status(400)
-//         .json({ message: "Quantity and price must be greater than zero." });
-//     }
-
-//     // Validate the '_id' format
-//     if (!mongoose.Types.ObjectId.isValid(_id)) {
-//       return res.status(400).json({ message: "Invalid User" });
-//     }
-
-//     // Find the client document using the provided '_id'
-//     const client = await Client.findById(_id);
-
-//     if (!client) {
-//       return res.status(404).json({ message: "Client not found" });
-//     }
-
-//     // Create a new trade instance
-//     const newTrade = new Trade({
-//       userId: client._id,
-//       stockId: instrumentIdentifier,
-//       instrumentIdentifier,
-//       name,
-//       exchange,
-//       tradeType: trade_type,
-//       quantity,
-//       price,
-//       action: trade_type,
-//       status: "open",
-//       date: Date.now(),
-//       createdAt: Date.now(),
-//       updatedAt: Date.now(),
-//     });
-
-//     // Save the trade to the database
-//     const savedTrade = await newTrade.save();
-
-//     // Respond with the saved trade data
-//     res
-//       .status(201)
-//       .json({ message: "Trade added successfully", trade: savedTrade });
-//   } catch (error) {
-//     console.error("Error adding trade:", error);
-//     res
-//       .status(500)
-//       .json({ message: "Internal server error", error: error.message });
-//   }
-// };
-
-// const addTrade = async (req, res) => {
-//   try {
-//     const {
-//       _id,
-//       instrumentIdentifier,
-//       name,
-//       exchange,
-//       trade_type,
-//       quantity,
-//       price,
-//     } = req.body;
-
-//     // Validate required fields
-//     if (
-//       !_id ||
-//       !instrumentIdentifier ||
-//       !name ||
-//       !exchange ||
-//       !trade_type ||
-//       !quantity ||
-//       !price
-//     ) {
-//       return res.status(400).json({ message: "All fields are required" });
-//     }
-
-//     if (!["buy", "sell"].includes(trade_type)) {
-//       return res.status(400).json({
-//         message: 'Invalid trade_type. It should be either "buy" or "sell".',
-//       });
-//     }
-
-//     if (quantity <= 0 || price <= 0) {
-//       return res
-//         .status(400)
-//         .json({ message: "Quantity and price must be greater than zero." });
-//     }
-
-//     // Validate the '_id' format
-//     if (!mongoose.Types.ObjectId.isValid(_id)) {
-//       return res.status(400).json({ message: "Invalid User" });
-//     }
-
-//     // Find the client document using the provided '_id'
-//     const client = await Client.findById(_id);
-//     if (!client) {
-//       return res.status(404).json({ message: "Client not found" });
-//     }
-
-//     // Find the stock document to get QuotationLot information
-//     const stock = await Stock.findOne({
-//       InstrumentIdentifier: instrumentIdentifier,
-//     });
-//     if (!stock) {
-//       return res.status(404).json({ message: "Stock not found" });
-//     }
-
-//     const QuotationLot = stock.QuotationLot;
-
-//     // Log the input details including the trade type
-//     console.log(
-//       `Calculating totalLots for stock: ${name}, tradeType: ${trade_type}`
-//     );
-//     console.log(`Quantity (Lots): ${quantity}, QuotationLot: ${QuotationLot}`);
-
-//     // Calculate total lots in terms of QuotationLot
-//     const totalLots = Math.floor(quantity / QuotationLot); // Total lots traded
-//     console.log(
-//       `Total lots being traded (divided by QuotationLot): ${totalLots}`
-//     );
-
-//     // Check exchange-specific trade limits
-//     if (exchange === "MCX") {
-//       // Find existing trades made by the client for this stock based on the name
-//       const existingTrades = await Trade.find({
-//         userId: client._id,
-//         name,
-//         exchange: "MCX",
-//       });
-
-//       // Log existing trades data for debugging
-//       console.log("Existing trades data for this stock:", existingTrades);
-
-//       const existingTradeCount = existingTrades.length; // Count of existing trades
-//       console.log(`Existing trades for this stock: ${existingTradeCount}`);
-
-//       // Calculate how many lots the client has already traded for buy and sell
-//       const totalTradedQuantity = existingTrades.reduce(
-//         (sum, trade) => sum + trade.quantity,
-//         0
-//       );
-//       const totalTradedLots = Math.floor(totalTradedQuantity / QuotationLot);
-//       console.log(`Total lots traded for this stock: ${totalTradedLots}`);
-
-//       // Calculate remaining allowed trades for per-stock limit
-//       const maxAllowedPerStock = client.PerMCXTrade; // Maximum trades allowed per stock
-//       const remainingAllowedTrades = maxAllowedPerStock - totalTradedLots; // Remaining allowed trades
-//       console.log(
-//         `Remaining allowed trades for this stock: ${remainingAllowedTrades}`
-//       );
-
-//       // Check if the new trade exceeds the remaining allowed trades for this stock
-//       if (totalLots > remainingAllowedTrades) {
-//         console.log(
-//           `Trade exceeds the allowed limit for this stock. Max allowed: ${maxAllowedPerStock}, Total lots: ${totalLots}`
-//         );
-//         return res.status(400).json({
-//           message: `Trade quantity exceeds the allowed limit for this stock. Maximum allowed: ${maxAllowedPerStock} lots.`,
-//         });
-//       }
-
-//       // Check trade_type limits using the maxTradeLimitPerType from client
-//       const maxTradeLimitPerType = client.PerMCXTrade; // Get the limit from the client
-//       const buyTradeCount = existingTrades.filter(
-//         (trade) => trade.tradeType === "buy"
-//       ).length;
-//       const sellTradeCount = existingTrades.filter(
-//         (trade) => trade.tradeType === "sell"
-//       ).length;
-
-//       console.log(`Existing buy trades for this stock: ${buyTradeCount}`);
-//       console.log(`Existing sell trades for this stock: ${sellTradeCount}`);
-
-//       // Check if new trade violates limits based on existing trades
-//       if (trade_type === "buy" && buyTradeCount >= maxTradeLimitPerType) {
-//         return res.status(400).json({
-//           message: `Maximum ${maxTradeLimitPerType} buy trades allowed for this stock.`,
-//         });
-//       }
-
-//       if (trade_type === "sell" && sellTradeCount >= maxTradeLimitPerType) {
-//         return res.status(400).json({
-//           message: `Maximum ${maxTradeLimitPerType} sell trades allowed for this stock.`,
-//         });
-//       }
-
-//       // Allow trades if they do not exceed the limits
-//     }
-
-//     // Log the trade type before creating the new trade
-//     console.log(`Preparing to add a new trade: TradeType: ${trade_type}`);
-
-//     // Create a new trade instance
-//     const newTrade = new Trade({
-//       userId: client._id,
-//       stockId: instrumentIdentifier,
-//       instrumentIdentifier,
-//       name,
-//       exchange,
-//       tradeType: trade_type,
-//       quantity,
-//       price,
-//       action: trade_type,
-//       status: "open",
-//       date: Date.now(),
-//       createdAt: Date.now(),
-//       updatedAt: Date.now(),
-//     });
-
-//     // Save the trade to the database
-//     const savedTrade = await newTrade.save();
-
-//     // Respond with the saved trade data
-//     res
-//       .status(201)
-//       .json({ message: "Trade added successfully", trade: savedTrade });
-//   } catch (error) {
-//     console.error("Error adding trade:", error);
-//     res
-//       .status(500)
-//       .json({ message: "Internal server error", error: error.message });
-//   }
-// };
-
-// const addTrade = async (req, res) => {
-//   try {
-//     const {
-//       _id,
-//       instrumentIdentifier,
-//       name,
-//       exchange,
-//       trade_type,
-//       quantity,
-//       price,
-//     } = req.body;
-
-//     // Validate required fields
-//     if (
-//       !_id ||
-//       !instrumentIdentifier ||
-//       !name ||
-//       !exchange ||
-//       !trade_type ||
-//       !quantity ||
-//       !price
-//     ) {
-//       return res.status(400).json({ message: "All fields are required" });
-//     }
-
-//     if (!["buy", "sell"].includes(trade_type)) {
-//       return res.status(400).json({
-//         message: 'Invalid trade_type. It should be either "buy" or "sell".',
-//       });
-//     }
-
-//     if (quantity <= 0 || price <= 0) {
-//       return res
-//         .status(400)
-//         .json({ message: "Quantity and price must be greater than zero." });
-//     }
-
-//     // Validate the '_id' format
-//     if (!mongoose.Types.ObjectId.isValid(_id)) {
-//       return res.status(400).json({ message: "Invalid User" });
-//     }
-
-//     // Find the client document using the provided '_id'
-//     const client = await Client.findById(_id);
-//     if (!client) {
-//       return res.status(404).json({ message: "Client not found" });
-//     }
-
-//     // Find the stock document to get QuotationLot information
-//     const stock = await Stock.findOne({
-//       InstrumentIdentifier: instrumentIdentifier,
-//     });
-//     if (!stock) {
-//       return res.status(404).json({ message: "Stock not found" });
-//     }
-
-//     const QuotationLot = stock.QuotationLot;
-
-//     // Log the input details including the trade type
-//     console.log(
-//       `Calculating totalLots for stock: ${name}, tradeType: ${trade_type}`
-//     );
-//     console.log(`Quantity (Lots): ${quantity}, QuotationLot: ${QuotationLot}`);
-
-//     // Calculate total lots in terms of QuotationLot
-//     const totalLots = Math.floor(quantity / QuotationLot); // Total lots traded
-//     console.log(
-//       `Total lots being traded (divided by QuotationLot): ${totalLots}`
-//     );
-
-//     // Check exchange-specific trade limits
-//     if (exchange === "MCX") {
-//       // Find existing trades made by the client for this stock based on the name, exchange, and trade type
-//       const existingTrades = await Trade.find({
-//         userId: client._id,
-//         name,
-//         exchange: "MCX",
-//       });
-
-//       // Log existing trades data for debugging
-//       console.log("Existing trades data for this stock:", existingTrades);
-
-//       const totalTradedQuantity = existingTrades.reduce(
-//         (sum, trade) => sum + trade.quantity,
-//         0
-//       );
-//       const totalTradedLots = Math.floor(totalTradedQuantity / QuotationLot);
-//       console.log(`Total lots traded for this stock: ${totalTradedLots}`);
-
-//       // Calculate remaining allowed trades for per-stock limit
-//       const maxAllowedPerStock = client.PerMCXTrade; // Maximum trades allowed per stock
-//       const remainingAllowedTrades = maxAllowedPerStock - totalTradedLots; // Remaining allowed trades
-//       console.log(
-//         `Remaining allowed trades for this stock: ${remainingAllowedTrades}`
-//       );
-
-//       // Count the existing buy and sell trades separately
-//       const buyTrades = existingTrades.filter(
-//         (trade) => trade.tradeType === "buy"
-//       );
-//       const sellTrades = existingTrades.filter(
-//         (trade) => trade.tradeType === "sell"
-//       );
-
-//       const buyTradeCount = buyTrades.length;
-//       const sellTradeCount = sellTrades.length;
-
-//       console.log(`Existing buy trades for this stock: ${buyTradeCount}`);
-//       console.log(`Existing sell trades for this stock: ${sellTradeCount}`);
-
-//       // Calculate remaining allowed trades for buy and sell
-//       const maxTradeLimitPerType = client.PerMCXTrade; // Get the limit from the client
-//       const remainingBuyTrades = maxTradeLimitPerType - buyTradeCount;
-//       const remainingSellTrades = maxTradeLimitPerType - sellTradeCount;
-
-//       console.log(
-//         `Remaining allowed buy trades for this stock: ${remainingBuyTrades}`
-//       );
-//       console.log(
-//         `Remaining allowed sell trades for this stock: ${remainingSellTrades}`
-//       );
-
-//       // Check if the new trade violates limits based on existing trades
-//       if (trade_type === "buy") {
-//         if (remainingBuyTrades <= 0) {
-//           return res.status(400).json({
-//             message: `Maximum ${maxTradeLimitPerType} buy trades allowed for this stock. You cannot buy more.`,
-//           });
-//         }
-
-//         // Ensure the buy quantity does not exceed the remaining allowed buy trades
-//         if (totalLots > remainingBuyTrades) {
-//           return res.status(400).json({
-//             message: `Trade quantity exceeds the allowed limit for buy trades. Maximum allowed: ${remainingBuyTrades} lots.`,
-//           });
-//         }
-//       }
-
-//       if (trade_type === "sell") {
-//         if (remainingSellTrades <= 0) {
-//           return res.status(400).json({
-//             message: `Maximum ${maxTradeLimitPerType} sell trades allowed for this stock. You cannot sell more.`,
-//           });
-//         }
-
-//         // Ensure the sell quantity does not exceed the remaining allowed sell trades
-//         if (totalLots > remainingSellTrades) {
-//           return res.status(400).json({
-//             message: `Trade quantity exceeds the allowed limit for sell trades. Maximum allowed: ${remainingSellTrades} lots.`,
-//           });
-//         }
-//       }
-//     }
-
-//     // Add logic for NSE exchange with PerNSETrade
-//     if (exchange === "NSE") {
-//       // Find existing trades made by the client for this stock based on the name, exchange, and trade type
-//       const existingTrades = await Trade.find({
-//         userId: client._id,
-//         name,
-//         exchange: "NSE",
-//       });
-
-//       // Log existing trades data for debugging
-//       console.log("Existing trades data for this stock (NSE):", existingTrades);
-
-//       const totalTradedQuantity = existingTrades.reduce(
-//         (sum, trade) => sum + trade.quantity,
-//         0
-//       );
-//       const totalTradedLots = Math.floor(totalTradedQuantity / QuotationLot);
-//       console.log(`Total lots traded for this stock: ${totalTradedLots}`);
-
-//       // Calculate remaining allowed trades for per-stock limit
-//       const maxAllowedPerStock = client.PerNSETrade;
-//       const remainingAllowedTrades = maxAllowedPerStock - totalTradedLots;
-//       console.log(
-//         `Remaining allowed trades for this stock (NSE): ${remainingAllowedTrades}`
-//       );
-
-//       // Count the existing buy and sell trades separately
-//       const buyTrades = existingTrades.filter(
-//         (trade) => trade.tradeType === "buy"
-//       );
-//       const sellTrades = existingTrades.filter(
-//         (trade) => trade.tradeType === "sell"
-//       );
-
-//       const buyTradeCount = buyTrades.length;
-//       const sellTradeCount = sellTrades.length;
-
-//       console.log(`Existing buy trades for this stock (NSE): ${buyTradeCount}`);
-//       console.log(
-//         `Existing sell trades for this stock (NSE): ${sellTradeCount}`
-//       );
-
-//       // Calculate remaining allowed trades for buy and sell
-//       const maxTradeLimitPerType = client.PerNSETrade;
-//       const remainingBuyTrades = maxTradeLimitPerType - buyTradeCount;
-//       const remainingSellTrades = maxTradeLimitPerType - sellTradeCount;
-
-//       console.log(
-//         `Remaining allowed buy trades for this stock (NSE): ${remainingBuyTrades}`
-//       );
-//       console.log(
-//         `Remaining allowed sell trades for this stock (NSE): ${remainingSellTrades}`
-//       );
-
-//       // Check if the new trade violates limits based on existing trades
-//       if (trade_type === "buy") {
-//         if (remainingBuyTrades <= 0) {
-//           return res.status(400).json({
-//             message: `Maximum ${maxTradeLimitPerType} buy trades allowed for this stock. You cannot buy more.`,
-//           });
-//         }
-
-//         // Ensure the buy quantity does not exceed the remaining allowed buy trades
-//         if (totalLots > remainingBuyTrades) {
-//           return res.status(400).json({
-//             message: `Trade quantity exceeds the allowed limit for buy trades. Maximum allowed: ${remainingBuyTrades} lots.`,
-//           });
-//         }
-//       }
-
-//       if (trade_type === "sell") {
-//         if (remainingSellTrades <= 0) {
-//           return res.status(400).json({
-//             message: `Maximum ${maxTradeLimitPerType} sell trades allowed for this stock. You cannot sell more.`,
-//           });
-//         }
-
-//         // Ensure the sell quantity does not exceed the remaining allowed sell trades
-//         if (totalLots > remainingSellTrades) {
-//           return res.status(400).json({
-//             message: `Trade quantity exceeds the allowed limit for sell trades. Maximum allowed: ${remainingSellTrades} lots.`,
-//           });
-//         }
-//       }
-//     }
-
-//     // Log the trade type before creating the new trade
-//     console.log(`Preparing to add a new trade: TradeType: ${trade_type}`);
-
-//     // Create a new trade instance
-//     const newTrade = new Trade({
-//       userId: client._id,
-//       stockId: instrumentIdentifier,
-//       instrumentIdentifier,
-//       name,
-//       exchange,
-//       tradeType: trade_type,
-//       quantity,
-//       price,
-//       action: trade_type,
-//       status: "open",
-//       date: Date.now(),
-//       createdAt: Date.now(),
-//       updatedAt: Date.now(),
-//     });
-
-//     // Save the trade to the database
-//     const savedTrade = await newTrade.save();
-
-//     // Respond with the saved trade data
-//     res
-//       .status(201)
-//       .json({ message: "Trade added successfully", trade: savedTrade });
-//   } catch (error) {
-//     console.error("Error adding trade:", error);
-//     res
-//       .status(500)
-//       .json({ message: "Internal server error", error: error.message });
-//   }
-// };
 
 const getTrades = async (req, res) => {
   try {

@@ -257,204 +257,6 @@ const getWishlist = async (req, res) => {
   }
 };
 
-// const getStockByInstrumentIdentifier = async (req, res) => {
-//   try {
-//     const { instrumentIdentifier } = req.params;
-
-//     // Validate the instrumentIdentifier parameter
-//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
-//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
-//     }
-
-//     // Search for the stock with the given instrumentIdentifier
-//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
-
-//     if (!stock) {
-//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
-//     }
-
-//     // Check if the stock matches the first condition
-//     if (
-//       stock.name === 'GOLD' &&
-//       stock.product === 'GOLD' &&
-//       stock.Exchange === 'MCX'
-//     ) {
-//       stock.QuotationLot = 100;
-//     }
-
-//     // Check if the stock matches the second condition
-//     if (
-//       stock.name === 'GOLDM' &&
-//       stock.product === 'GOLDM' &&
-//       stock.Exchange === 'MCX'
-//     ) {
-//       stock.QuotationLot = 10;
-//     }
-
-//     // Respond with the stock data
-//     return res.status(200).json(stock);
-//   } catch (error) {
-//     console.error('Error fetching stock data:', error);
-//     return res.status(500).json({ message: 'Internal server error', error: error.message });
-//   }
-// };
-
-// Controller to get stock data using InstrumentIdentifier
-// const getStockByInstrumentIdentifier = async (req, res) => {
-//   try {
-//     const { instrumentIdentifier } = req.params;
-
-//     // Validate the instrumentIdentifier parameter
-//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
-//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
-//     }
-
-//     // Search for the stock with the given instrumentIdentifier
-//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
-
-//     if (!stock) {
-//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
-//     }
-
-//     // Respond with the stock data
-//     return res.status(200).json(stock);
-//   } catch (error) {
-//     console.error('Error fetching stock data:', error);
-//     return res.status(500).json({ message: 'Internal server error', error: error.message });
-//   }
-// };
-
-// const getStockByInstrumentIdentifier = async (req, res) => {
-//   try {
-//     const { instrumentIdentifier } = req.params;
-
-//     // Validate the instrumentIdentifier parameter
-//     if (!instrumentIdentifier || typeof instrumentIdentifier !== 'string') {
-//       return res.status(400).json({ message: 'Valid instrumentIdentifier path parameter is required.' });
-//     }
-
-//     // Search for the stock with the given instrumentIdentifier
-//     const stock = await Stock.findOne({ InstrumentIdentifier: instrumentIdentifier });
-
-//     if (!stock) {
-//       return res.status(404).json({ message: 'No stock found with the given instrumentIdentifier.' });
-//     }
-
-//     // Check if the stock matches the first condition
-//     if (
-//       stock.name === 'GOLD' &&
-//       stock.product === 'GOLD' &&
-//       stock.Exchange === 'MCX'
-//     ) {
-//       stock.QuotationLot = 100;
-//     }
-
-//     // Check if the stock matches the second condition
-//     if (
-//       stock.name === 'GOLDM' &&
-//       stock.product === 'GOLDM' &&
-//       stock.Exchange === 'MCX'
-//     ) {
-//       stock.QuotationLot = 10;
-//     }
-
-//     // Condition for NSE exchange between 3:30 PM and 9:15 AM
-//     const now = new Date();
-//     const currentHour = now.getHours();
-//     const currentMinutes = now.getMinutes();
-//     const currentTimeInMinutes = currentHour * 60 + currentMinutes;
-
-//     // 3:30 PM is 15:30 (15*60 + 30 = 930), and 9:15 AM is 9:15 (9*60 + 15 = 555)
-//     const timeCondition = (currentTimeInMinutes >= 930 || currentTimeInMinutes < 555);
-
-//     if (stock.Exchange === 'NSE' && timeCondition) {
-//       stock.BuyPrice = stock.Close;
-//       stock.SellPrice = stock.Close;
-//     }
-
-//     // Respond with the stock data
-//     return res.status(200).json(stock);
-//   } catch (error) {
-//     // console.error('Error fetching stock data:', error);
-//     return res.status(500).json({ message: 'Internal server error', error: error.message });
-//   }
-// };
-
-// const getStockByInstrumentIdentifier = async (req, res) => {
-//   try {
-//     const { instrumentIdentifier } = req.params;
-
-//     // Validate the instrumentIdentifier parameter
-//     if (!instrumentIdentifier || typeof instrumentIdentifier !== "string") {
-//       return res.status(400).json({
-//         message: "Valid instrumentIdentifier path parameter is required.",
-//       });
-//     }
-
-//     // Search for the stock with the given instrumentIdentifier
-//     const stock = await Stock.findOne({
-//       InstrumentIdentifier: instrumentIdentifier,
-//     });
-
-//     if (!stock) {
-//       return res.status(404).json({
-//         message: "No stock found with the given instrumentIdentifier.",
-//       });
-//     }
-
-//     // Check if the stock matches the first condition
-//     if (
-//       stock.name === "GOLD" &&
-//       stock.product === "GOLD" &&
-//       stock.Exchange === "MCX"
-//     ) {
-//       stock.QuotationLot = 100;
-//     }
-
-//     // Check if the stock matches the second condition
-//     if (
-//       stock.name === "GOLDM" &&
-//       stock.product === "GOLDM" &&
-//       stock.Exchange === "MCX"
-//     ) {
-//       stock.QuotationLot = 10;
-//     }
-
-//     // Get current time and day
-//     const now = new Date();
-//     const currentHour = now.getHours();
-//     const currentMinutes = now.getMinutes();
-//     const currentTimeInMinutes = currentHour * 60 + currentMinutes;
-
-//     // 3:30 PM is 15:30 (15*60 + 30 = 930), and 9:15 AM is 9:15 (9*60 + 15 = 555)
-//     const timeCondition =
-//       currentTimeInMinutes >= 930 || currentTimeInMinutes < 555;
-
-//     // Check if today is Saturday (6) or Sunday (0)
-//     const isWeekend = now.getDay() === 6 || now.getDay() === 0;
-
-//     // NSE stock price update condition: between 3:30 PM and 9:15 AM or on weekends
-//     if (stock.Exchange === "NSE" && (timeCondition || isWeekend)) {
-//       stock.BuyPrice = stock.Close;
-//       stock.SellPrice = stock.Close;
-//     }
-
-//     // MCX stock price update condition: all day on weekends (Saturday and Sunday)
-//     if (stock.Exchange === "MCX" && isWeekend) {
-//       stock.BuyPrice = stock.Close;
-//       stock.SellPrice = stock.Close;
-//     }
-
-//     // Respond with the stock data
-//     return res.status(200).json(stock);
-//   } catch (error) {
-//     // console.error('Error fetching stock data:', error);
-//     return res
-//       .status(500)
-//       .json({ message: "Internal server error", error: error.message });
-//   }
-// };
-
 const getStockByInstrumentIdentifier = async (req, res) => {
   try {
     const { instrumentIdentifier } = req.params;
@@ -477,7 +279,7 @@ const getStockByInstrumentIdentifier = async (req, res) => {
       });
     }
 
-    // Check if the stock matches the first condition
+    // Check if the stock matches the first condition for GOLD
     if (
       stock.name === "GOLD" &&
       stock.product === "GOLD" &&
@@ -486,7 +288,7 @@ const getStockByInstrumentIdentifier = async (req, res) => {
       stock.QuotationLot = 100;
     }
 
-    // Check if the stock matches the second condition
+    // Check if the stock matches the second condition for GOLDM
     if (
       stock.name === "GOLDM" &&
       stock.product === "GOLDM" &&
@@ -512,16 +314,35 @@ const getStockByInstrumentIdentifier = async (req, res) => {
     // Check if today is Saturday (6) or Sunday (0)
     const isWeekend = kolkataTime.getDay() === 6 || kolkataTime.getDay() === 0;
 
-    // NSE stock price update condition: between 3:30 PM and 9:15 AM or on weekends
-    if (stock.Exchange === "NSE" && (timeCondition || isWeekend)) {
+    // Apply stock price updates for NSE and MCX during the weekend
+    if (isWeekend) {
       stock.BuyPrice = stock.Close;
       stock.SellPrice = stock.Close;
     }
 
-    // MCX stock price update condition: all day on weekends (Saturday and Sunday)
-    if (stock.Exchange === "MCX" && isWeekend) {
+    // NSE stock price update condition: between 3:30 PM and 9:15 AM
+    if (stock.Exchange === "NSE" && !isWeekend && timeCondition) {
+      stock.BuyPrice = stock.LastTradePrice;
+      stock.SellPrice = stock.LastTradePrice;
+    }
+
+    // MCX stock price update condition: from 11:30 PM to 9:15 AM or on weekends
+    const mcxTimeCondition =
+      currentTimeInMinutes >= 23 * 60 + 30 || currentTimeInMinutes < 555;
+
+    if (stock.Exchange === "MCX" && (mcxTimeCondition || isWeekend)) {
       stock.BuyPrice = stock.Close;
       stock.SellPrice = stock.Close;
+    }
+
+    // Monday to Friday condition: Use LastTradePrice from 9:15 AM to 3:30 PM
+    const isWeekday = kolkataTime.getDay() >= 1 && kolkataTime.getDay() <= 5; // Monday to Friday
+    const weekdayTimeCondition =
+      currentTimeInMinutes >= 555 && currentTimeInMinutes < 930;
+
+    if (isWeekday && weekdayTimeCondition) {
+      stock.BuyPrice = stock.LastTradePrice;
+      stock.SellPrice = stock.LastTradePrice;
     }
 
     // Respond with the stock data

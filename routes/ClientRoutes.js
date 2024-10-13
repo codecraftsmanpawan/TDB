@@ -58,7 +58,7 @@ router.get("/clients/:id/availableBudget", checkLogin, getAvailableBudget);
 router.put("/change-password", checkLogin, changeClientPassword);
 
 // Ensure the user is authenticated with checkLogin middleware
-router.get("/stocks/search", checkLogin, searchStocksByName);
+router.get("/stocks/search", searchStocksByName);
 
 // Ensure the user is authenticated with checkLogin middleware
 router.post("/wishlist/add", checkLogin, addItemToWishlist);
